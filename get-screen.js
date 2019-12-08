@@ -6,18 +6,18 @@ const chalk = require('chalk');
 
 // Contansts
 const HOME_DIR = os.homedir();
-const PATH_TO_IMAGE = HOME_DIR + '\\AppData\\Local\\Packages\\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\\LocalState\\Assets\\';
-const DEFAULT_SAVE_PATH = HOME_DIR + '\\Pictures\\W10 Spotlight\\';
+const PATH_TO_IMAGE = `${HOME_DIR}\\AppData\\Local\\Packages\\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\\LocalState\\Assets\\`;
+const DEFAULT_SAVE_PATH = `${HOME_DIR}\\Pictures\\W10 Spotlight\\`;
 
 function getBulkFileStat(files) {
-  let stats = [];
+  const stats = [];
   for (let i = 0; i < files.length; i++) {
     const stat = fs.statSync(PATH_TO_IMAGE + files[i]);
     stats.push({
       name: files[i],
       mtime: stat.mtime,
-      size: stat.size
-    })
+      size: stat.size,
+    });
   }
   return stats;
 }
@@ -27,9 +27,9 @@ function saveImages(filesToCopy, pathToSave) {
     pathToSave += '\\';
   }
   // Copy file, and track new file count, ignore and return No new image message if no new file
-  let count = filesToCopy.reduce(function (count, file, index) {
+  const count = filesToCopy.reduce((count, file, index) => {
     try {
-      fs.copyFileSync(PATH_TO_IMAGE + filesToCopy[index], pathToSave +  filesToCopy[index] + '.jpg', fs.constants.COPYFILE_EXCL);
+      fs.copyFileSync(PATH_TO_IMAGE + filesToCopy[index], `${pathToSave + filesToCopy[index]}.jpg`, fs.constants.COPYFILE_EXCL);
       return count + 1;
     } catch (e) {
       if (e.code !== 'EEXIST') console.log(e);
@@ -39,20 +39,18 @@ function saveImages(filesToCopy, pathToSave) {
   if (count === 0) {
     console.log(chalk.red('No new image for you this time!'));
     console.log(chalk.red('Run command with \'--help\' flag to explore all the available options'));
-
-  }
-  else {
-    console.log(chalk.green('\nSuccessfully copy ' + count + ' new images!'));
+  } else {
+    console.log(chalk.green(`\nSuccessfully copy ${count} new images!`));
     console.log(chalk.green('Image Folder: ') + pathToSave);
-    console.log('Run command with ' + chalk.green('--help') + ' flag to explore all the available options');
+    console.log(`Run command with ${chalk.green('--help')} flag to explore all the available options`);
   }
 }
 
 // Define command arguments
 const options = yargs.usage(chalk.blue('\nUsage: --option=value'))
-  .option('p', {alias: 'path', describe: 'Path to saved images, create new folder if needed', type: 'string'})
-  .option('pt', {alias: 'portrait', describe: 'Only get portrait images', type: 'boolean'})
-  .option('la', {alias: 'landscape', describe: 'Only get landscape images', type: 'boolean'})
+  .option('p', { alias: 'path', describe: 'Path to saved images, create new folder if needed', type: 'string' })
+  .option('pt', { alias: 'portrait', describe: 'Only get portrait images', type: 'boolean' })
+  .option('la', { alias: 'landscape', describe: 'Only get landscape images', type: 'boolean' })
   .strict(true)
   .showHelpOnFail(false, 'Specify --help for available options')
   .help('help', 'Show supported command options')
@@ -78,7 +76,7 @@ function main() {
     let filesToCopy = [];
     // Get portrait images option
     if (options.hasOwnProperty('portrait') && !options.hasOwnProperty('landscape')) {
-      filesToCopy = fileStats.reduce(function (filesToCopy, file) {
+      filesToCopy = fileStats.reduce((filesToCopy, file) => {
         const size = sizeOf(PATH_TO_IMAGE + file.name);
         if (((size.height >= 1366 && size.width >= 768) && size.width < size.height && (size.type === 'jpg' || size.type === 'png'))) {
           filesToCopy.push(file.name);
@@ -88,7 +86,7 @@ function main() {
     }
     // Get landscape images option
     else if (options.hasOwnProperty('landscape') && !options.hasOwnProperty('portrait')) {
-      filesToCopy = fileStats.reduce(function (filesToCopy, file) {
+      filesToCopy = fileStats.reduce((filesToCopy, file) => {
         const size = sizeOf(PATH_TO_IMAGE + file.name);
         if (((size.height >= 768 && size.width >= 1366) && size.width > size.height && (size.type === 'jpg' || size.type === 'png'))) {
           filesToCopy.push(file.name);
@@ -98,7 +96,7 @@ function main() {
     }
     // Get both landscape and portrait images
     else {
-      filesToCopy = fileStats.reduce(function (filesToCopy, file) {
+      filesToCopy = fileStats.reduce((filesToCopy, file) => {
         const size = sizeOf(PATH_TO_IMAGE + file.name);
         if (((size.height >= 768 && size.width >= 1366) || (size.height >= 1366 && size.width >= 768)) && (size.type === 'jpg' || size.type === 'png')) {
           filesToCopy.push(file.name);
@@ -115,4 +113,3 @@ function main() {
 if (!options.hasOwnProperty('help')) {
   main();
 }
-
