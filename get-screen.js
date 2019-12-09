@@ -11,7 +11,7 @@ const DEFAULT_SAVE_PATH = `${HOME_DIR}\\Pictures\\W10 Spotlight\\`;
 
 function getBulkFileStat(files) {
   const stats = [];
-  for (let i = 0; i < files.length; i++) {
+  for (let i = 0; i < files.length; i += 1) {
     const stat = fs.statSync(PATH_TO_IMAGE + files[i]);
     stats.push({
       name: files[i],
@@ -23,25 +23,28 @@ function getBulkFileStat(files) {
 }
 
 function saveImages(filesToCopy, pathToSave) {
-  if (!pathToSave.endsWith('\\') && !pathToSave.endsWith('/')) {
-    pathToSave += '\\';
+  let savingPath = pathToSave;
+  if (!savingPath.endsWith('\\') && !savingPath.endsWith('/')) {
+    savingPath += '\\';
   }
   // Copy file, and track new file count, ignore and return No new image message if no new file
-  const count = filesToCopy.reduce((count, file, index) => {
+  const imageCount = filesToCopy.reduce((count, file, index) => {
     try {
-      fs.copyFileSync(PATH_TO_IMAGE + filesToCopy[index], `${pathToSave + filesToCopy[index]}.jpg`, fs.constants.COPYFILE_EXCL);
+      fs.copyFileSync(PATH_TO_IMAGE + filesToCopy[index], `${savingPath + filesToCopy[index]}.jpg`, fs.constants.COPYFILE_EXCL);
       return count + 1;
     } catch (e) {
       if (e.code !== 'EEXIST') console.log(e);
       else return count;
     }
+    return count;
   }, 0);
-  if (count === 0) {
+
+  if (imageCount === 0) {
     console.log(chalk.red('No new image for you this time!'));
     console.log(chalk.red('Run command with \'--help\' flag to explore all the available options'));
   } else {
-    console.log(chalk.green(`\nSuccessfully copy ${count} new images!`));
-    console.log(chalk.green('Image Folder: ') + pathToSave);
+    console.log(chalk.green(`\nSuccessfully copy ${imageCount} new images!`));
+    console.log(chalk.green('Image Folder: ') + savingPath);
     console.log(`Run command with ${chalk.green('--help')} flag to explore all the available options`);
   }
 }
@@ -75,33 +78,29 @@ function main() {
     // Filter files that fit criteria
     let filesToCopy = [];
     // Get portrait images option
-    if (options.hasOwnProperty('portrait') && !options.hasOwnProperty('landscape')) {
-      filesToCopy = fileStats.reduce((filesToCopy, file) => {
+    if (Object.prototype.hasOwnProperty.call(options, 'portrait') && !Object.prototype.hasOwnProperty.call(options, 'landscape')) {
+      filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
         const size = sizeOf(PATH_TO_IMAGE + file.name);
         if (((size.height >= 1366 && size.width >= 768) && size.width < size.height && (size.type === 'jpg' || size.type === 'png'))) {
-          filesToCopy.push(file.name);
+          listFilesToCopy.push(file.name);
         }
-        return filesToCopy;
+        return listFilesToCopy;
       }, []);
-    }
-    // Get landscape images option
-    else if (options.hasOwnProperty('landscape') && !options.hasOwnProperty('portrait')) {
-      filesToCopy = fileStats.reduce((filesToCopy, file) => {
+    } else if (Object.prototype.hasOwnProperty.call(options, 'landscape') && !Object.prototype.hasOwnProperty.call(options, 'portrait')) {
+      filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
         const size = sizeOf(PATH_TO_IMAGE + file.name);
         if (((size.height >= 768 && size.width >= 1366) && size.width > size.height && (size.type === 'jpg' || size.type === 'png'))) {
-          filesToCopy.push(file.name);
+          listFilesToCopy.push(file.name);
         }
-        return filesToCopy;
+        return listFilesToCopy;
       }, []);
-    }
-    // Get both landscape and portrait images
-    else {
-      filesToCopy = fileStats.reduce((filesToCopy, file) => {
+    } else {
+      filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
         const size = sizeOf(PATH_TO_IMAGE + file.name);
         if (((size.height >= 768 && size.width >= 1366) || (size.height >= 1366 && size.width >= 768)) && (size.type === 'jpg' || size.type === 'png')) {
-          filesToCopy.push(file.name);
+          listFilesToCopy.push(file.name);
         }
-        return filesToCopy;
+        return listFilesToCopy;
       }, []);
     }
 
@@ -110,6 +109,6 @@ function main() {
   });
 }
 
-if (!options.hasOwnProperty('help')) {
+if (!Object.prototype.hasOwnProperty.call(options, 'help')) {
   main();
 }
