@@ -1,6 +1,7 @@
 const os = require('os');
 const fs = require('fs');
 const sizeOf = require('image-size');
+const app = require('caporal');
 
 // Contansts
 const HOME_DIR = os.homedir();
@@ -98,8 +99,7 @@ function createSavingFolder(pathToSave) {
   return true;
 }
 
-const app = require('caporal');
-
+// App construction
 app
   .version('1.0.0')
   .description('Extract the mysterious Windows 10 lock screens and save to the folder of your choice')
