@@ -5,11 +5,11 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   externals: {
-    'os': 'commonjs os',
-    'fs': 'commonjs fs'
+    os: 'commonjs os',
+    fs: 'commonjs fs',
   },
-  mode: 'production'
+  mode: 'production',
 };
