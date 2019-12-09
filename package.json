@@ -5,12 +5,18 @@
   "author": "duyphaphach <duyphamle97@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --config ./webpack.js"
+    "build": "./node_modules/.bin/webpack --config ./webpack.js",
+    "lint:scripts": "npx eslint .",
+    "lint:scripts:fix": "npx eslint . --fix"
   },
   "dependencies": {
     "chalk": "^3.0.0",
     "image-size": "^0.8.3",
     "yargs": "^15.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
 }
