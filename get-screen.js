@@ -1,13 +1,29 @@
 const os = require('os');
 const fs = require('fs');
 const sizeOf = require('image-size');
-const yargs = require('yargs');
-const chalk = require('chalk');
 
 // Contansts
 const HOME_DIR = os.homedir();
 const PATH_TO_IMAGE = `${HOME_DIR}\\AppData\\Local\\Packages\\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\\LocalState\\Assets\\`;
 const DEFAULT_SAVE_PATH = `${HOME_DIR}\\Pictures\\W10 Spotlight\\`;
+
+// Ultilities
+function trimQuotes(pathString) {
+  return pathString.replace(/['"]+/g, '');
+}
+
+function standardizePath(path) {
+  let standardizePathString = path;
+  if (!path.endsWith('\\') && !path.endsWith('/')) {
+    standardizePathString += '\\';
+  }
+  return standardizePathString;
+}
+
+// Helpers
+function retrieveFilesName(folder) {
+  return fs.readdirSync(folder);
+}
 
 function getBulkFileStat(files) {
   const stats = [];
@@ -22,13 +38,46 @@ function getBulkFileStat(files) {
   return stats;
 }
 
-function saveImages(filesToCopy, pathToSave) {
-  let savingPath = pathToSave;
-  if (!savingPath.endsWith('\\') && !savingPath.endsWith('/')) {
-    savingPath += '\\';
+function filterFilesToCopy(fileStats, constraint) {
+  const { orientation } = constraint;
+  let filesToCopy = [];
+  switch (orientation) {
+    case 'portrait':
+      filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
+        const size = sizeOf(PATH_TO_IMAGE + file.name);
+        if (((size.height >= 1366 && size.width >= 768) && size.width < size.height && (size.type === 'jpg' || size.type === 'png'))) {
+          listFilesToCopy.push(file.name);
+        }
+        return listFilesToCopy;
+      }, []);
+      break;
+
+    case 'landscape':
+      filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
+        const size = sizeOf(PATH_TO_IMAGE + file.name);
+        if (((size.height >= 768 && size.width >= 1366) && size.width > size.height && (size.type === 'jpg' || size.type === 'png'))) {
+          listFilesToCopy.push(file.name);
+        }
+        return listFilesToCopy;
+      }, []);
+      break;
+
+    default:
+      filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
+        const size = sizeOf(PATH_TO_IMAGE + file.name);
+        if (((size.height >= 768 && size.width >= 1366) || (size.height >= 1366 && size.width >= 768)) && (size.type === 'jpg' || size.type === 'png')) {
+          listFilesToCopy.push(file.name);
+        }
+        return listFilesToCopy;
+      }, []);
   }
-  // Copy file, and track new file count, ignore and return No new image message if no new file
-  const imageCount = filesToCopy.reduce((count, file, index) => {
+  return filesToCopy;
+}
+
+function copyImages(filesToCopy, pathToSave) {
+  const savingPath = standardizePath(pathToSave);
+  // Save image and return count on saved files
+  return filesToCopy.reduce((count, file, index) => {
     try {
       fs.copyFileSync(PATH_TO_IMAGE + filesToCopy[index], `${savingPath + filesToCopy[index]}.jpg`, fs.constants.COPYFILE_EXCL);
       return count + 1;
@@ -38,77 +87,43 @@ function saveImages(filesToCopy, pathToSave) {
     }
     return count;
   }, 0);
+}
 
-  if (imageCount === 0) {
-    console.log(chalk.red('No new image for you this time!'));
-    console.log(chalk.red('Run command with \'--help\' flag to explore all the available options'));
-  } else {
-    console.log(chalk.green(`\nSuccessfully copy ${imageCount} new images!`));
-    console.log(chalk.green('Image Folder: ') + savingPath);
-    console.log(`Run command with ${chalk.green('--help')} flag to explore all the available options`);
+function createSavingFolder(pathToSave) {
+  try {
+    fs.mkdirSync(pathToSave);
+  } catch (e) {
+    if (e.code !== 'EEXIST') return false;
   }
+  return true;
 }
 
-// Define command arguments
-const options = yargs.usage(chalk.blue('\nUsage: --option=value'))
-  .option('p', { alias: 'path', describe: 'Path to saved images, create new folder if needed', type: 'string' })
-  .option('pt', { alias: 'portrait', describe: 'Only get portrait images', type: 'boolean' })
-  .option('la', { alias: 'landscape', describe: 'Only get landscape images', type: 'boolean' })
-  .strict(true)
-  .showHelpOnFail(false, 'Specify --help for available options')
-  .help('help', 'Show supported command options')
-  .argv;
+const app = require('caporal');
 
-function main() {
-  const pathToSave = options.path ? options.path : DEFAULT_SAVE_PATH;
-  fs.readdir(PATH_TO_IMAGE, (err, files) => {
-    // Create new folder to save image if folder not exist
-    try {
-      fs.mkdirSync(pathToSave);
-    } catch (e) {
-      if (e.code !== 'EEXIST') {
-        console.log(e);
-        return;
-      }
-    }
+app
+  .version('1.0.0')
+  .description('Extract the mysterious Windows 10 lock screens and save to the folder of your choice')
+  .argument('[orientation]', 'Choose image orientation', ['portrait', 'landscape', 'all'], 'all')
+  .option('-p, --path', '\tPath to saving folder\t', /[A-Z]:.+|false/, DEFAULT_SAVE_PATH, false)
+  .action((args, options, logger) => {
+    const pathToSave = trimQuotes(options.path ? options.path : DEFAULT_SAVE_PATH);
+    const orientation = trimQuotes(args.orientation ? args.orientation : 'all');
 
-    // Get all files stats from image source
+    // Main logic
+    const files = retrieveFilesName(PATH_TO_IMAGE);
     const fileStats = getBulkFileStat(files);
-
-    // Filter files that fit criteria
-    let filesToCopy = [];
-    // Get portrait images option
-    if (Object.prototype.hasOwnProperty.call(options, 'portrait') && !Object.prototype.hasOwnProperty.call(options, 'landscape')) {
-      filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
-        const size = sizeOf(PATH_TO_IMAGE + file.name);
-        if (((size.height >= 1366 && size.width >= 768) && size.width < size.height && (size.type === 'jpg' || size.type === 'png'))) {
-          listFilesToCopy.push(file.name);
-        }
-        return listFilesToCopy;
-      }, []);
-    } else if (Object.prototype.hasOwnProperty.call(options, 'landscape') && !Object.prototype.hasOwnProperty.call(options, 'portrait')) {
-      filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
-        const size = sizeOf(PATH_TO_IMAGE + file.name);
-        if (((size.height >= 768 && size.width >= 1366) && size.width > size.height && (size.type === 'jpg' || size.type === 'png'))) {
-          listFilesToCopy.push(file.name);
-        }
-        return listFilesToCopy;
-      }, []);
-    } else {
-      filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
-        const size = sizeOf(PATH_TO_IMAGE + file.name);
-        if (((size.height >= 768 && size.width >= 1366) || (size.height >= 1366 && size.width >= 768)) && (size.type === 'jpg' || size.type === 'png')) {
-          listFilesToCopy.push(file.name);
-        }
-        return listFilesToCopy;
-      }, []);
+    const filesToCopy = filterFilesToCopy(fileStats, { orientation });
+    if (!createSavingFolder(pathToSave)) {
+      logger.error('\nError while create saving folder! Please try again!');
+      return;
     }
+    const count = copyImages(filesToCopy, pathToSave);
 
-    // Save images to designated folder
-    saveImages(filesToCopy, pathToSave);
+    // Announcement
+    if (count) {
+      logger.info(`\nSuccessfully copy ${count} new images!`);
+      logger.info(`Check out now: ${pathToSave}`);
+    } else logger.warn('\nI found no NEW images :) Better luck next time!');
   });
-}
 
-if (!Object.prototype.hasOwnProperty.call(options, 'help')) {
-  main();
-}
+app.parse(process.argv);
