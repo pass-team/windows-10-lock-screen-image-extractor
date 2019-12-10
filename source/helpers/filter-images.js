@@ -1,5 +1,9 @@
 const sizeOf = require('image-size');
-const { PATH_TO_IMAGE } = require('../constants');
+const {
+  PATH_TO_IMAGE,
+  ORIENTATION_LANDSCAPE,
+  ORIENTATION_PORTRAIT,
+} = require('../constants');
 const isPortraitImage = require('./is-portrait-image');
 const isLandscapeImage = require('./is-landscape-image');
 const isValidImage = require('./is-valid-image');
@@ -8,7 +12,7 @@ module.exports = function (fileStats, constraint) {
   const { orientation } = constraint;
   let images = [];
   switch (orientation) {
-    case 'portrait':
+    case ORIENTATION_PORTRAIT:
       images = fileStats.reduce((imagesToCopy, file) => {
         const { height, width, type } = sizeOf(PATH_TO_IMAGE + file.name);
         if (isPortraitImage(height, width, type)) {
@@ -18,7 +22,7 @@ module.exports = function (fileStats, constraint) {
       }, []);
       break;
 
-    case 'landscape':
+    case ORIENTATION_LANDSCAPE:
       images = fileStats.reduce((imagesToCopy, file) => {
         const { height, width, type } = sizeOf(PATH_TO_IMAGE + file.name);
         if (isLandscapeImage(height, width, type)) {

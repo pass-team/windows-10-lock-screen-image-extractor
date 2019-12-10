@@ -6,7 +6,11 @@ const {
   copyFiles,
   trimQuotes,
 } = require('../helpers');
-const { DEFAULT_SAVE_PATH, PATH_TO_IMAGE, ORIENTATION_ALL } = require('../constants');
+const {
+  DEFAULT_SAVE_PATH,
+  PATH_TO_IMAGE,
+  ORIENTATION_ALL,
+} = require('../constants');
 
 // Default Actions
 module.exports = (args, options, logger) => {
