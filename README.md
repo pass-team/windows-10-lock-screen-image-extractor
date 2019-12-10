@@ -1,23 +1,31 @@
 ### Startup LockScreen Extractor for Windows 10
 
-Installation:
+#### Installation
 ```$javascript
 yarn install
 ```
 
-Usage: 
+#### Usage
 ```$javascript
-node get-screen --[options]
+cd src
+node get-screen --[options] [orientation]
 ```
 
-Command Options:
-```$xslt
-Usage: --option=value
+#### Command Options
+```$javascript
+ARGUMENTS
 
-Options:
-  --version          Show version number                               
-  -p, --path         Path to saved images, create new folder if needed  
-  --pt, --portrait   Only get portrait images                          
-  --la, --landscape  Only get landscape images                         
-  --help             Show supported command options                   
+ [orientation]      Choose image orientation      optional      default: "all"
+
+OPTIONS
+
+ -p, --path         Path to saving folder         optional      default: false
+
+GLOBAL OPTIONS
+
+ -h, --help         Display help
+ -V, --version      Display version
+ --no-color         Disable colors
+ --quiet            Quiet mode - only displays warn and error messages
+ -v, --verbose      Verbose mode - will also output debug messages                 
 ```
