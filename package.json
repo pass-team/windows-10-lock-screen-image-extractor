@@ -1,6 +1,6 @@
 {
   "name": "windows-10-lock-screen-image-extractor",
-  "version": "1.0.0",
+  "version": "^1.0.0",
   "main": "index.js",
   "author": "duyphaphach <duyphamle97@gmail.com>",
   "license": "MIT",
@@ -10,9 +10,8 @@
     "lint:scripts:fix": "npx eslint . --fix"
   },
   "dependencies": {
-    "chalk": "^3.0.0",
-    "image-size": "^0.8.3",
-    "yargs": "^15.0.2"
+    "caporal": "^1.3.0",
+    "image-size": "^0.8.3"
   },
   "devDependencies": {
     "eslint": "^6.7.2",
