@@ -1,7 +1,10 @@
 const fs = require('fs');
 const sizeOf = require('image-size');
 const { standardizePath } = require('../utils');
-const { PATH_TO_IMAGE } = require('../constants');
+const { isLandscapeImage, isPortraitImage, isValidImage } = require('./image-validator');
+const {
+  PATH_TO_IMAGE,
+} = require('../constants');
 
 module.exports = {
   retrieveFilesName(folder) {
@@ -27,8 +30,8 @@ module.exports = {
     switch (orientation) {
       case 'portrait':
         filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
-          const size = sizeOf(PATH_TO_IMAGE + file.name);
-          if (((size.height >= 1366 && size.width >= 768) && size.width < size.height && (size.type === 'jpg' || size.type === 'png'))) {
+          const { height, width, type } = sizeOf(PATH_TO_IMAGE + file.name);
+          if (isPortraitImage(height, width, type)) {
             listFilesToCopy.push(file.name);
           }
           return listFilesToCopy;
@@ -37,8 +40,8 @@ module.exports = {
 
       case 'landscape':
         filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
-          const size = sizeOf(PATH_TO_IMAGE + file.name);
-          if (((size.height >= 768 && size.width >= 1366) && size.width > size.height && (size.type === 'jpg' || size.type === 'png'))) {
+          const { height, width, type } = sizeOf(PATH_TO_IMAGE + file.name);
+          if (isLandscapeImage(height, width, type)) {
             listFilesToCopy.push(file.name);
           }
           return listFilesToCopy;
@@ -47,8 +50,8 @@ module.exports = {
 
       default:
         filesToCopy = fileStats.reduce((listFilesToCopy, file) => {
-          const size = sizeOf(PATH_TO_IMAGE + file.name);
-          if (((size.height >= 768 && size.width >= 1366) || (size.height >= 1366 && size.width >= 768)) && (size.type === 'jpg' || size.type === 'png')) {
+          const { height, width, type } = sizeOf(PATH_TO_IMAGE + file.name);
+          if (isValidImage(height, width, type)) {
             listFilesToCopy.push(file.name);
           }
           return listFilesToCopy;

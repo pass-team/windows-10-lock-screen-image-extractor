@@ -1,0 +1,26 @@
+const {
+  IMAGE_MIN_HEIGHT,
+  IMAGE_MIN_WIDTH,
+  IMAGE_TYPE_JPG,
+  IMAGE_TYPE_PNG,
+} = require('../../constants');
+
+module.exports = {
+  isPortraitImage(height, width, type) {
+    return (height >= IMAGE_MIN_WIDTH && width >= IMAGE_MIN_HEIGHT)
+      && (type === IMAGE_TYPE_JPG || type === IMAGE_TYPE_PNG)
+      && width < height;
+  },
+
+  isLandscapeImage(height, width, type) {
+    return (height >= IMAGE_MIN_HEIGHT && width >= IMAGE_MIN_WIDTH)
+      && (type === IMAGE_TYPE_JPG || type === IMAGE_TYPE_PNG)
+      && width > height;
+  },
+
+  isValidImage(height, width, type) {
+    return ((height >= IMAGE_MIN_HEIGHT && width >= IMAGE_MIN_WIDTH)
+      || (height >= IMAGE_MIN_WIDTH && width >= IMAGE_MIN_HEIGHT))
+      && (type === IMAGE_TYPE_JPG || type === IMAGE_TYPE_PNG);
+  },
+};
