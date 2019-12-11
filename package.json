@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "duyphaphach <duyphamle97@gmail.com>",
   "license": "MIT",
+  "bin": {
+    "cli-app": "./get-screen.js"
+  },
   "scripts": {
     "lint:scripts": "npx eslint .",
     "lint:scripts:fix": "npx eslint . --fix"
