@@ -7,7 +7,6 @@ yarn install
 
 #### Usage
 ```$javascript
-cd src
 node get-screen --[options] [orientation]
 ```
 
