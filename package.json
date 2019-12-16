@@ -5,7 +5,7 @@
   "author": "duyphaphach <duyphamle97@gmail.com>",
   "license": "MIT",
   "bin": {
-    "cli-app": "./get-screen.js"
+    "cli-app": "./.js"
   },
   "scripts": {
     "lint:scripts": "npx eslint .",
