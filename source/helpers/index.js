@@ -1,7 +1,7 @@
 exports.isPortraitImage = require('./is-portrait-image');
 exports.isLandscapeImage = require('./is-landscape-image');
 exports.isValidImage = require('./is-valid-image');
-exports.isWindows10 = require('./check-platform-win10');
+exports.isWindows10 = require('./is-windows-10');
 
 exports.extractLandscapeImages = require('./extract-landscape-images');
 exports.extractPortraitImages = require('./extract-portrait-images');
