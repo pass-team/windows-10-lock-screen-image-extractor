@@ -2,6 +2,7 @@ const {
   getFiles,
   extractFilesStat,
   filterImages,
+  filterUniqueImages,
   createImagesFolder,
   copyFiles,
   trimQuotes,
@@ -22,12 +23,15 @@ module.exports = function (args, options, logger) {
   // Main logic
   const files = getFiles(PATH_TO_IMAGE);
   const fileStats = extractFilesStat(files);
-  const images = filterImages(fileStats, { orientation });
+  const foundImages = filterImages(fileStats, { orientation });
+  const oldImages = getFiles(pathToSave);
+  const uniqueImages = filterUniqueImages(foundImages, oldImages, pathToSave);
   if (!createImagesFolder(pathToSave)) {
     logger.error('\nError while create saving folder! Please try again!');
     return;
   }
-  const count = copyFiles(images, PATH_TO_IMAGE, pathToSave);
+
+  const count = copyFiles(uniqueImages, PATH_TO_IMAGE, pathToSave);
 
   // Announcements
   if (count) {
