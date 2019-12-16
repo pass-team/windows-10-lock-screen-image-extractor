@@ -8,6 +8,8 @@ exports.extractPortraitImages = require('./extract-portrait-images');
 exports.extractValidImages = require('./extract-valid-images');
 
 exports.trimQuotes = require('./trim-quotes');
+exports.normalizePath = require('./normalize-path');
+
 exports.getFiles = require('./get-files');
 exports.extractFilesStat = require('./extract-files-stat');
 exports.hashFile = require('./hash-file');
