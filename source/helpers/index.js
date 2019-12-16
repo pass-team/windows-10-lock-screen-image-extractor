@@ -13,3 +13,5 @@ exports.extractFilesStat = require('./extract-files-stat');
 exports.filterImages = require('./filter-images');
 exports.createImagesFolder = require('./create-images-folder');
 exports.copyFiles = require('./copy-files');
+exports.setSavePath = require('./set-save-path');
+exports.getSavePath = require('./get-save-path');
