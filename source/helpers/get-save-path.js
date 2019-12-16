@@ -6,7 +6,7 @@ module.exports = function () {
   try {
     currentSavePath = fs.readFileSync(PATH_TO_CONFIG);
   } catch (e) {
-    console.log(e);
+    return 'You haven\'t specified any';
   }
   return currentSavePath || 'You haven\'t specified any';
 };
