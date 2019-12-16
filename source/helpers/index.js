@@ -8,9 +8,14 @@ exports.extractPortraitImages = require('./extract-portrait-images');
 exports.extractValidImages = require('./extract-valid-images');
 
 exports.trimQuotes = require('./trim-quotes');
+exports.normalizePath = require('./normalize-path');
+
 exports.getFiles = require('./get-files');
 exports.extractFilesStat = require('./extract-files-stat');
+exports.hashFile = require('./hash-file');
+exports.hashBulkFile = require('./hash-bulk-file');
 exports.filterImages = require('./filter-images');
+exports.filterUniqueImages = require('./filter-unique-images');
 exports.createImagesFolder = require('./create-images-folder');
 exports.copyFiles = require('./copy-files');
 exports.setSavePath = require('./set-save-path');
