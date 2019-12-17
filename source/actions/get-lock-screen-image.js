@@ -12,12 +12,14 @@ const {
   DEFAULT_SAVE_PATH,
   PATH_TO_IMAGE,
   ORIENTATION_ALL,
+  IMAGE_NAME_FORMAT_ORIGIN,
 } = require('../constants');
 
 // Default Actions
 module.exports = function (args, options, logger) {
   const pathToSave = trimQuotes(options.path ? options.path : DEFAULT_SAVE_PATH);
   const orientation = trimQuotes(args.orientation ? args.orientation : ORIENTATION_ALL);
+  const namePattern = trimQuotes(args.namePattern ? args.namePattern : IMAGE_NAME_FORMAT_ORIGIN);
   setSavePath(pathToSave);
 
   // Main logic
@@ -30,8 +32,7 @@ module.exports = function (args, options, logger) {
   const newImages = filterImages(fileStats, { orientation });
   const oldImages = getFiles(pathToSave);
   const uniqueImages = filterUniqueImages(newImages, oldImages, pathToSave);
-  const count = copyFiles(uniqueImages, PATH_TO_IMAGE, pathToSave);
-
+  const count = copyFiles(uniqueImages, PATH_TO_IMAGE, pathToSave, namePattern);
   // Announcements
   if (count) {
     logger.info(`\nSuccessfully copy ${count} new images!`);

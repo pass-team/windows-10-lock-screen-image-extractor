@@ -15,3 +15,7 @@ exports.IMAGE_MIN_WIDTH = 1366;
 exports.IMAGE_MIN_HEIGHT = 768;
 exports.IMAGE_TYPE_PNG = 'png';
 exports.IMAGE_TYPE_JPG = 'jpg';
+
+exports.IMAGE_NAME_FORMAT_ORIGIN = 'origin';
+exports.IMAGE_NAME_FORMAT_HASH = 'hash';
+exports.IMAGE_NAME_FORMAT_DATE = 'date';
