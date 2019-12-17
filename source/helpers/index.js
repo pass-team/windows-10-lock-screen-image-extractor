@@ -10,7 +10,8 @@ exports.extractValidImages = require('./extract-valid-images');
 exports.trimQuotes = require('./trim-quotes');
 exports.normalizePath = require('./normalize-path');
 exports.getCurrentDate = require('./get-current-date');
-
+exports.extractProcessArguments = require('./extract-process-arguments');
+exports.argumentsPrompt = require('./arguments-prompt');
 
 exports.getFiles = require('./get-files');
 exports.extractFilesStat = require('./extract-files-stat');

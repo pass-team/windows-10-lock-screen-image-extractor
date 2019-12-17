@@ -7,6 +7,8 @@ const {
   copyFiles,
   trimQuotes,
   setSavePath,
+  extractProcessArguments,
+  argumentsPrompt,
 } = require('../helpers');
 const {
   DEFAULT_SAVE_PATH,
@@ -16,12 +18,23 @@ const {
 } = require('../constants');
 
 // Default Actions
-module.exports = function (args, options, logger) {
-  const pathToSave = trimQuotes(options.path ? options.path : DEFAULT_SAVE_PATH);
-  const orientation = trimQuotes(args.orientation ? args.orientation : ORIENTATION_ALL);
-  const namePattern = trimQuotes(args.namePattern ? args.namePattern : IMAGE_NAME_FORMAT_ORIGIN);
-  setSavePath(pathToSave);
+module.exports = async function (args, options, logger) {
+  let pathToSave = trimQuotes(options.path ? options.path : DEFAULT_SAVE_PATH);
+  let orientation = trimQuotes(args.orientation ? args.orientation : ORIENTATION_ALL);
+  let namePattern = trimQuotes(args.namePattern ? args.namePattern : IMAGE_NAME_FORMAT_ORIGIN);
 
+  // Detect if any command line arguments to decide asking questions or not
+  const cmdArgs = extractProcessArguments(process);
+  if (cmdArgs.length === 0) {
+    const answers = await argumentsPrompt();
+    if (answers) {
+      if (answers.path) pathToSave = answers.path;
+      if (answers.orientation) orientation = answers.orientation;
+      if (answers.namePattern) namePattern = answers.namePattern;
+    }
+  }
+
+  setSavePath(pathToSave);
   // Main logic
   if (!createImagesFolder(pathToSave)) {
     logger.error('\nError while create saving folder! Please try again!');

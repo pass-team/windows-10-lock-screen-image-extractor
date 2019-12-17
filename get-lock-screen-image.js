@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /* eslint global-require: "off" */
 const { isWindows10 } = require('./source/helpers');
 
