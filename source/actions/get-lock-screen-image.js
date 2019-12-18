@@ -7,7 +7,7 @@ const {
   copyFiles,
   trimQuotes,
   setSavePath,
-  extractProcessArguments,
+  promptConditionMatch,
   argumentsPrompt,
 } = require('../helpers');
 const {
@@ -24,14 +24,11 @@ module.exports = async function (args, options, logger) {
   let namePattern = trimQuotes(args.namePattern ? args.namePattern : IMAGE_NAME_FORMAT_ORIGIN);
 
   // Detect if any command line arguments to decide asking questions or not
-  const cmdArgs = extractProcessArguments(process);
-  if (cmdArgs.length === 0) {
+  if (promptConditionMatch(process)) {
     const answers = await argumentsPrompt();
-    if (answers) {
-      if (answers.path) pathToSave = answers.path;
-      if (answers.orientation) orientation = answers.orientation;
-      if (answers.namePattern) namePattern = answers.namePattern;
-    }
+    if (answers.path) pathToSave = answers.path;
+    if (answers.orientation) orientation = answers.orientation;
+    if (answers.namePattern) namePattern = answers.namePattern;
   }
 
   setSavePath(pathToSave);
