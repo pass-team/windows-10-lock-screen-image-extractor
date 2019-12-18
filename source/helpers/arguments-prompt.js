@@ -37,7 +37,7 @@ module.exports = async function () {
 
   const { confirmation } = await enquirer.prompt(requestForPromptQuestion);
   if (confirmation === 'No') {
-    return null;
+    return {};
   }
   const answer = await enquirer.prompt(argumentPromptQuestions);
   return answer;
