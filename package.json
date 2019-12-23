@@ -7,7 +7,7 @@
   "scripts": {
     "lint:scripts": "npx eslint .",
     "lint:scripts:fix": "npx eslint . --fix",
-    "build:win": "./node_modules/.bin/nexe get-lock-screen-image.js --target win -o get-lock-screen-image"
+    "build:win": "./node_modules/.bin/nexe get-lock-screen-image.js --target win -o get-lock-screen-image -b"
   },
   "dependencies": {
     "app-root-path": "3.0.0",
