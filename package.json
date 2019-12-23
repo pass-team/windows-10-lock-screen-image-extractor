@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "lint:scripts": "npx eslint .",
-    "lint:scripts:fix": "npx eslint . --fix"
+    "lint:scripts:fix": "npx eslint . --fix",
+    "build:win": "./node_modules/.bin/nexe get-lock-screen-image.js --target win -o get-lock-screen-image"
   },
   "dependencies": {
     "app-root-path": "3.0.0",
@@ -18,6 +19,7 @@
   "devDependencies": {
     "eslint": "6.7.2",
     "eslint-config-airbnb-base": "14.0.0",
-    "eslint-plugin-import": "2.18.2"
+    "eslint-plugin-import": "2.18.2",
+    "nexe": "3.3.2"
   }
 }
