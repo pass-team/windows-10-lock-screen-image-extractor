@@ -11,6 +11,7 @@ const {
 const {
   getLockScreenImage,
   showSettings,
+  randomDesktop,
 } = require('./actions');
 
 // App construction
@@ -36,6 +37,10 @@ app
   .action(getLockScreenImage)
   .command('show-settings', 'Show your current saving folder')
   .help('Example: node get-lock-screen-image.js show-settings')
-  .action(showSettings);
+  .action(showSettings)
+  .command('random-desktop', 'Randomly set a new desktop wallpaper')
+  .help('Example: node get-lock-screen-image.js random-desktop')
+  .action(randomDesktop);
+
 
 app.parse(process.argv);

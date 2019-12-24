@@ -14,7 +14,8 @@
     "chalk": "3.0.0",
     "enquirer": "2.3.2",
     "hasha": "5.1.0",
-    "image-size": "0.8.3"
+    "image-size": "0.8.3",
+    "wallpaper": "4.4.1"
   },
   "devDependencies": {
     "eslint": "6.7.2",
