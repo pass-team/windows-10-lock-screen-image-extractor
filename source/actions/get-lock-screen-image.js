@@ -1,3 +1,4 @@
+const chalk = require('chalk');
 const {
   getFiles,
   extractFilesStat,
@@ -19,7 +20,7 @@ const {
 
 // Default Actions
 module.exports = async function (args, options, logger) {
-  let pathToSave = trimQuotes(options.path ? options.path : DEFAULT_SAVE_PATH);
+  let pathToSave = trimQuotes(options.path ? options.path : DEFAULT_SAVE_PATH).replace(/\s/g, '_');
   let orientation = trimQuotes(args.orientation ? args.orientation : ORIENTATION_ALL);
   let namePattern = trimQuotes(args.namePattern ? args.namePattern : IMAGE_NAME_FORMAT_ORIGIN);
 
@@ -45,7 +46,7 @@ module.exports = async function (args, options, logger) {
   const count = copyFiles(uniqueImages, PATH_TO_IMAGE, pathToSave, namePattern);
   // Announcements
   if (count) {
-    logger.info(`\nSuccessfully copy ${count} new images!`);
-    logger.info(`Check out now: ${pathToSave}`);
-  } else logger.warn('\nI found no NEW images :) Better luck next time!');
+    logger.info(chalk.green(`\nSuccessfully copy ${count} new images!`));
+    logger.info(chalk(`Save folder (Ctrl + click to open): ${chalk.underline.blue(`file://${pathToSave}`)}`));
+  } else logger.info(chalk.yellow('\nI found no NEW images :) Better luck next time!'));
 };
