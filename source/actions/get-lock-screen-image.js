@@ -10,6 +10,7 @@ const {
   setSavePath,
   promptConditionMatch,
   argumentsPrompt,
+  taskExecutor,
 } = require('../helpers');
 const {
   DEFAULT_SAVE_PATH,
@@ -38,15 +39,19 @@ module.exports = async function (args, options, logger) {
     logger.error('\nError while create saving folder! Please try again!');
     return;
   }
-  const files = getFiles(PATH_TO_IMAGE);
-  const fileStats = extractFilesStat(files);
+
+  logger.info(chalk.cyan('\nStart processing'));
+  const files = await taskExecutor(getFiles(PATH_TO_IMAGE), 'Crawling images', 500);
+  const fileStats = await taskExecutor(extractFilesStat(files), 'Filtering valid ones', 500);
   const newImages = filterImages(fileStats, { orientation });
   const oldImages = getFiles(pathToSave);
   const uniqueImages = filterUniqueImages(newImages, oldImages, pathToSave);
-  const count = copyFiles(uniqueImages, PATH_TO_IMAGE, pathToSave, namePattern);
-  // Announcements
-  if (count) {
+
+  if (uniqueImages.length) {
+    const count = await taskExecutor(copyFiles(uniqueImages, PATH_TO_IMAGE, pathToSave, namePattern), `Found ${uniqueImages.length} new images. Copying..`, 500);
     logger.info(chalk.green(`\nSuccessfully copy ${count} new images!`));
-    logger.info(chalk(`Save folder (Ctrl + click to open): ${chalk.underline.blue(`file://${pathToSave}`)}`));
-  } else logger.info(chalk.yellow('\nI found no NEW images :) Better luck next time!'));
+    logger.info(chalk(`Save folder (Ctrl + click to open): ${chalk.underline.cyan(`file://${pathToSave}`)}`));
+  } else {
+    logger.info(chalk.yellow('\nI found no NEW images :) Better luck next time!'));
+  }
 };
