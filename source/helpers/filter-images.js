@@ -1,25 +1,36 @@
+const sizeOf = require('image-size');
 const {
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
 } = require('../constants');
 const {
-  extractPortraitImages,
-  extractLandscapeImages,
-  extractValidImages,
+  isImage,
+  isValidSizeImage,
+  isPortraitImage,
+  isLandscapeImage,
 } = require('../helpers');
 
-module.exports = function (fileStats, constraint) {
+module.exports = function (files, constraint) {
   const { orientation } = constraint;
-  let images = [];
+  const images = files
+    .map((image) => {
+      const uri = image.path + image.name;
+      const stats = sizeOf(uri);
+      return {
+        ...image,
+        ...stats,
+      };
+    });
+
+  const imageValidSize = images.filter(isImage).filter(isValidSizeImage);
+
   switch (orientation) {
     case ORIENTATION_PORTRAIT:
-      images = extractPortraitImages(fileStats);
-      break;
+      return imageValidSize.filter(isPortraitImage);
     case ORIENTATION_LANDSCAPE:
-      images = extractLandscapeImages(fileStats);
-      break;
+      return imageValidSize.filter(isLandscapeImage);
     default:
-      images = extractValidImages(fileStats);
+      break;
   }
-  return images;
+  return imageValidSize;
 };

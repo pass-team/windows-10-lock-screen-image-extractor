@@ -8,15 +8,15 @@ const {
 
 module.exports = async function (args, options, logger) {
   logger.info(chalk.cyan('\nStart processing'));
-  const currentSavePath = await taskExecutor(getSavePath(), 'Checking saved images..', 500);
-  const existingImages = getFiles(currentSavePath);
+  const currentSavePath = await taskExecutor(getSavePath(), 'Checking saved images..', 400);
+  const savedImages = getFiles(currentSavePath);
 
-  if (!existingImages.length) {
+  if (!savedImages.length) {
     logger.warn(chalk.yellow('\nNo existing images, try to grab the images first, run "node get-lock-screen-image.js -h" for usage'));
   } else {
     await taskExecutor(
-      await wallpaper.set(`${currentSavePath.toString()}/${existingImages[Math.floor(Math.random() * existingImages.length)]}`),
-      `Found ${existingImages.length} images. Picking a new desktop..`,
+      await wallpaper.set(`${currentSavePath.toString()}/${savedImages[Math.floor(Math.random() * savedImages.length)].name}`),
+      `Found ${savedImages.length} images. Picking a new desktop..`,
       500,
     );
     logger.info(chalk.green('\nNew desktop background has been set!'));

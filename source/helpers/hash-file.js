@@ -1,5 +1,5 @@
 const hasha = require('hasha');
 
-module.exports = function (filePath) {
-  return hasha.fromFileSync(filePath, { algorithm: 'md5' });
+module.exports = function (uri) {
+  return hasha.fromFileSync(uri, { algorithm: 'md5' });
 };

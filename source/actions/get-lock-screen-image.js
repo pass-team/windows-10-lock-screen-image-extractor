@@ -1,11 +1,10 @@
 const chalk = require('chalk');
 const {
   getFiles,
-  extractFilesStat,
   filterImages,
   filterUniqueImages,
   createImagesFolder,
-  copyFiles,
+  copyBulkFiles,
   trimQuotes,
   setSavePath,
   promptConditionMatch,
@@ -32,23 +31,25 @@ module.exports = async function (args, options, logger) {
     if (answers.orientation) orientation = answers.orientation;
     if (answers.namePattern) namePattern = answers.namePattern;
   }
-
   setSavePath(pathToSave);
+
   // Main logic
-  if (!createImagesFolder(pathToSave)) {
+  logger.info(chalk.cyan('\nStart processing'));
+  if (!await taskExecutor(createImagesFolder(pathToSave), 'Create saving folder', 250)) {
     logger.error('\nError while create saving folder! Please try again!');
     return;
   }
-
-  logger.info(chalk.cyan('\nStart processing'));
-  const files = await taskExecutor(getFiles(PATH_TO_IMAGE), 'Crawling images', 500);
-  const fileStats = await taskExecutor(extractFilesStat(files), 'Filtering valid ones', 500);
-  const newImages = filterImages(fileStats, { orientation });
-  const oldImages = getFiles(pathToSave);
-  const uniqueImages = filterUniqueImages(newImages, oldImages, pathToSave);
+  const files = await taskExecutor(getFiles(PATH_TO_IMAGE), 'Crawling images', 400);
+  const validImages = await taskExecutor(filterImages(files, { orientation }), 'Filtering ones that match your settings', 400);
+  const savedImages = getFiles(pathToSave);
+  const uniqueImages = await taskExecutor(filterUniqueImages(validImages, savedImages), 'Exclude duplicates', 400);
 
   if (uniqueImages.length) {
-    const count = await taskExecutor(copyFiles(uniqueImages, PATH_TO_IMAGE, pathToSave, namePattern), `Found ${uniqueImages.length} new images. Copying..`, 500);
+    const count = await taskExecutor(
+      copyBulkFiles(uniqueImages, PATH_TO_IMAGE, pathToSave, namePattern),
+      `Found ${uniqueImages.length} new images. Copying..`,
+      400,
+    );
     logger.info(chalk.green(`\nSuccessfully copy ${count} new images!`));
     logger.info(chalk(`Save folder (Ctrl + click to open): ${chalk.underline.cyan(`file://${pathToSave}`)}`));
   } else {
