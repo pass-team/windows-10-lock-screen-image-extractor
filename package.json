@@ -2,7 +2,7 @@
   "name": "windows-10-lock-screen-image-extractor",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "duyphaphach <duyphamle97@gmail.com>",
+  "author": "duyphaphach <duy@passcareer.io>",
   "license": "MIT",
   "scripts": {
     "lint:scripts": "npx eslint .",
