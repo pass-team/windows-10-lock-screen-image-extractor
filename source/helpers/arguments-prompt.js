@@ -9,7 +9,13 @@ const {
   DEFAULT_SAVE_PATH,
 } = require('../constants');
 
+/**
+ *  @Helper
+ *  @Input: No
+ *  @Output: User answers that customize action: get-lock-screen-image
+ */
 module.exports = async function () {
+  /* Questions to prompt */
   const requestForPromptQuestion = [
     {
       type: 'select',
@@ -35,6 +41,10 @@ module.exports = async function () {
     { type: 'input', name: 'path', message: `Specify a folder for your images (${DEFAULT_SAVE_PATH}): ` },
   ];
 
+  /**
+   *  First, ask if they want to answer or not
+   *  Then, ask questions for customization
+   */
   const { confirmation } = await enquirer.prompt(requestForPromptQuestion);
   if (confirmation === 'No') {
     return {};
