@@ -24,7 +24,12 @@ module.exports = async function (args, options, logger) {
   let orientation = trimQuotes(args.orientation ? args.orientation : ORIENTATION_ALL);
   let namePattern = trimQuotes(args.namePattern ? args.namePattern : IMAGE_NAME_FORMAT_ORIGIN);
 
-  /* Ask user questions to customize the action */
+  /**
+   *  Ask user questions to customize the action
+   *  promptConditionMatch(process): check the number of process arguments to decide whether to ask:
+   *    - number of arguments === 0 => Ask
+   *    - Otherwise: Skip
+  */
   if (promptConditionMatch(process)) {
     const answers = await argumentsPrompt();
     if (answers.path) pathToSave = answers.path;
