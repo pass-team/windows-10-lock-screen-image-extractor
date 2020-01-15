@@ -14,7 +14,8 @@ const {
  *  @Helper
  *  @Input:
  *    - files: An array of file meta objects that add stats
- *    - constraint: object contains criteria to filter image, presently support filter by orientation:
+ *    - constraint: object contains criteria to filter image,
+ *                  presently support filter by orientation:
  *      - landscape
  *      - portrait
  *  @Output:

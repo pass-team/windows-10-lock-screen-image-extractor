@@ -14,7 +14,8 @@ const {
  *      - hash: content hash
  *      - date: current date
  *      - origin: the original file name
- *    - index: number appended to file name when using the `date` name pattern, because bulk of files will share the same date
+ *    - index:  number appended to file name when using the `date` name pattern
+ *              because bulk of files will share the same date
  *  @Output:
  *    - file are copy to dest folder
  */
