@@ -14,7 +14,12 @@ const {
   randomDesktop,
 } = require('./actions');
 
-// App construction
+/**
+ *  Define app commands and respectively actions
+ *  We are using Caporal.js as cli framework
+ *  Checkout their document to better understand syntax
+ *  Caporal.js https://github.com/mattallty/Caporal.js
+ */
 app
   .version('1.0.0')
   .description('Extract the mysterious Windows 10 lock screens and save to the folder of your choice')
