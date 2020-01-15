@@ -17,6 +17,10 @@ const copyFile = require('./copy-file');
 module.exports = function (files, src, dest, pattern) {
   return files.reduce((count, file, index) => {
     try {
+      /**
+       *  @Helper: copy-file.js
+       *  Copy single file with index to number file if using the 'date' file name pattern
+       */
       copyFile(file, src, dest, pattern, index);
       return count + 1;
     } catch (e) {
