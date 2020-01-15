@@ -1,3 +1,9 @@
+/**
+ *  @Helper
+ *  @Input: No
+ *  @Output:
+ *    - current date, written in format: monthName day fullYear
+ */
 module.exports = function () {
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June', 'July',
