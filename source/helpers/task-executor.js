@@ -4,6 +4,15 @@ const executor = function (task, fakeTime) {
   return new Promise((resolve) => setTimeout(() => resolve(task), fakeTime));
 };
 
+/**
+ *  @Helper
+ *  @Input:
+ *    - task: the callback/function to execute
+ *    - message: text to display to user when executing task
+ *    - fakeTime: buffered time if the task running too fast to improve UX
+ *  @Output:
+ *    - return: task's output
+ */
 module.exports = async function (task, message, fakeTime) {
   const spinner = ora({
     text: message,
