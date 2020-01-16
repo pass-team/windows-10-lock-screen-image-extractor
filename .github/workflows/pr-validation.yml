@@ -44,7 +44,7 @@ jobs:
           yarn run lint:scripts
       - name: Run unit tests
         run: |
-          yarn run test:unit
+          yarn run test:unit:coverage
       - name: Run integration tests
         run: |
           yarn run test:integration
