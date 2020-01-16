@@ -26,13 +26,14 @@ jobs:
           node-version: ${{ matrix.node_version }}
       - name: Install yarn
         run: npm install -g yarn
-      - run: yarn install
+      - name: Install dependencies
+        run: yarn install
       - name: Run linting
         run: |
           yarn run lint:scripts
-      - name: Run unit tests
+      - name: Run unit tests with coverage
         run: |
           yarn run test:unit:coverage
-      - name: Run integration tests
-        run: |
-          yarn run test:integration
+#      - name: Run integration tests
+#        run: |
+#          yarn run test:integration
