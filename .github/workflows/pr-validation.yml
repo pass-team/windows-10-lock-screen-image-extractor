@@ -36,8 +36,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Install dependencies
-        run: |
-          npm install -g yarn
+        run: npm install -g yarn
       - run: yarn install
       - name: Run linting
         run: |
