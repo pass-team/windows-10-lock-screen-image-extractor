@@ -13,7 +13,7 @@ describe('Helper: get-current-date', () => {
   });
 
   it('should return current date in format: "monthName day fullYear"', async () => {
-    jest.spyOn(Date, 'now').mockImplementation(() => 1579148332281);
+    mockDateNow();
     expect(reformatDate(new Date(Date.now()))).toBe('January 16 2020');
   });
 });
