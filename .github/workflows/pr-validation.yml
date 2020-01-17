@@ -34,14 +34,14 @@ jobs:
 #            ${{ runner.os }}-node-
       - name: Install yarn
         run: npm install -g yarn
-      - name: Load yarn cache
-        id: check-yarn-cache
-        uses: actions/cache@v1
-        with:
-          path: ./node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+#      - name: Load yarn cache
+#        id: check-yarn-cache
+#        uses: actions/cache@v1
+#        with:
+#          path: ./node_modules
+#          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-yarn-
       - name: Install dependencies
 #        if: steps.check-yarn-cache.outputs.cache-hit != 'true'
         run: yarn install
