@@ -1,4 +1,4 @@
-const { getCurrentDate } = require('../../../source/helpers');
+const { reformatDate } = require('../../../source/helpers');
 const mockDateNow = require('./../../mock-data/mock-date-now');
 
 describe('Helper: get-current-date', () => {
@@ -6,14 +6,14 @@ describe('Helper: get-current-date', () => {
   const processEnvOrigin = { ...process.env };
 
   afterEach(() => {
-    // reset the env variables to initial state
+    // reset the env variables to initial state and Date to original Date
     process.env = processEnvOrigin;
     // reset the modules which were required during the test (if any)
     jest.resetModules();
   });
 
   it('should return current date in format: "monthName day fullYear"', async () => {
-    global.Date.now = mockDateNow();
-    expect(getCurrentDate()).toBe('January 16 2020');
+    jest.spyOn(Date, 'now').mockImplementation(() => 1579148332281);
+    expect(reformatDate(new Date(Date.now()))).toBe('January 16 2020');
   });
 });

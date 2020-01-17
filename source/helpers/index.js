@@ -6,7 +6,7 @@ exports.isWindows10 = require('./is-windows-10');
 
 exports.trimQuotes = require('./trim-quotes');
 exports.normalizePath = require('./normalize-path');
-exports.getCurrentDate = require('./get-current-date');
+exports.reformatDate = require('./reformat-date');
 exports.promptConditionMatch = require('./prompt-condition-match');
 exports.argumentsPrompt = require('./arguments-prompt');
 
