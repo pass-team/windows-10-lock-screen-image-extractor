@@ -25,11 +25,12 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Check yarn cache
+        id: yarn-cache
         run: |
           npm install -g yarn
           echo "::set-output name=dir::$(yarn cache dir)"
       - name: Load yarn cache
-        id: yarn-cache
+        id: cache-loader
         uses: actions/cache@v1
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
@@ -37,7 +38,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        if: steps.cache-loader.outputs.cache-hit != 'true'
         run: yarn install
       - name: Run linting
         run: |
