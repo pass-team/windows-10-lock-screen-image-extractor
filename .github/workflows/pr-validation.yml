@@ -12,7 +12,7 @@ on:
       - dependabot/**
 
 jobs:
-  build:
+  pr-validation:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -24,8 +24,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node_version }}
-      - name: Install yarn
-        run: npm install -g yarn
+      - name: Check yarn cache
+        id: yarn-cache
+        run: |
+          npm install -g install
+          echo "::set-output name=dir::$(yarn cache dir)"
       - name: Load yarn cache
         uses: actions/cache@v1
         with:
