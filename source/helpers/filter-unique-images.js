@@ -5,7 +5,7 @@ const {
 } = require('../constants');
 const {
   hashBulkFile,
-  getCurrentDate,
+  reformatDate,
 } = require('../helpers');
 
 /**
@@ -29,7 +29,7 @@ module.exports = function (newImages, oldImages) {
       const newProps = {};
       newProps[IMAGE_NAME_FORMAT_ORIGIN] = newImages[index].name;
       newProps[IMAGE_NAME_FORMAT_HASH] = hash;
-      newProps[IMAGE_NAME_FORMAT_DATE] = getCurrentDate();
+      newProps[IMAGE_NAME_FORMAT_DATE] = reformatDate(new Date());
       uniqueImages.push({
         ...newImages[index],
         ...newProps,

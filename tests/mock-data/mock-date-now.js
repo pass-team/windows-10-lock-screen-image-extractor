@@ -1,1 +1,1 @@
-module.exports = () => jest.fn(() => 1579148332281);
+module.exports = jest.spyOn(Date, 'now').mockImplementation(() => 1579148332281);
