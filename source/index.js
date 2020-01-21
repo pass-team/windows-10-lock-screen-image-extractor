@@ -15,9 +15,9 @@ const {
 } = require('./actions');
 
 /**
- *  Define app commands and respectively actions
+ *  Define app commands and respective actions
  *  We are using Caporal.js as cli framework
- *  Checkout their document to better understand syntax
+ *  Checkout their document to better understand the syntaxes
  *  Caporal.js https://github.com/mattallty/Caporal.js
  */
 app
