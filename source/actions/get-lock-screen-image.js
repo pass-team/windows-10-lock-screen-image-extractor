@@ -1,3 +1,4 @@
+/* eslint max-len: "off" */
 const chalk = require('chalk');
 const {
   getFiles,
@@ -21,8 +22,8 @@ const {
 /* Action that handle extracting lock screen from windows */
 module.exports = async function (args, options, logger) {
   let pathToSave = trimQuotes(options.path ? options.path : DEFAULT_SAVE_PATH).replace(/\s/g, '_');
-  let orientation = trimQuotes(args.orientation ? args.orientation : ORIENTATION_ALL);
-  let namePattern = trimQuotes(args.namePattern ? args.namePattern : IMAGE_NAME_FORMAT_ORIGIN);
+  let orientation = trimQuotes(options.orientation ? options.orientation : ORIENTATION_ALL);
+  let namePattern = trimQuotes(options.namePattern ? options.namePattern : IMAGE_NAME_FORMAT_ORIGIN);
 
   /**
    *  Ask user questions to customize the action

@@ -15,37 +15,57 @@ const {
 } = require('./actions');
 
 /**
- *  Define app commands and respective actions
+ *  Define app commands and respectively actions
  *  We are using Caporal.js as cli framework
- *  Checkout their document to better understand the syntaxes
+ *  Checkout their document to better understand syntax
  *  Caporal.js https://github.com/mattallty/Caporal.js
  */
 app
   .version('1.0.0')
-  .description('Extract the mysterious Windows 10 lock screens and save to the folder of your choice')
-  .argument('[orientation]',
+  .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')
+
+  /** @Command: get-images */
+  .command('get-images', 'Extract lock screen images from windows 10')
+  /** @Option path: image saving folder */
+  .option('-p, --path', '\tPath to save images to',
+    /[A-Z]:.+|false/,
+    DEFAULT_SAVE_PATH,
+    false)
+  .help(`Example:
+   node get-lock-screen-image.js
+   node get-lock-screen-image.js -p D:/images`)
+  /** @Option orientation: landscape, portrait, all */
+  .option('-o, --orientation',
     'Filter images based on orientation:\n'
     + 'Choose: \n'
     + `  '${ORIENTATION_LANDSCAPE}'\n`
     + `  '${ORIENTATION_PORTRAIT}'\n`
-    + `  '${ORIENTATION_ALL}'\n`, [ORIENTATION_LANDSCAPE, ORIENTATION_PORTRAIT, ORIENTATION_ALL], ORIENTATION_ALL)
-  .argument('[name pattern]',
+    + `  '${ORIENTATION_ALL}'\n`,
+    new RegExp(`${ORIENTATION_LANDSCAPE}|${ORIENTATION_PORTRAIT}|${ORIENTATION_ALL}|false`), ORIENTATION_ALL, false)
+  .help(`Example:
+   node get-lock-screen-image.js -o landscape`)
+  /** @Option name pattern: origin, hash, date */
+  .option('-n, --name-pattern',
     'Output filename pattern\n'
     + 'Choose: \n'
     + `  '${IMAGE_NAME_FORMAT_ORIGIN}': Keep name that windows give\n`
     + `  '${IMAGE_NAME_FORMAT_HASH}': Use image hash as name\n`
-    + `  '${IMAGE_NAME_FORMAT_DATE}': Use current date as name`, [IMAGE_NAME_FORMAT_ORIGIN, IMAGE_NAME_FORMAT_HASH, IMAGE_NAME_FORMAT_DATE], IMAGE_NAME_FORMAT_ORIGIN, false)
-  .option('-p, --path', '\tPath to save images to', /[A-Z]:.+|false/, DEFAULT_SAVE_PATH, false)
+    + `  '${IMAGE_NAME_FORMAT_DATE}': Use current date as name`,
+    new RegExp(`${IMAGE_NAME_FORMAT_ORIGIN}|${IMAGE_NAME_FORMAT_HASH}|${IMAGE_NAME_FORMAT_DATE}|false`),
+    IMAGE_NAME_FORMAT_ORIGIN,
+    false)
   .help(`Example:
-   node get-lock-screen-image.js
-   node get-lock-screen-image.js -p=D:/images portrait hash`)
+   node get-lock-screen-image.js -n hash`)
   .action(getLockScreenImage)
+
+  /** @Command: show-settings */
   .command('show-settings', 'Show your current saving folder')
   .help('Example: node get-lock-screen-image.js show-settings')
   .action(showSettings)
+
+  /** @Command: random-desktop */
   .command('random-desktop', 'Randomly set a new desktop wallpaper')
   .help('Example: node get-lock-screen-image.js random-desktop')
   .action(randomDesktop);
-
 
 app.parse(process.argv);
