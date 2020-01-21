@@ -27,13 +27,12 @@ app
   /** @Command: get-images */
   .command('get-images', 'Extract lock screen images from windows 10')
   /** @Option path: image saving folder */
-  .option('-p, --path', '\tPath to save images to',
+  .option('-p, --path', 'Path to save images to',
     /[A-Z]:.+|false/,
     DEFAULT_SAVE_PATH,
     false)
   .help(`Example:
-   node get-lock-screen-image.js
-   node get-lock-screen-image.js -p D:/images`)
+   get-lock-screen -p D:/images`)
   /** @Option orientation: landscape, portrait, all */
   .option('-o, --orientation',
     'Filter images based on orientation:\n'
@@ -43,7 +42,7 @@ app
     + `  '${ORIENTATION_ALL}'\n`,
     new RegExp(`${ORIENTATION_LANDSCAPE}|${ORIENTATION_PORTRAIT}|${ORIENTATION_ALL}|false`), ORIENTATION_ALL, false)
   .help(`Example:
-   node get-lock-screen-image.js -o landscape`)
+   get-lock-screen -o landscape`)
   /** @Option name pattern: origin, hash, date */
   .option('-n, --name-pattern',
     'Output filename pattern\n'
@@ -55,17 +54,17 @@ app
     IMAGE_NAME_FORMAT_ORIGIN,
     false)
   .help(`Example:
-   node get-lock-screen-image.js -n hash`)
+   get-lock-screen -n hash`)
   .action(getLockScreenImage)
 
   /** @Command: show-settings */
   .command('show-settings', 'Show your current saving folder')
-  .help('Example: node get-lock-screen-image.js show-settings')
+  .help('Example: get-lock-screen show-settings')
   .action(showSettings)
 
   /** @Command: random-desktop */
   .command('random-desktop', 'Randomly set a new desktop wallpaper')
-  .help('Example: node get-lock-screen-image.js random-desktop')
+  .help('Example: get-lock-screen random-desktop')
   .action(randomDesktop);
 
 app.parse(process.argv);

@@ -20,7 +20,7 @@ module.exports = async function (args, options, logger) {
    *  Otherwise randomly set desktop background
    */
   if (!savedImages.length) {
-    logger.warn(chalk.yellow('\nNo existing images, try to grab the images first, run "node get-lock-screen-image.js -h" for usage'));
+    logger.warn(chalk.yellow('\nNo existing images, try to grab the images first, run "get-lock-screen -h" for usage'));
   } else {
     await taskExecutor(
       /* 3. Randomly set desktop background and announce */
