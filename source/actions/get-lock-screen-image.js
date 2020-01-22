@@ -24,7 +24,7 @@ module.exports = async function (args, options, logger) {
   let pathToSave = trimQuotes(options.path ? options.path : DEFAULT_SAVE_PATH).replace(/\s/g, '_');
   let orientation = trimQuotes(options.orientation ? options.orientation : ORIENTATION_ALL);
   let namePattern = trimQuotes(options.namePattern ? options.namePattern : IMAGE_NAME_FORMAT_ORIGIN);
-
+  console.log('zxczxc');
   /**
    *  Ask user questions to customize the action
    *  promptConditionMatch(process): check the number of process arguments to decide whether to ask:
