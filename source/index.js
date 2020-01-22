@@ -9,7 +9,7 @@ const {
   ORIENTATION_ALL,
 } = require('./constants');
 const {
-  getLockScreenImage,
+  getImages,
   showSettings,
   randomDesktop,
   showMenu,
@@ -33,7 +33,7 @@ app
     DEFAULT_SAVE_PATH,
     false)
   .help(`Example:
-   get-lock-screen -p D:/images`)
+   get-lock-screen get-images -p D:/images`)
   /** @Option orientation: landscape, portrait, all */
   .option('-o, --orientation',
     'Filter images based on orientation:\n'
@@ -43,7 +43,7 @@ app
     + `  '${ORIENTATION_ALL}'\n`,
     new RegExp(`${ORIENTATION_LANDSCAPE}|${ORIENTATION_PORTRAIT}|${ORIENTATION_ALL}|false`), ORIENTATION_ALL, false)
   .help(`Example:
-   get-lock-screen -o landscape`)
+   get-lock-screen get-images -o landscape`)
   /** @Option name pattern: origin, hash, date */
   .option('-n, --name-pattern',
     'Output filename pattern\n'
@@ -55,8 +55,8 @@ app
     IMAGE_NAME_FORMAT_ORIGIN,
     false)
   .help(`Example:
-   get-lock-screen -n hash`)
-  .action(getLockScreenImage)
+   get-lock-screen get-images -n hash`)
+  .action(getImages)
 
   /** @Command: show-settings */
   .command('show-settings', 'Show your current saving folder')

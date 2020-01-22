@@ -15,13 +15,6 @@
   "bin": {
     "get-lock-screen": "./bin/get-lock-screen-image.js"
   },
-  "pkg": {
-    "assets": "**/.userconfig",
-    "scripts": "source/**/*.js",
-    "targets": [
-      "node8"
-    ]
-  },
   "dependencies": {
     "caporal": "1.3.0",
     "chalk": "3.0.0",

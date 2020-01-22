@@ -7,11 +7,11 @@ yarn install
 
 #### Usage
 ```$javascript
- get-lock-screen-image.js [options] [orientation] [name pattern]
+ get-images.js [options] [orientation] [name pattern]
 
  Example:
-    node get-lock-screen-image.js
-    node get-lock-screen-image.js -p=D:/images-folder portrait hash
+    node get-images.js
+    node get-images.js -p=D:/images-folder portrait hash
 ```
 
 #### Command Options

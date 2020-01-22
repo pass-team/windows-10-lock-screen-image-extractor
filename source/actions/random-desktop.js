@@ -4,6 +4,7 @@ const {
   getSavePath,
   getFiles,
   taskExecutor,
+  waitKeyToExit,
 } = require('../helpers');
 
 /* Action that randomly set extracted images as desktop background */
@@ -30,4 +31,5 @@ module.exports = async function (args, options, logger) {
     );
     logger.info(chalk.green('\nNew desktop background has been set!'));
   }
+  waitKeyToExit();
 };

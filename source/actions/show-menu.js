@@ -4,7 +4,7 @@ const enquirer = require('enquirer');
 
 const {
   randomDesktop,
-  getLockScreenImage,
+  getImages,
   packExe,
   showSettings,
 } = require('../actions');
@@ -16,7 +16,7 @@ module.exports = async function (args, options, logger) {
   const menuOptions = [{
     type: 'select',
     name: 'menuOption',
-    message: chalk.cyan('Welcome to Windows 10 lock screen image extractor. Pick an option:\n'),
+    message: chalk.red('Windows 10 lock screen image extractor.\n  Pick an option:'),
     choices: Object.values(MENU_OPTIONS),
   }];
 
@@ -24,7 +24,7 @@ module.exports = async function (args, options, logger) {
 
   switch (menuOption) {
     case MENU_OPTIONS.GET_LOCK_SCREEN:
-      return getLockScreenImage(args, options, logger);
+      return getImages(args, options, logger);
 
     case MENU_OPTIONS.RANDOM_DESKTOP:
       return randomDesktop(args, options, logger);
@@ -39,6 +39,6 @@ module.exports = async function (args, options, logger) {
       return;
 
     default:
-      return getLockScreenImage(args, options, logger);
+      return getImages(args, options, logger);
   }
 };
