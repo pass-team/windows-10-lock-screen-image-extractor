@@ -7,6 +7,7 @@ const {
   IMAGE_NAME_FORMAT_DATE,
   IMAGE_NAME_FORMAT_HASH,
   DEFAULT_SAVE_PATH,
+
 } = require('../constants');
 
 /**

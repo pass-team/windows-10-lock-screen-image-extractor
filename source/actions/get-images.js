@@ -1,5 +1,6 @@
 /* eslint max-len: "off" */
 const chalk = require('chalk');
+
 const {
   getFiles,
   filterImages,
@@ -11,6 +12,7 @@ const {
   promptConditionMatch,
   argumentsPrompt,
   taskExecutor,
+  waitKeyToExit,
 } = require('../helpers');
 const {
   DEFAULT_SAVE_PATH,
@@ -24,7 +26,6 @@ module.exports = async function (args, options, logger) {
   let pathToSave = trimQuotes(options.path ? options.path : DEFAULT_SAVE_PATH).replace(/\s/g, '_');
   let orientation = trimQuotes(options.orientation ? options.orientation : ORIENTATION_ALL);
   let namePattern = trimQuotes(options.namePattern ? options.namePattern : IMAGE_NAME_FORMAT_ORIGIN);
-
   /**
    *  Ask user questions to customize the action
    *  promptConditionMatch(process): check the number of process arguments to decide whether to ask:
@@ -73,4 +74,5 @@ module.exports = async function (args, options, logger) {
   } else {
     logger.info(chalk.yellow('\nI found no NEW images :) Better luck next time!'));
   }
+  waitKeyToExit();
 };

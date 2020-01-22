@@ -1,5 +1,4 @@
 const os = require('os');
-const appRoot = require('app-root-path');
 
 
 exports.HOME_DIR = os.homedir();
@@ -13,7 +12,7 @@ exports.DEFAULT_SAVE_PATH = `${os.homedir()}\\Pictures\\W10_Spotlight\\`;
 exports.WINDOWS10_ALIAS = 'win32';
 
 /* Path to configuration file */
-exports.PATH_TO_CONFIG = `${appRoot.path}\\.userconfig`;
+exports.PATH_TO_CONFIG = `${process.cwd()}\\.userconfig`;
 
 exports.ORIENTATION_LANDSCAPE = 'landscape';
 exports.ORIENTATION_PORTRAIT = 'portrait';
@@ -27,3 +26,12 @@ exports.IMAGE_TYPE_JPG = 'jpg';
 exports.IMAGE_NAME_FORMAT_ORIGIN = 'origin';
 exports.IMAGE_NAME_FORMAT_HASH = 'hash';
 exports.IMAGE_NAME_FORMAT_DATE = 'date';
+
+/* Path to configuration file */
+exports.MENU_OPTIONS = Object.freeze({
+  GET_LOCK_SCREEN: '1. Get lock screen images',
+  RANDOM_DESKTOP: '2. Randomize desktop background',
+  CURRENT_SETTINGS: '3. Show current user settings',
+  PACK_EXE: '4. Pack exe file',
+  QUIT: '5. Quit',
+});

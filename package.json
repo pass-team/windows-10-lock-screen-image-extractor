@@ -15,14 +15,14 @@
     "get-lock-screen": "./bin/get-lock-screen-image.js"
   },
   "dependencies": {
-    "app-root-path": "3.0.0",
     "caporal": "1.3.0",
     "chalk": "3.0.0",
     "enquirer": "2.3.4",
     "hasha": "5.1.0",
     "image-size": "0.8.3",
     "ora": "4.0.3",
-    "wallpaper": "4.4.1"
+    "wallpaper": "4.4.1",
+    "pkg": "4.4.2"
   },
   "devDependencies": {
     "codacy-coverage": "3.4.0",

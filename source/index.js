@@ -9,9 +9,11 @@ const {
   ORIENTATION_ALL,
 } = require('./constants');
 const {
-  getLockScreenImage,
+  getImages,
   showSettings,
   randomDesktop,
+  showMenu,
+  packExe,
 } = require('./actions');
 
 /**
@@ -23,7 +25,7 @@ const {
 app
   .version('1.0.0')
   .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')
-
+  .action(showMenu)
   /** @Command: get-images */
   .command('get-images', 'Extract lock screen images from windows 10')
   /** @Option path: image saving folder */
@@ -32,7 +34,7 @@ app
     DEFAULT_SAVE_PATH,
     false)
   .help(`Example:
-   get-lock-screen -p D:/images`)
+   get-lock-screen get-images -p D:/images`)
   /** @Option orientation: landscape, portrait, all */
   .option('-o, --orientation',
     'Filter images based on orientation:\n'
@@ -42,7 +44,7 @@ app
     + `  '${ORIENTATION_ALL}'\n`,
     new RegExp(`${ORIENTATION_LANDSCAPE}|${ORIENTATION_PORTRAIT}|${ORIENTATION_ALL}|false`), ORIENTATION_ALL, false)
   .help(`Example:
-   get-lock-screen -o landscape`)
+   get-lock-screen get-images -o landscape`)
   /** @Option name pattern: origin, hash, date */
   .option('-n, --name-pattern',
     'Output filename pattern\n'
@@ -54,8 +56,8 @@ app
     IMAGE_NAME_FORMAT_ORIGIN,
     false)
   .help(`Example:
-   get-lock-screen -n hash`)
-  .action(getLockScreenImage)
+   get-lock-screen get-images -n hash`)
+  .action(getImages)
 
   /** @Command: show-settings */
   .command('show-settings', 'Show your current saving folder')
@@ -65,6 +67,11 @@ app
   /** @Command: random-desktop */
   .command('random-desktop', 'Randomly set a new desktop wallpaper')
   .help('Example: get-lock-screen random-desktop')
-  .action(randomDesktop);
+  .action(randomDesktop)
+
+  /** @Command: pack-exe */
+  .command('pack-exe', 'Pack the cli app into a single exe file')
+  .help('Example: get-lock-screen pack-exe')
+  .action(packExe);
 
 app.parse(process.argv);
