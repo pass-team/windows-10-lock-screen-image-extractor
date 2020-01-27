@@ -1,5 +1,7 @@
 ### Startup LockScreen Extractor for Windows 10
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2299fbfcaec94989a76b0bbc5be3a1e4)](https://app.codacy.com/gh/pass-team/windows-10-lock-screen-image-extractor?utm_source=github.com&utm_medium=referral&utm_content=pass-team/windows-10-lock-screen-image-extractor&utm_campaign=Badge_Grade_Dashboard)
+
 #### Installation
 ```$javascript
 yarn install
