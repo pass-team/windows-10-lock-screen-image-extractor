@@ -1,4 +1,4 @@
-name: Pull Request Validation
+name: build
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ on:
       - dependabot/**
 
 jobs:
-  pr-validation:
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
