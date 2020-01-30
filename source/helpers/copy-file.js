@@ -22,6 +22,10 @@ const {
 module.exports = function (file, src, dest, namePattern, index) {
   /* Process the path, so different path format won't break nodejs copyFileSync api */
   const srcUri = normalizePath(src) + file.name;
-  const destUri = `${normalizePath(dest) + file[namePattern] + (namePattern === IMAGE_NAME_FORMAT_DATE ? (`_${index}`) : '')}.jpg`;
+  const destUri = `${
+    normalizePath(dest)
+    + file[namePattern]
+    + (namePattern === IMAGE_NAME_FORMAT_DATE ? (`_${index}`) : '')
+  }.jpg`;
   fs.copyFileSync(srcUri, destUri, fs.constants.COPYFILE_EXCL);
 };

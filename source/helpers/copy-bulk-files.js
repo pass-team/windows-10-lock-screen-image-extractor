@@ -1,3 +1,5 @@
+/* eslint-disable global-require, no-console */
+
 const copyFile = require('./copy-file');
 
 /**

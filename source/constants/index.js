@@ -1,5 +1,6 @@
-const os = require('os');
+/* eslint max-len: "off" */
 
+const os = require('os');
 
 exports.HOME_DIR = os.homedir();
 
