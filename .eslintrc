@@ -15,7 +15,15 @@
     "sourceType": "module"
   },
   "rules": {
+    "max-len": [
+      1,
+      {
+        "code": 120,
+        "tabWidth": 2
+      }
+    ],
     "no-underscore-dangle": 0,
-    "quotes": [2, "single", { "avoidEscape": true }]
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "func-names": 0
   }
 }
