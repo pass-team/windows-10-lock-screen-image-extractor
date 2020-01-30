@@ -11,7 +11,6 @@ const {
   promptConditionMatch,
   argumentsPrompt,
   taskExecutor,
-  waitKeyToExit,
 } = require('../helpers');
 const {
   DEFAULT_SAVE_PATH,
@@ -81,5 +80,4 @@ module.exports = async function (args, options, logger) {
   } else {
     logger.info(chalk.yellow('\nI found no NEW images :) Better luck next time!'));
   }
-  waitKeyToExit();
 };

@@ -22,4 +22,3 @@ exports.setSavePath = require('./set-save-path');
 exports.getSavePath = require('./get-save-path');
 
 exports.taskExecutor = require('./task-executor');
-exports.waitKeyToExit = require('./wait-key-to-exit');

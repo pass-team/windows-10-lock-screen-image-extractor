@@ -1,8 +1,5 @@
 const { exec } = require('pkg');
 const chalk = require('chalk');
-const {
-  waitKeyToExit,
-} = require('../helpers');
 const { HOME_DIR } = require('../constants');
 
 /* Action that pack the app into one single Windows executable file */
@@ -16,5 +13,4 @@ module.exports = async function (args, options, logger) {
     '--output', output,
   ]);
   logger.info(chalk.green(`Success! Exe file was saved to: ${chalk.underline.cyan(`file://${HOME_DIR}`)}`));
-  waitKeyToExit();
 };
