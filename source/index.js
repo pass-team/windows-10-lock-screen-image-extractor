@@ -25,6 +25,7 @@ const {
 app
   .version('1.0.0')
   .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')
+  /** @Command: default when no command is provided */
   .action(showMenu)
   /** @Command: get-images */
   .command('get-images', 'Extract lock screen images from windows 10')

@@ -1,4 +1,3 @@
-/* eslint consistent-return: off   */
 const chalk = require('chalk');
 const enquirer = require('enquirer');
 
@@ -36,7 +35,7 @@ module.exports = async function (args, options, logger) {
       return showSettings(args, options, logger);
 
     case MENU_OPTIONS.QUIT:
-      return;
+      return null;
 
     default:
       return getImages(args, options, logger);
