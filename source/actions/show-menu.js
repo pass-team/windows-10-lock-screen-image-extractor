@@ -4,7 +4,6 @@ const enquirer = require('enquirer');
 const {
   randomDesktop,
   getImages,
-  packExe,
   showSettings,
 } = require('../actions');
 
@@ -27,9 +26,6 @@ module.exports = async function (args, options, logger) {
 
     case MENU_OPTIONS.RANDOM_DESKTOP:
       return randomDesktop(args, options, logger);
-
-    case MENU_OPTIONS.PACK_EXE:
-      return packExe(args, options, logger);
 
     case MENU_OPTIONS.CURRENT_SETTINGS:
       return showSettings(args, options, logger);

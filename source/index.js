@@ -13,7 +13,6 @@ const {
   showSettings,
   randomDesktop,
   showMenu,
-  packExe,
 } = require('./actions');
 
 /**
@@ -68,11 +67,6 @@ app
   /** @Command: random-desktop */
   .command('random-desktop', 'Randomly set a new desktop wallpaper')
   .help('Example: get-lock-screen random-desktop')
-  .action(randomDesktop)
-
-  /** @Command: pack-exe */
-  .command('pack-exe', 'Pack the cli app into a single exe file')
-  .help('Example: get-lock-screen pack-exe')
-  .action(packExe);
+  .action(randomDesktop);
 
 app.parse(process.argv);
