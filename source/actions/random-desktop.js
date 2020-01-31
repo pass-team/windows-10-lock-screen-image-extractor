@@ -22,12 +22,11 @@ module.exports = async function (args, options, logger) {
   if (!savedImages.length) {
     logger.warn(chalk.yellow('\nNo existing images, try to grab the images first, run "get-lock-screen -h" for usage'));
   } else {
-    const chosenWallpaper = `${currentSavePath.toString()}
-    /${savedImages[Math.floor(Math.random() * savedImages.length)].name}`;
+    const pick = `${currentSavePath.toString()}/${savedImages[Math.floor(Math.random() * savedImages.length)].name}`;
 
     await taskExecutor(
       /* 3. Randomly set desktop background and announce */
-      await wallpaper.set(chosenWallpaper),
+      await wallpaper.set(pick),
       `Found ${savedImages.length} images. Picking a new desktop..`,
       500,
     );

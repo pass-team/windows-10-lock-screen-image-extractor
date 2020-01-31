@@ -46,8 +46,8 @@ module.exports = async function (args, options, logger) {
   /* Steps to handle the action */
   logger.info(chalk.cyan('\nStart processing'));
   /* 1. Create saving folder if hasn't */
-  if (!await taskExecutor(createImagesFolder(pathToSave), 'Create saving folder', 250)) {
-    logger.error('\nError while create saving folder! Please try again!');
+  if (!await taskExecutor(createImagesFolder(pathToSave), 'Create images folder', 250)) {
+    logger.error('\nError while creating images folder! Please try again!');
     return;
   }
   /* 2. Crawl images from windows's image folder */
