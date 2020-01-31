@@ -7,10 +7,11 @@
   "scripts": {
     "lint:scripts": "npx eslint .",
     "lint:scripts:fix": "npx eslint . --fix",
-    "test:unit": "npx jest ./tests/unit-tests --config='config/jest/jest.config.js'",
+    "test": "npx jest --config='config/jest/jest.config.js'",
+    "test:unit": "npx jest --config='config/jest/unit/jest.config.js'",
     "test:unit:coverage": "npx jest ./tests/unit-tests --config='config/jest/jest.config.js' --coverage && codacy-coverage < ./coverage/lcov.info --debug",
-    "test:integration": "npx jest ./tests/integration-tests --config='config/jest/jest.config.js'",
-    "build:win": "npx pkg . --output=get-lock-screen.exe"
+    "build:win": "npx pkg . --output=get-lock-screen.exe",
+    "test:integration": "npx jest --config='config/jest/integration/jest.config.js'"
   },
   "bin": {
     "get-lock-screen": "./bin/get-lock-screen-image.js"
@@ -36,6 +37,7 @@
     "eslint": "6.7.2",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.18.2",
-    "jest": "24.9.0"
+    "jest": "24.9.0",
+    "nixt": "0.5.1"
   }
 }
