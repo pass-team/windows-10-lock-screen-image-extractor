@@ -44,7 +44,7 @@ Passing one or multiple arguments to change the command’s behavior
 ### 2. Randomize desktop wallpaper
 * Run command: `get-lock-screen randomize-desktop`
 * The app may remind you to get the images in advance on the first run.
-![image 1](.github/assets/image_1.png)
+![image 1](.github/assets/image1.png)
 
 ### 3. Show image saved folder
 Run command: `get-lock-screen show-settings`
@@ -61,9 +61,9 @@ If you have any problems running the apps, feel free to [open an issue](https://
 
 **1. Fork and clone repo**
 * Fork repo
-![image 1](.github/assets/image_2.png)
+![image 1](.github/assets/image2.png)
 * Clone to your machine
-![image 1](.github/assets/image_3.png)
+![image 1](.github/assets/image3.png)
 
 **2.  Install dependencies**
 * Run `yarn install`
