@@ -2,7 +2,7 @@
 module.exports = {
   rootDir: './../../..',
   cacheDirectory: '<rootDir>/.cache/jest',
-  testMatch: ['<rootDir>/tests/unit-tests/**/*.test.js'],
+  testMatch: ['<rootDir>/tests/unit/**/*.test.js'],
   collectCoverageFrom: [
     '<rootDir>/source/**/*.js',
   ],
