@@ -11,9 +11,12 @@ const { normalizePath } = require('../helpers');
 module.exports = function (path) {
   /* Process the path, so different path format won't break nodejs readdirSync api */
   const filePath = normalizePath(path);
-  const files = fs.readdirSync(filePath);
-  return files.map((file) => ({
-    name: file,
-    path: filePath,
-  }));
+  try {
+    return fs.readdirSync(filePath).map((file) => ({
+      name: file,
+      path: filePath,
+    }));
+  } catch (e) {
+    return [];
+  }
 };

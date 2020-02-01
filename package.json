@@ -18,8 +18,13 @@
   "pkg": {
     "name": "get-lock-screen",
     "assets": "**/.userconfig",
-    "scripts": ["source/**/*.js", "bin/**/*.js"],
-    "targets": ["node8-win-x86"]
+    "scripts": [
+      "source/**/*.js",
+      "bin/**/*.js"
+    ],
+    "targets": [
+      "node8-win-x86"
+    ]
   },
   "dependencies": {
     "caporal": "1.3.0",

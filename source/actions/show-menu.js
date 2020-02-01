@@ -1,5 +1,4 @@
-const chalk = require('chalk');
-const enquirer = require('enquirer');
+const { Select } = require('enquirer');
 
 const {
   randomDesktop,
@@ -11,16 +10,30 @@ const { MENU_OPTIONS } = require('../constants');
 
 /* Action that pack the app into one single Windows executable file */
 module.exports = async function (args, options, logger) {
-  const menuOptions = [{
-    type: 'select',
-    name: 'menuOption',
-    message: chalk.red('Windows 10 lock screen image extractor.\n  Pick an option:'),
+  const menuPrompt = new Select({
+    name: 'menu',
+    message: 'Welcome to Windows 10 lock screen image extractor.\n You want to',
     choices: Object.values(MENU_OPTIONS),
-  }];
+    separator(state) {
+      return state.status === 'submitted' ? '...' : '';
+    },
+    prefix(state) {
+      switch (state.status) {
+        case 'pending':
+          return '';
+        case 'cancelled':
+          return '';
+        case 'submitted':
+          return '';
+        default:
+          return '';
+      }
+    },
+  });
 
-  const { menuOption } = await enquirer.prompt(menuOptions);
+  const choice = await menuPrompt.run();
 
-  switch (menuOption) {
+  switch (choice) {
     case MENU_OPTIONS.GET_LOCK_SCREEN:
       return getImages(args, options, logger);
 
