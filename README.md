@@ -6,7 +6,7 @@ A tiny cli app to extract gorgeous lock screen images on Windows 10.
 
 ## Installation
 ### As a node package
-<sub>**Required**: [Nodejs](https://nodejs.org/en/)</sub>
+**Required**: [Nodejs](https://nodejs.org/en/)
 
 Open terminal/cmd, run:
 ```javascript
