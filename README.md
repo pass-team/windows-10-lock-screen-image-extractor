@@ -1,5 +1,5 @@
 ## Startup LockScreen Extractor for Windows 10
-<p align="center">
+<p align="left">
   <a href="https://github.com/pass-team/windows-10-lock-screen-image-extractor/actions?query=event%3Apush++branch%3Adevelop++"><img alt="Circle Status" src="https://github.com/pass-team/windows-10-lock-screen-image-extractor/workflows/Pull%20Request%20Validation/badge.svg?branch=develop&event=push"></a>
   <a href="https://app.codacy.com/gh/pass-team/windows-10-lock-screen-image-extractor?utm_source=github.com&utm_medium=referral&utm_content=pass-team/windows-10-lock-screen-image-extractor&utm_campaign=Badge_Grade_Dashboard"><img alt="Circle Status" src="https://github.com/pass-team/windows-10-lock-screen-image-extractor/workflows/build/badge.svg?branch=develop&event=push"></a>
 </p>
@@ -38,13 +38,13 @@ Passing one or multiple arguments to change the command’s behavior
 | Argument | Required     | Default | Description | Example |
 | :------- | :----------: | :------ | :---------- | :-------|
 | --path, -p | No | C:\Users\...\Pictures\W10_Spotlight\ | Save images to a designated folder | get-lock-screen get-image -p=”D:/images” |
-| --orientation, -o | No | all | Filter landscape, portrait images only or get all of them<br>Possible values:<br>- landscape<br>- portrait<br>- all | get-lock-screen get-image -o=landscape |
-| --name-pattern, -np | No | origin | Save images name in different formats<br>Possible values:<br>- **hash**: file’s hash<br>- **date**: current date<br>- **origin**: original name | get-lock-screen get-image -no=origin |
+| --orientation,<br> -o | No | all | Filter landscape, portrait images only or get all of them<br>Possible values:<br>- landscape<br>- portrait<br>- all | get-lock-screen get-image -o=landscape |
+| --name-pattern,<br> -n | No | origin | Save images name in different formats<br>Possible values:<br>- **hash**: file’s hash<br>- **date**: current date<br>- **origin**: original name | get-lock-screen get-image -no=origin |
 
 ### 2. Randomize desktop wallpaper
 * Run command: `get-lock-screen randomize-desktop`
 * The app may remind you to get the images in advance on the first run.
-![image 1](./.github/assets/image_1.png)
+![image 1](.github/assets/image_1.png)
 
 ### 3. Show image saved folder
 Run command: `get-lock-screen show-settings`
@@ -61,9 +61,9 @@ If you have any problems running the apps, feel free to [open an issue](https://
 
 **1. Fork and clone repo**
 * Fork repo
-![image 1](./.github/assets/image_2.png)
+![image 1](.github/assets/image_2.png)
 * Clone to your machine
-![image 1](./.github/assets/image_3.png)
+![image 1](.github/assets/image_3.png)
 
 **2.  Install dependencies**
 * Run `yarn install`
