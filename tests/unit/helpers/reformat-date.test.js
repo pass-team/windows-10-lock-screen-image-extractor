@@ -1,4 +1,4 @@
-const { reformatDate } = require('../../../source/helpers');
+const reformatDate = require('../../../source/helpers/reformat-date');
 const mockDateNow = require('./../../mock-data/mock-date-now');
 
 describe('Helper - Function get-current-date', () => {
