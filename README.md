@@ -1,6 +1,8 @@
 ## Startup LockScreen Extractor for Windows 10
 ![build](https://github.com/pass-team/windows-10-lock-screen-image-extractor/workflows/build/badge.svg?branch=develop&event=push)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6f00289eb5e24a0b98de792b494c6b4f)](https://www.codacy.com/gh/pass-team/windows-10-lock-screen-image-extractor?utm_source=github.com&utm_medium=referral&utm_content=pass-team/windows-10-lock-screen-image-extractor&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/6f00289eb5e24a0b98de792b494c6b4f)](https://www.codacy.com/gh/pass-team/windows-10-lock-screen-image-extractor?utm_source=github.com&utm_medium=referral&utm_content=pass-team/windows-10-lock-screen-image-extractor&utm_campaign=Badge_Coverage)
+[![David](https://img.shields.io/david/dev/pass-team/windows-10-lock-screen-image-extractor)](https://github.com/pass-team/windows-10-lock-screen-image-extractor)
 ## Introduction
 A tiny cli app to extract gorgeous lock screen images on Windows 10.
 
