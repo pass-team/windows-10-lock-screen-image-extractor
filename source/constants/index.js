@@ -1,5 +1,6 @@
-const os = require('os');
+/* eslint max-len: "off" */
 
+const os = require('os');
 
 exports.HOME_DIR = os.homedir();
 
@@ -32,6 +33,5 @@ exports.MENU_OPTIONS = Object.freeze({
   GET_LOCK_SCREEN: '1. Get lock screen images',
   RANDOM_DESKTOP: '2. Randomize desktop background',
   CURRENT_SETTINGS: '3. Show current user settings',
-  PACK_EXE: '4. Pack exe file',
-  QUIT: '5. Quit',
+  QUIT: '4. Quit',
 });

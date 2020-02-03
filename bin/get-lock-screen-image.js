@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/* eslint global-require: "off" */
+/* eslint-disable global-require, no-console */
 const { isWindows10 } = require('../source/helpers');
 
 /* Only run the app on Windows 10 */

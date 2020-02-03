@@ -9,10 +9,22 @@
     "lint:scripts:fix": "npx eslint . --fix",
     "test:unit": "npx jest ./tests/unit-tests --config='config/jest/jest.config.js'",
     "test:unit:coverage": "npx jest ./tests/unit-tests --config='config/jest/jest.config.js' --coverage && codacy-coverage < ./coverage/lcov.info --debug",
-    "test:integration": "npx jest ./tests/integration-tests --config='config/jest/jest.config.js'"
+    "test:integration": "npx jest ./tests/integration-tests --config='config/jest/jest.config.js'",
+    "build:win": "npx pkg . --output=get-lock-screen.exe"
   },
   "bin": {
     "get-lock-screen": "./bin/get-lock-screen-image.js"
+  },
+  "pkg": {
+    "name": "get-lock-screen",
+    "assets": "**/.userconfig",
+    "scripts": [
+      "source/**/*.js",
+      "bin/**/*.js"
+    ],
+    "targets": [
+      "node8-win-x86"
+    ]
   },
   "dependencies": {
     "caporal": "1.3.0",
@@ -29,6 +41,6 @@
     "eslint": "6.7.2",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.20.0",
-    "jest": "24.9.0"
+    "jest": "25.1.0"
   }
 }

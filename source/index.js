@@ -13,7 +13,6 @@ const {
   showSettings,
   randomDesktop,
   showMenu,
-  packExe,
 } = require('./actions');
 
 /**
@@ -25,6 +24,7 @@ const {
 app
   .version('1.0.0')
   .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')
+  /** @Command: default when no command is provided */
   .action(showMenu)
   /** @Command: get-images */
   .command('get-images', 'Extract lock screen images from windows 10')
@@ -67,11 +67,6 @@ app
   /** @Command: random-desktop */
   .command('random-desktop', 'Randomly set a new desktop wallpaper')
   .help('Example: get-lock-screen random-desktop')
-  .action(randomDesktop)
-
-  /** @Command: pack-exe */
-  .command('pack-exe', 'Pack the cli app into a single exe file')
-  .help('Example: get-lock-screen pack-exe')
-  .action(packExe);
+  .action(randomDesktop);
 
 app.parse(process.argv);

@@ -12,7 +12,7 @@ module.exports = function () {
   try {
     currentSavePath = fs.readFileSync(PATH_TO_CONFIG).toString();
   } catch (e) {
-    return 'You haven\'t specified any';
+    return '';
   }
-  return currentSavePath || 'You haven\'t specified any';
+  return currentSavePath;
 };
