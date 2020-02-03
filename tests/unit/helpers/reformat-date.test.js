@@ -1,7 +1,7 @@
 const { reformatDate } = require('../../../source/helpers');
 const mockDateNow = require('./../../mock-data/mock-date-now');
 
-describe('Helper: get-current-date', () => {
+describe('Helper - Function get-current-date', () => {
   // Cache and reset process.env for each test case
   const processEnvOrigin = { ...process.env };
 
@@ -12,7 +12,7 @@ describe('Helper: get-current-date', () => {
     jest.resetModules();
   });
 
-  it('should return current date in format: "monthName day fullYear"', async () => {
+  it('Should return current date in format: "monthName day fullYear"', async () => {
     mockDateNow();
     expect(reformatDate(new Date(Date.now()))).toBe('January 16 2020');
   });
