@@ -1,6 +1,6 @@
 /* eslint quotes: ["error", "single"] */
 module.exports = {
-  rootDir: './../..',
+  rootDir: './../../..',
   cacheDirectory: '<rootDir>/.cache/jest',
-  testMatch: ['<rootDir>/tests/**/*.test.js'],
+  testMatch: ['<rootDir>/tests/integration/**/*.test.js'],
 };
