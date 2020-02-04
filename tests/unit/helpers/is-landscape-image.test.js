@@ -1,16 +1,16 @@
-const isLandscapeImage = require('../../../source/helpers/is-landscape-image');
+const isPortraitImage = require('../../../source/helpers/is-portrait-image');
 
-describe('Helper - Function is-landscape-image', () => {
-  it('Should return true if an image is landscape', () => {
-    expect(isLandscapeImage({
-      width: 1366,
-      height: 768
+describe('Helper - Function is-portrait-image', () => {
+  it('Should return true if an image is portrait', () => {
+    expect(isPortraitImage({
+      height: 1366,
+      width: 768
     })).toEqual(true);
   });
-  it('Should return false if an image is not landscape', () => {
-    expect(isLandscapeImage({
-      width: 768,
-      height: 1366
+  it('Should return false if an image is not portrait', () => {
+    expect(isPortraitImage({
+      height: 768,
+      width: 1366
     })).toEqual(false);
   });
 });
