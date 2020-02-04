@@ -1,7 +1,7 @@
 var nixt = require('nixt');
 
-describe('Should get images with', () => {
-  it('default settings', function(done) {
+describe('Feature get-images', () => {
+  it('Should get images with default settings', function(done) {
     nixt()
     .stdin('\n')
     .run('get-lock-screen get-images')
@@ -9,7 +9,7 @@ describe('Should get images with', () => {
     .end(done);
   });
 
-  it('additional arguments', function(done) {
+  it('Should get images with additional arguments', function(done) {
     const folderName = Math.floor(Math.random() * Math.floor(10000));
     nixt()
     .stdin('\n')
