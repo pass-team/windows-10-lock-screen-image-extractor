@@ -9,7 +9,7 @@
     "lint:scripts:fix": "npx eslint . --fix",
     "test": "npx jest --config='config/jest/jest.js'",
     "test:unit": "npx jest --config='config/jest/unit/jest.js'",
-    "test:unit:coverage": "npx jest ./tests/unit --config='config/jest/jest.js' --coverage && codacy-coverage < ./coverage/lcov.info --debug",
+    "test:unit:coverage": "npx jest --config='config/jest/unit/jest.js' --coverage && codacy-coverage < ./coverage/lcov.info --debug",
     "build:win": "npx pkg . --output=get-lock-screen.exe",
     "test:integration": "npx jest --config='config/jest/integration/jest.js'"
   },
