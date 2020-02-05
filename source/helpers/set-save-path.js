@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { PATH_TO_CONFIG } = require('../constants');
-const normalizePath = require('../helpers/normalize-path');
+const normalizePath = require('./normalize-path');
 
 /**
  *  @Helper
