@@ -3,10 +3,8 @@ const {
   IMAGE_NAME_FORMAT_DATE,
   IMAGE_NAME_FORMAT_HASH,
 } = require('../constants');
-const {
-  hashBulkFile,
-  reformatDate,
-} = require('../helpers');
+const hashBulkFile = require('./hash-bulk-file');
+const reformatDate = require('./reformat-date');
 
 /**
  *  @Helper
