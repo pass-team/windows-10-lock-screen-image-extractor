@@ -3,7 +3,7 @@ const mockFiles = require('../../mock-data/mock-files');
 const mockPathToImages = `${process.cwd()}/tests/mock-assets/`;
 
 describe('Helper - Function filter-images', () => {
-  it('Should be able to filter all images from image meta objects', () => {
+  it('Should be able to filter both landscape and portrait imags', () => {
     const constraint = { orientation: 'all' };
     const images = [{
        height: 1920,
@@ -51,7 +51,7 @@ describe('Helper - Function filter-images', () => {
     expect(filterImages(mockFiles, constraint)).toEqual(images);
   });
 
-  it('Should be able to filter landscape images from image meta objects', () => {
+  it('Should be able to filter landscape images only', () => {
     const constraint = { orientation: 'landscape' };
     const images = [
       {
@@ -79,7 +79,7 @@ describe('Helper - Function filter-images', () => {
     expect(filterImages(mockFiles, constraint)).toEqual(images);
   });
 
-  it('Should be able to filter portrait images from image meta objects', () => {
+  it('Should be able to filter portrait images only', () => {
     const constraint = { orientation: 'portrait' };
     const images = [
       {
