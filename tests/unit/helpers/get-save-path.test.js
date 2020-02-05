@@ -4,7 +4,7 @@ const setSavePath = require('../../../source/helpers/set-save-path');
 const normalizePath = require('../../../source/helpers/normalize-path');
 const {
   PATH_TO_CONFIG
-} = require('../../../source/constants/index');
+} = require('../../../source/constants');
 
 describe('Helper - Function get-save-path', () => {
   it('Should return path to image saving folder', () => {
