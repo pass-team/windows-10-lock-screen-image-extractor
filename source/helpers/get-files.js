@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { normalizePath } = require('../helpers');
+const normalizePath = require('./normalize-path');
 
 /**
  *  @Helper
