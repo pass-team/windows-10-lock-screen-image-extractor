@@ -1,8 +1,5 @@
 const getFiles = require('../../../source/helpers/get-files');
 const normalizePath = require('../../../source/helpers/normalize-path');
-const {
-  HOME_DIR
-} = require('../../../source/constants/index');
 
 describe('Helper - Function is-image', () => {
   it('Should return an array of file meta objects', () => {
