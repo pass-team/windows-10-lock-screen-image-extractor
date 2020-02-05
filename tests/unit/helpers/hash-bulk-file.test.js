@@ -1,8 +1,8 @@
 const hashBulkFile = require('../../../source/helpers/hash-bulk-file');
 const getFiles = require('../../../source/helpers/get-files');
 
-describe('Helper - Function hash-file', () => {
-  it('Should return the file hash as string', () => {
+describe('Helper - Function hash-bulk-file', () => {
+  it('Should return an array of file hashes', () => {
     // Get files from mock assets
     const files = getFiles(`${process.cwd()}/tests/mock-assets`);
     const expectedHashes =  [
