@@ -1,7 +1,7 @@
 const getFiles = require('../../../source/helpers/get-files');
 const normalizePath = require('../../../source/helpers/normalize-path');
 
-describe('Helper - Function is-image', () => {
+describe('Helper - Function get-files', () => {
   it('Should return an array of file meta objects', () => {
     // Try using getFiles to extract file meta from mock-assets folders
     const path = `${process.cwd()}/tests/mock-assets`;
