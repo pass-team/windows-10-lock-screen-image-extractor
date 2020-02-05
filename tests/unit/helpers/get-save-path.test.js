@@ -6,7 +6,7 @@ const {
   PATH_TO_CONFIG
 } = require('../../../source/constants/index');
 
-describe('Helper - function get-save-path', () => {
+describe('Helper - Function get-save-path', () => {
   it('Should return path to image saving folder', () => {
     const path = 'D:/saved-folder';
     setSavePath(path);
