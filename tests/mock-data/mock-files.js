@@ -1,28 +1,28 @@
-const rootDir = process.cwd();
+const mockPathToImages = `${process.cwd()}/tests/mock-assets/`;
 
 module.exports = [
   {
-    name: 'a.jpg',
-    path: `${rootDir}/tests/mock-assets/`
+    name: 'a',
+    path: mockPathToImages
   },
   {
-    name: 'b.jpg',
-    path: `${rootDir}/tests/mock-assets/`
+    name: 'b',
+    path: mockPathToImages
   },
   {
-    name: 'c.jpg',
-    path: `${rootDir}/tests/mock-assets/`
+    name: 'c',
+    path: mockPathToImages
   },
   {
-    name: 'd.jpg',
-    path: `${rootDir}/tests/mock-assets/`
+    name: 'd',
+    path: mockPathToImages
   },
   {
-    name: 'e.jpg',
-    path: `${rootDir}/tests/mock-assets/`
+    name: 'e',
+    path: mockPathToImages
   },
   {
-    name: 'f.jpg',
-    path: `${rootDir}/tests/mock-assets/`
+    name: 'f',
+    path: mockPathToImages
   },
 ] 
