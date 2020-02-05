@@ -3,12 +3,10 @@ const {
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
 } = require('../constants');
-const {
-  isImage,
-  isValidSizeImage,
-  isPortraitImage,
-  isLandscapeImage,
-} = require('../helpers');
+const isImage = require('../helpers/is-image');
+const isLandscapeImage = require('../helpers/is-landscape-image');
+const isPortraitImage = require('../helpers/is-portrait-image');
+const isValidSizeImage = require('../helpers/is-valid-size-image');
 
 /**
  *  @Helper
