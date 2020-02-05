@@ -5,7 +5,7 @@ describe('Helper - Function create-images-folder', () => {
     expect(createImagesFolder('D://lock-screen-images')).toEqual(true);
   });
 
-  it('Should return false if do not create successfully', () => {
+  it('Should return false if fail to create', () => {
     expect(createImagesFolder('D:/')).toEqual(false);
   });
 });
