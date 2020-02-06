@@ -1,4 +1,6 @@
-import Enquirer from 'enquirer';
+import Select from 'enquirer/lib/prompts/select.js';
+import Input from 'enquirer/lib/prompts/input.js';
+
 import {
   ORIENTATION_PORTRAIT,
   ORIENTATION_LANDSCAPE,
@@ -100,4 +102,4 @@ export default async function () {
   }).run();
 
   return answers;
-};
+}

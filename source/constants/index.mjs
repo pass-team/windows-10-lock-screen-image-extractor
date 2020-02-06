@@ -51,5 +51,3 @@ export {
   IMAGE_NAME_FORMAT_DATE,
   MENU_OPTIONS,
 };
-
-export default 2;

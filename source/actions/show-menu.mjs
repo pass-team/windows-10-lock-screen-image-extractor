@@ -1,5 +1,4 @@
-import Enquirer from 'enquirer';
-// const { Select } = require('enquirer');
+import Select from 'enquirer/lib/prompts/select.js';
 
 import {
   randomDesktop,

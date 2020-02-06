@@ -1,5 +1,5 @@
 import fs from 'fs';
-import PATH_TO_CONFIG from '../constants/index.mjs';
+import {PATH_TO_CONFIG} from '../constants/index.mjs';
 
 /**
  *  @Helper
