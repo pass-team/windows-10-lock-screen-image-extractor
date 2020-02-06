@@ -1,10 +1,10 @@
-import nixt from 'nixt';
+import nixt from 'nixt/lib/nixt/runner';
 
 describe('Feature get-images', () => {
   it('Should get images with default settings', function(done) {
     nixt()
     .stdin('\n')
-    .run('get-lock-screen get-images')
+    .run('get-lock-screen.exe get-images')
     .stdout(/.*Save folder.*/)
     .end(done);
   });
