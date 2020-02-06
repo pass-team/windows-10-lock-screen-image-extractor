@@ -1,8 +1,8 @@
-const fs = require('fs');
-const copyFile = require('../../../source/helpers/copy-file');
-const createImagesFolder = require('../../../source/helpers/create-images-folder');
-const normalizePath = require('../../../source/helpers/normalize-path');
-const deleteFolderRecursive = require('../../mock-data/delete-folder-recursive');
+import fs from 'fs';
+import copyFile from '../../../source/helpers/copy-file';
+import createImagesFolder from '../../../source/helpers/create-images-folder';
+import normalizePath from '../../../source/helpers/normalize-path';
+import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
 
 describe('Helper - Function copy-file', () => {
   const mockSource = `${process.cwd()}/tests/mock-assets/`;
@@ -29,7 +29,7 @@ describe('Helper - Function copy-file', () => {
   it('Should copy file with name pattern is origin', () => {
     copyFile(images, mockSource, mockDestination, mockNamePattern);
     const copyImages = fs.readdirSync(normalizePath(mockDestination));
-    
+
     expect(copyImages).toEqual([`${images.name}.${images.type}`]);
   });
 
@@ -37,7 +37,7 @@ describe('Helper - Function copy-file', () => {
     mockNamePattern = 'date';
     copyFile(images, mockSource, mockDestination, mockNamePattern, 1);
     const copyImages = fs.readdirSync(normalizePath(mockDestination));
-    
+
     expect(copyImages).toEqual([`${images.date}_1.${images.type}`]);
   });
 
@@ -45,7 +45,7 @@ describe('Helper - Function copy-file', () => {
     mockNamePattern = 'hash';
     copyFile(images, mockSource, mockDestination, mockNamePattern, 1);
     const copyImages = fs.readdirSync(normalizePath(mockDestination));
-    
+
     expect(copyImages).toEqual([`${images.hash}.${images.type}`]);
   });
 });

@@ -1,4 +1,4 @@
-const hashFile = require('../../../source/helpers/hash-file');
+import hashFile from '../../../source/helpers/hash-file';
 
 describe('Helper - Function hash-file', () => {
   it('Should return the file hash as string', () => {

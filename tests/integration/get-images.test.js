@@ -1,4 +1,4 @@
-var nixt = require('nixt');
+import nixt from 'nixt';
 
 describe('Feature get-images', () => {
   it('Should get images with default settings', function(done) {

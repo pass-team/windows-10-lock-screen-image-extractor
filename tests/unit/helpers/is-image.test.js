@@ -1,8 +1,8 @@
-const isImage = require('../../../source/helpers/is-image');
-const {
+import isImage from '../../../source/helpers/is-image';
+import {
   IMAGE_TYPE_JPG,
   IMAGE_TYPE_PNG,
-} = require('../../../source/constants/index');
+} from '../../../source/constants/index';
 
 describe('Helper - Function is-image', () => {
   it('Should return true if the file is an image', () => {

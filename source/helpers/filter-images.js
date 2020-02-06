@@ -34,7 +34,7 @@ export default function (files, constraint) {
     });
 
   /**
-   *  - Filter images out of windows files
+   *  - Filter images out of windo  ws files
    *  - Then filter images with hd resolution
    */
   const imageValidSize = images.filter(isImage).filter(isValidSizeImage);

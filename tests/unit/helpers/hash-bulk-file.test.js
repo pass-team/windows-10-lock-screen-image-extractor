@@ -1,5 +1,5 @@
-const hashBulkFile = require('../../../source/helpers/hash-bulk-file');
-const getFiles = require('../../../source/helpers/get-files');
+import hashBulkFile from '../../../source/helpers/hash-bulk-file';
+import getFiles from '../../../source/helpers/get-files';
 
 describe('Helper - Function hash-bulk-file', () => {
   it('Should return an array of file hashes', () => {

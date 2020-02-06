@@ -1,4 +1,4 @@
-const isPortraitImage = require('../../../source/helpers/is-portrait-image');
+import isPortraitImage from '../../../source/helpers/is-portrait-image';
 
 describe('Helper - Function is-portrait-image', () => {
   it('Should return true if an image is portrait', () => {

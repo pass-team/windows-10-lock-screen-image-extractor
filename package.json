@@ -10,27 +10,23 @@
     "test": "npx jest --config='config/jest/jest.js'",
     "test:unit": "npx jest --config='config/jest/unit/jest.js'",
     "test:unit:coverage": "npx jest --config='config/jest/unit/jest.js' --coverage && codacy-coverage < ./coverage/lcov.info --debug",
-    "build": "npx babel ./source --out-dir=/build",
-    "build:win": "npx pkg . --output=get-lock-screen.exe",
+    "dev": "npx babel ./ --only ./source,./bin --minified --extensions .js  --out-dir lib --no-copy-ignored --watch",
+    "build:lib": "npx babel ./ --only ./source,./bin --minified --extensions .js  --out-dir lib --no-copy-ignored",
+    "build:win": "yarn run build:lib && npx pkg ./package.json --output=get-lock-screen.exe",
     "test:integration": "npx jest --config='config/jest/integration/jest.js'"
   },
   "bin": {
-    "get-lock-screen": "bin/get-lock-screen-image.js"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    }
+    "get-lock-screen": "lib/bin/get-lock-screen-image.js"
   },
   "pkg": {
     "name": "get-lock-screen",
     "assets": "**/.userconfig",
     "scripts": [
-      "source/**/*.js",
-      "bin/**/*.js"
+      "lib/source/**/*.js",
+      "lib/bin/**/*.js"
     ],
     "targets": [
-      "node8-win-x86"
+      "node8-win-x64"
     ]
   },
   "type": "module",
