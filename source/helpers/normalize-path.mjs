@@ -5,7 +5,7 @@
  *  @Output:
  *    - return: path that has been reformatted
  */
-module.exports = function (path) {
+export default function (path) {
   let output = path;
   if (!path.endsWith('\\') && !path.endsWith('/')) {
     output += '\\';

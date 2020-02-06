@@ -1,4 +1,4 @@
-const hashFile = require('./hash-file');
+import hashFile from './hash-file.mjs';
 
 /**
  *  @Helper
@@ -7,6 +7,6 @@ const hashFile = require('./hash-file');
  *  @Output:
  *    - return an array of file hashes
  */
-module.exports = function (files) {
+export default function (files) {
   return files.map(({ path, name }) => hashFile(path + name));
 };

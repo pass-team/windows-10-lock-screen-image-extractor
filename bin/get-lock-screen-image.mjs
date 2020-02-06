@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 /* eslint-disable global-require, no-console */
-const { isWindows10 } = require('../source/helpers');
+import isWindows10 from '../source/helpers/is-windows-10.mjs';
 
 /* Only run the app on Windows 10 */
 if (!isWindows10) {
   console.log('Sorry! This app only runs on Windows 10 platform');
 } else {
-  require('../source');
+  import('../source/index.mjs')
 }

@@ -1,5 +1,5 @@
-const fs = require('fs');
-const { normalizePath } = require('../helpers');
+import fs from 'fs';
+import normalizePath from './normalize-path.mjs';
 
 /**
  *  @Helper
@@ -8,7 +8,7 @@ const { normalizePath } = require('../helpers');
  *  @Output:
  *    - An array of file meta objects
  */
-module.exports = function (path) {
+export default function (path) {
   /* Process the path, so different path format won't break nodejs readdirSync api */
   const filePath = normalizePath(path);
   try {

@@ -1,5 +1,5 @@
-const fs = require('fs');
-const { PATH_TO_CONFIG } = require('../constants');
+import fs from 'fs';
+import PATH_TO_CONFIG from '../constants/index.mjs';
 
 /**
  *  @Helper
@@ -7,7 +7,7 @@ const { PATH_TO_CONFIG } = require('../constants');
  *  @Output:
  *    - path to image saving folder that user specified in the last run
  */
-module.exports = function () {
+export default function () {
   let currentSavePath = null;
   try {
     currentSavePath = fs.readFileSync(PATH_TO_CONFIG).toString();

@@ -4,7 +4,7 @@
  *    - { width, height }: a file meta object
  *  @Output:
  *    - return:
- *      - true: if image is landscape
+ *      - true: if image is portrait
  *      - false: otherwise
  */
-module.exports = ({ width, height }) => (width > height);
+export default ({ width, height }) => (height > width);

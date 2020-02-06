@@ -1,7 +1,7 @@
-const {
+import {
   IMAGE_MIN_HEIGHT,
   IMAGE_MIN_WIDTH,
-} = require('../constants');
+} from '../constants/index.mjs';
 
 /**
  *  @Helper
@@ -12,7 +12,7 @@ const {
  *      - true: if image has a valid resolution
  *      - false: otherwise
  */
-module.exports = ({ height, width }) => (
+export default ({ height, width }) => (
   (height >= IMAGE_MIN_HEIGHT && width >= IMAGE_MIN_WIDTH)
   || (height >= IMAGE_MIN_WIDTH && width >= IMAGE_MIN_HEIGHT)
 );

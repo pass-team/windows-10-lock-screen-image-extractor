@@ -1,7 +1,7 @@
-const {
+import {
   IMAGE_TYPE_JPG,
   IMAGE_TYPE_PNG,
-} = require('../constants');
+} from '../constants/index.mjs';
 
 /**
  *  @Helper
@@ -12,4 +12,4 @@ const {
  *      - true: if file is an image
  *      - false: otherwise
  */
-module.exports = ({ type }) => (type === IMAGE_TYPE_JPG || type === IMAGE_TYPE_PNG);
+export default ({ type }) => (type === IMAGE_TYPE_JPG || type === IMAGE_TYPE_PNG);

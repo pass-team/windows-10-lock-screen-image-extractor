@@ -1,6 +1,6 @@
-const fs = require('fs');
-const { PATH_TO_CONFIG } = require('../constants');
-const { normalizePath } = require('../helpers');
+import fs from 'fs';
+import { PATH_TO_CONFIG } from '../constants/index.mjs';
+import normalizePath from './normalize-path.mjs';
 
 /**
  *  @Helper
@@ -9,6 +9,6 @@ const { normalizePath } = require('../helpers');
  *  @Output:
  *    - path to image saving folder is written to .userconfig
  */
-module.exports = function (path) {
+export default function (path) {
   fs.writeFileSync(PATH_TO_CONFIG, normalizePath(path));
 };

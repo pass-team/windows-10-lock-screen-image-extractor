@@ -1,5 +1,5 @@
-const os = require('os');
-const { WINDOWS10_ALIAS } = require('../constants');
+import os from 'os';
+import { WINDOWS10_ALIAS } from '../constants/index.mjs';
 
 /**
  *  @Helper
@@ -9,6 +9,6 @@ const { WINDOWS10_ALIAS } = require('../constants');
  *      - true: if platform is windows 10
  *      - false: otherwise
  */
-module.exports = function () {
+export default function () {
   return os.platform() === WINDOWS10_ALIAS;
 };

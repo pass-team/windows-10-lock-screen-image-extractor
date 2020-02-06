@@ -1,15 +1,16 @@
-const { Select } = require('enquirer');
+import Enquirer from 'enquirer';
+// const { Select } = require('enquirer');
 
-const {
+import {
   randomDesktop,
   getImages,
   showSettings,
-} = require('../actions');
+} from './index.mjs';
 
-const { MENU_OPTIONS } = require('../constants');
+import { MENU_OPTIONS } from '../constants/index.mjs';
 
 /* Action that pack the app into one single Windows executable file */
-module.exports = async function (args, options, logger) {
+export default async function (args, options, logger) {
   const menuPrompt = new Select({
     name: 'menu',
     message: 'Welcome to Windows 10 lock screen image extractor.\n You want to',

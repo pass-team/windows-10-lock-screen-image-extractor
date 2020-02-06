@@ -1,4 +1,4 @@
-const ora = require('ora');
+import ora from 'ora';
 
 const executor = function (task, fakeTime) {
   return new Promise((resolve) => setTimeout(() => resolve(task), fakeTime));
@@ -13,7 +13,7 @@ const executor = function (task, fakeTime) {
  *  @Output:
  *    - return: task's output
  */
-module.exports = async function (task, message, fakeTime) {
+export default async function (task, message, fakeTime) {
   const spinner = ora({
     text: message,
     spinner: 'dots',

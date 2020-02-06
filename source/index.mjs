@@ -1,5 +1,5 @@
-const app = require('caporal');
-const {
+import app from 'caporal';
+import {
   DEFAULT_SAVE_PATH,
   IMAGE_NAME_FORMAT_ORIGIN,
   IMAGE_NAME_FORMAT_HASH,
@@ -7,13 +7,13 @@ const {
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
   ORIENTATION_ALL,
-} = require('./constants');
-const {
+} from './constants/index.mjs';
+import {
   getImages,
   showSettings,
   randomDesktop,
   showMenu,
-} = require('./actions');
+} from './actions/index.mjs';
 
 /**
  *  Define app commands and respectively actions

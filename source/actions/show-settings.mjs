@@ -1,10 +1,10 @@
-const chalk = require('chalk');
-const {
+import chalk from 'chalk';
+import {
   getSavePath,
-} = require('../helpers');
+} from '../helpers/index.mjs';
 
 /* Action that retrieve user's configurations and display */
-module.exports = function (args, options, logger) {
+export default function (args, options, logger) {
   const currentSavePath = getSavePath();
   if (currentSavePath) {
     logger.info('\nImage saved folder(Ctrl + click to open):');

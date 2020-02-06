@@ -1,6 +1,6 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 
-const {
+import {
   getFiles,
   filterImages,
   filterUniqueImages,
@@ -11,16 +11,17 @@ const {
   promptConditionMatch,
   argumentsPrompt,
   taskExecutor,
-} = require('../helpers');
-const {
+} from '../helpers/index.mjs';
+
+import {
   DEFAULT_SAVE_PATH,
   PATH_TO_IMAGE,
   ORIENTATION_ALL,
   IMAGE_NAME_FORMAT_ORIGIN,
-} = require('../constants');
+} from '../constants/index.mjs';
 
 /* Action that handle extracting lock screen from windows */
-module.exports = async function (args, options, logger) {
+export default async function (args, options, logger) {
   let pathToSave = trimQuotes(options.path ? options.path : DEFAULT_SAVE_PATH).replace(/\s/g, '_');
   let orientation = trimQuotes(options.orientation ? options.orientation : ORIENTATION_ALL);
   let namePattern = trimQuotes(options.namePattern ? options.namePattern : IMAGE_NAME_FORMAT_ORIGIN);

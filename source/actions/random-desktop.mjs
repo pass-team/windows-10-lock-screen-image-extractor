@@ -1,13 +1,13 @@
-const wallpaper = require('wallpaper');
-const chalk = require('chalk');
-const {
+import wallpaper from 'wallpaper';
+import chalk from 'chalk';
+import {
   getSavePath,
   getFiles,
   taskExecutor,
-} = require('../helpers');
+} from '../helpers/index.mjs';
 
 /* Action that randomly set extracted images as desktop background */
-module.exports = async function (args, options, logger) {
+export default async function (args, options, logger) {
   /* Steps to handle the action */
   logger.info(chalk.cyan('\nStart processing'));
   /* 1. Retrieve image saving path, stop if no save path found */

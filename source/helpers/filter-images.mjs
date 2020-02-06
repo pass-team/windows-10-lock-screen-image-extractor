@@ -1,14 +1,15 @@
-const sizeOf = require('image-size');
-const {
+import sizeOf from 'image-size';
+import {
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
-} = require('../constants');
-const {
+} from '../constants/index.mjs';
+
+import {
   isImage,
   isValidSizeImage,
   isPortraitImage,
   isLandscapeImage,
-} = require('../helpers');
+} from './index.mjs';
 
 /**
  *  @Helper
@@ -21,7 +22,7 @@ const {
  *  @Output:
  *    - return array of image meta objects that match criteria
  */
-module.exports = function (files, constraint) {
+export default function (files, constraint) {
   const { orientation } = constraint;
 
   /* Measure file stats to pass to filters */

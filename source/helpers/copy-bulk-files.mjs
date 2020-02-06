@@ -1,6 +1,6 @@
 /* eslint-disable global-require, no-console */
 
-const copyFile = require('./copy-file');
+import copyFile from './copy-file.mjs';
 
 /**
  *  @Helper
@@ -16,7 +16,7 @@ const copyFile = require('./copy-file');
  *    - files are copy to dest folder
  *    - return the number of files copied
  */
-module.exports = function (files, src, dest, pattern) {
+export default function (files, src, dest, pattern) {
   return files.reduce((count, file, index) => {
     try {
       /**
@@ -26,8 +26,7 @@ module.exports = function (files, src, dest, pattern) {
       copyFile(file, src, dest, pattern, index);
       return count + 1;
     } catch (e) {
-      if (e.code !== 'EEXIST') console.log(e);
-      else return count;
+      if (e.code !== 'EEXIST') return count;
     }
     return count;
   }, 0);

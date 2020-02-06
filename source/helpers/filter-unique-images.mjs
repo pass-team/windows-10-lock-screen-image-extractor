@@ -1,12 +1,15 @@
-const {
+// eslint-disable-next-line import/no-cycle
+
+import {
   IMAGE_NAME_FORMAT_ORIGIN,
   IMAGE_NAME_FORMAT_DATE,
   IMAGE_NAME_FORMAT_HASH,
-} = require('../constants');
-const {
+} from '../constants/index.mjs';
+
+import {
   hashBulkFile,
   reformatDate,
-} = require('../helpers');
+} from './index.mjs';
 
 /**
  *  @Helper
@@ -16,7 +19,7 @@ const {
  *  @Output:
  *    - uniqueImages: An array of unique image meta objects
  */
-module.exports = function (newImages, oldImages) {
+export default function (newImages, oldImages) {
   /* Hash all new and old images  */
   const newImageHashes = hashBulkFile(newImages);
   const oldImageHashes = hashBulkFile(oldImages);
