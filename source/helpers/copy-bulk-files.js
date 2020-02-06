@@ -30,4 +30,4 @@ export default function (files, src, dest, pattern) {
     }
     return count;
   }, 0);
-};
+}

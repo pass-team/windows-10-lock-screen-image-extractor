@@ -81,4 +81,4 @@ export default async function (args, options, logger) {
   } else {
     logger.info(chalk.yellow('\nI found no NEW images :) Better luck next time!'));
   }
-};
+}

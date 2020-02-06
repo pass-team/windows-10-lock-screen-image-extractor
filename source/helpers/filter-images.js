@@ -49,4 +49,4 @@ export default function (files, constraint) {
       break;
   }
   return imageValidSize;
-};
+}

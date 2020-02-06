@@ -11,4 +11,4 @@ export default function (path) {
     output += '\\';
   }
   return output;
-};
+}

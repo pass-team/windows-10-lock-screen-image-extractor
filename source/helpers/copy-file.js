@@ -28,4 +28,4 @@ export default function (file, src, dest, namePattern, index) {
     + (namePattern === IMAGE_NAME_FORMAT_DATE ? (`_${index}`) : '')
   }.jpg`;
   fs.copyFileSync(srcUri, destUri, fs.constants.COPYFILE_EXCL);
-};
+}

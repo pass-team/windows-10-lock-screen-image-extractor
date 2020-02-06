@@ -13,4 +13,4 @@ export default function (args, options, logger) {
     logger.warn(chalk.yellow('\nNo user settings has been recorded yet, try getting the images first'
       + '\nRun "get-lock-screen -h" for usage'));
   }
-};
+}

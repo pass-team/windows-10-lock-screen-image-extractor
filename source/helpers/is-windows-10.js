@@ -11,4 +11,4 @@ import { WINDOWS10_ALIAS } from '../constants';
  */
 export default function () {
   return os.platform() === WINDOWS10_ALIAS;
-};
+}

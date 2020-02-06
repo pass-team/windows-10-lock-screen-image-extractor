@@ -9,4 +9,4 @@ import hasha from 'hasha';
  */
 export default function (uri) {
   return hasha.fromFileSync(uri, { algorithm: 'md5' });
-};
+}

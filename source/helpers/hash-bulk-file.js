@@ -9,4 +9,4 @@ import hashFile from './hash-file';
  */
 export default function (files) {
   return files.map(({ path, name }) => hashFile(path + name));
-};
+}

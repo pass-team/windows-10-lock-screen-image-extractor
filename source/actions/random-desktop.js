@@ -33,4 +33,4 @@ export default async function (args, options, logger) {
     );
     logger.info(chalk.green('\nNew desktop background has been set!'));
   }
-};
+}

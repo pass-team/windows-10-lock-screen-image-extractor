@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/* eslint-disable global-require, no-console */
+/* eslint-disable global-require, no-console, no-unused-expressions */
 import isWindows10 from '../source/helpers/is-windows-10';
 
 /* Only run the app on Windows 10 */

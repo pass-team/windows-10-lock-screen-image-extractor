@@ -10,4 +10,4 @@ export default function (date) {
     'August', 'September', 'October', 'November', 'December',
   ];
   return `${months[date.getMonth()]} ${date.getDate()} ${date.getFullYear()}`;
-};
+}

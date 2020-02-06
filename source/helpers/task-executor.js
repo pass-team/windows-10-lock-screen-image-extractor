@@ -24,4 +24,4 @@ export default async function (task, message, fakeTime) {
   const output = await executor(task, fakeTime);
   spinner.succeed();
   return output;
-};
+}

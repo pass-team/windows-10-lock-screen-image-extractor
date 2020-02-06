@@ -11,4 +11,4 @@ import normalizePath from './normalize-path';
  */
 export default function (path) {
   fs.writeFileSync(PATH_TO_CONFIG, normalizePath(path));
-};
+}

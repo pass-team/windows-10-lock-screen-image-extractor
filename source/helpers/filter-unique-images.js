@@ -40,4 +40,4 @@ export default function (newImages, oldImages) {
     }
     return uniqueImages;
   }, []);
-};
+}

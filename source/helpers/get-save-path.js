@@ -1,5 +1,5 @@
 import fs from 'fs';
-import {PATH_TO_CONFIG} from '../constants';
+import { PATH_TO_CONFIG } from '../constants';
 
 /**
  *  @Helper
@@ -15,4 +15,4 @@ export default function () {
     return '';
   }
   return currentSavePath;
-};
+}

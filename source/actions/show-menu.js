@@ -49,4 +49,4 @@ export default async function (args, options, logger) {
     default:
       return getImages(args, options, logger);
   }
-};
+}
