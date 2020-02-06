@@ -29,7 +29,6 @@
       "node8-win-x64"
     ]
   },
-  "type": "module",
   "dependencies": {
     "caporal": "1.3.0",
     "chalk": "3.0.0",
