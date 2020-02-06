@@ -7,7 +7,6 @@ const {
 
 describe('Helper - Function set-save-path', () => {
   const path = 'D:/saved-folder';
-  setSavePath(path);
 
   afterEach(function () {
     try {
@@ -15,7 +14,9 @@ describe('Helper - Function set-save-path', () => {
     } catch (e) {}
   });
   it('Should write save path to .userconfig file', () => {
+    setSavePath(path);
     const currentSavePath = fs.readFileSync(PATH_TO_CONFIG).toString();
+
     expect(currentSavePath).toEqual(normalizePath(path));
   });
 });
