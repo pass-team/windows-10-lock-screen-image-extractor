@@ -1,4 +1,4 @@
-const promptConditionMatch = require('../../../source/helpers/prompt-condition-match');
+import promptConditionMatch from '../../../source/helpers/prompt-condition-match';
 
 describe('Helper - Function prompt-condition-match', () => {
   const oldProcessArgv = process.argv;
