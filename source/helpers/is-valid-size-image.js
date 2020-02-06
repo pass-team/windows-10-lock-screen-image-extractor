@@ -1,7 +1,7 @@
 import {
   IMAGE_MIN_HEIGHT,
   IMAGE_MIN_WIDTH,
-} from '../constants/index.mjs';
+} from '../constants';
 
 /**
  *  @Helper

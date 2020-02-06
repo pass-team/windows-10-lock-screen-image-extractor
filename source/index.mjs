@@ -7,13 +7,13 @@ import {
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
   ORIENTATION_ALL,
-} from './constants/index.mjs';
+} from './constants';
 import {
   getImages,
   showSettings,
   randomDesktop,
   showMenu,
-} from './actions/index.mjs';
+} from './actions';
 
 /**
  *  Define app commands and respectively actions

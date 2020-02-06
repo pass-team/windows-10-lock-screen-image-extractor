@@ -1,5 +1,5 @@
 import os from 'os';
-import { WINDOWS10_ALIAS } from '../constants/index.mjs';
+import { WINDOWS10_ALIAS } from '../constants';
 
 /**
  *  @Helper

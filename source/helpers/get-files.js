@@ -1,5 +1,5 @@
 import fs from 'fs';
-import normalizePath from './normalize-path.mjs';
+import normalizePath from './normalize-path';
 
 /**
  *  @Helper

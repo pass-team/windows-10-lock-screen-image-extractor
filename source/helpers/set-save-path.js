@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { PATH_TO_CONFIG } from '../constants/index.mjs';
-import normalizePath from './normalize-path.mjs';
+import { PATH_TO_CONFIG } from '../constants';
+import normalizePath from './normalize-path';
 
 /**
  *  @Helper

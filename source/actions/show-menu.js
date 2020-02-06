@@ -1,12 +1,12 @@
-import Select from 'enquirer/lib/prompts/select.js';
+import Select from 'enquirer/lib/prompts/select';
 
 import {
   randomDesktop,
   getImages,
   showSettings,
-} from './index.mjs';
+} from '.';
 
-import { MENU_OPTIONS } from '../constants/index.mjs';
+import { MENU_OPTIONS } from '../constants';
 
 /* Action that pack the app into one single Windows executable file */
 export default async function (args, options, logger) {

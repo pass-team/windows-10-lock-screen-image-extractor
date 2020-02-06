@@ -4,12 +4,12 @@ import {
   IMAGE_NAME_FORMAT_ORIGIN,
   IMAGE_NAME_FORMAT_DATE,
   IMAGE_NAME_FORMAT_HASH,
-} from '../constants/index.mjs';
+} from '../constants';
 
 import {
   hashBulkFile,
   reformatDate,
-} from './index.mjs';
+} from '.';
 
 /**
  *  @Helper

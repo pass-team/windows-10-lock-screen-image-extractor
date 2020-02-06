@@ -1,7 +1,7 @@
 import {
   IMAGE_TYPE_JPG,
   IMAGE_TYPE_PNG,
-} from '../constants/index.mjs';
+} from '../constants';
 
 /**
  *  @Helper

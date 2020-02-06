@@ -4,7 +4,7 @@ import {
   getSavePath,
   getFiles,
   taskExecutor,
-} from '../helpers/index.mjs';
+} from '../helpers';
 
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {

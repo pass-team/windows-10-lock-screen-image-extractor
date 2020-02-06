@@ -11,14 +11,14 @@ import {
   promptConditionMatch,
   argumentsPrompt,
   taskExecutor,
-} from '../helpers/index.mjs';
+} from '../helpers';
 
 import {
   DEFAULT_SAVE_PATH,
   PATH_TO_IMAGE,
   ORIENTATION_ALL,
   IMAGE_NAME_FORMAT_ORIGIN,
-} from '../constants/index.mjs';
+} from '../constants';
 
 /* Action that handle extracting lock screen from windows */
 export default async function (args, options, logger) {

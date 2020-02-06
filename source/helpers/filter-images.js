@@ -2,14 +2,14 @@ import sizeOf from 'image-size';
 import {
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
-} from '../constants/index.mjs';
+} from '../constants';
 
 import {
   isImage,
   isValidSizeImage,
   isPortraitImage,
   isLandscapeImage,
-} from './index.mjs';
+} from '.';
 
 /**
  *  @Helper
