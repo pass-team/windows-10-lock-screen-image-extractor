@@ -30,10 +30,7 @@ export default function (files, constraint) {
     .map((image) => {
       const uri = image.path + image.name;
       const stats = sizeOf(uri);
-      return {
-        ...image,
-        ...stats,
-      };
+      return { ...image, ...stats };
     });
 
   /**
