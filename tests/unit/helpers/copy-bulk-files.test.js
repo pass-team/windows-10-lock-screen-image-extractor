@@ -4,16 +4,15 @@ import copyBulkFiles from '../../../source/helpers/copy-bulk-files';
 import deleteFolderRecursive from './../../mock-data/delete-folder-recursive';
 
 describe('Helper - Function copy-bulk-files', () => {
-  const mockSource = `${process.cwd()}/tests/mock-assets/`
+  let mockSource = `${process.cwd()}/tests/mock-assets/`
   const mockDestination = `${process.cwd()}/tests/mock-destination/`;
   const mockNamePatter = 'origin';
+  let files;
 
-  it('Should return the number of copied files', () => {
-    creatImagesFolder(mockDestination);
-
+  beforeEach(() => {
     /** Mock file meta objects represent mock assets folder
      * to avoid having to run other helpers */
-    const files = new Array(6).fill().map((e, index) => {
+    files = new Array(6).fill().map((e, index) => {
       const originalFileName = String.fromCharCode(97 + index);
       return {
         name: originalFileName,
@@ -26,7 +25,14 @@ describe('Helper - Function copy-bulk-files', () => {
         date: 'February 5 2020'
       }
     });
+    creatImagesFolder(mockDestination);
+  });
 
+  afterEach(() => {
+    deleteFolderRecursive(mockDestination);
+  });
+
+  it('Should return the number of copied files', () => {
     // Copy first time
     const copyCount = copyBulkFiles(files, mockSource, mockDestination, mockNamePatter);
     expect(copyCount).toEqual(6);
@@ -36,8 +42,10 @@ describe('Helper - Function copy-bulk-files', () => {
     expect(copyCountSecond).toEqual(0);
   });
 
-  afterEach(() => {
-    deleteFolderRecursive(mockDestination);
-  })
+  it('Should ignores counting files that failed to copy', () => {
+    mockSource = '';
+    const copyCount = copyBulkFiles(files, mockSource, mockDestination, mockNamePatter);
+    expect(copyCount).toEqual(0);
+  });
 });
 
