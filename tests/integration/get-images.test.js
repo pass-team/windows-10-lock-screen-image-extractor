@@ -4,7 +4,7 @@ describe('Feature get-images', () => {
   it('Should get images with default settings', function(done) {
     nixt()
     .stdin('\n')
-    .run('get-lock-screen.exe get-images')
+    .run('get-lock-screen get-images')
     .stdout(/.*Save folder.*/)
     .end(done);
   });
