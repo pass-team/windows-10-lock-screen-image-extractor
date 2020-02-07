@@ -43,7 +43,6 @@ describe('Helper - Function copy-bulk-files', () => {
   });
 
   it('Should ignores counting files that failed to copy', () => {
-    jest.spyOn(console, 'log').mockReturnValue('');
     mockSource = '';
     const copyCount = copyBulkFiles(files, mockSource, mockDestination, mockNamePatter);
     expect(copyCount).toEqual(0);
