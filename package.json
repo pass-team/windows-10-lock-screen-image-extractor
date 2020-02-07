@@ -10,28 +10,18 @@
     "test": "npx jest --config='config/jest/jest.js'",
     "test:unit": "npx jest --config='config/jest/unit/jest.js'",
     "test:unit:coverage": "npx jest --config='config/jest/unit/jest.js' --coverage && codacy-coverage < ./coverage/lcov.info --debug",
-    "dev": "npx babel ./ --only ./source,./bin --minified --extensions .js  --out-dir lib --no-copy-ignored --watch",
-    "build:lib": "npx babel ./ --only ./source,./bin --minified --extensions .js  --out-dir lib --no-copy-ignored",
-    "build:win": "yarn run build:lib && npx pkg ./package.json --output=get-lock-screen.exe",
+    "dev": "npx babel ./ --only ./source,./bin --extensions .js  --out-dir build --no-copy-ignored",
+    "build:es5": "npx babel ./ --only ./source,./bin --minified --extensions .js  --out-dir build --no-copy-ignored",
+    "build:win": "yarn run build:es5 && npx pkg ./build/bin/get-lock-screen-image.js --targets node8-win-x64 --output=./build/get-lock-screen.exe",
     "test:integration": "npx jest --config='config/jest/integration/jest.js'"
   },
   "bin": {
-    "get-lock-screen": "lib/bin/get-lock-screen-image.js"
-  },
-  "pkg": {
-    "name": "get-lock-screen",
-    "assets": "**/.userconfig",
-    "scripts": [
-      "lib/source/**/*.js",
-      "lib/bin/**/*.js"
-    ],
-    "targets": [
-      "node8-win-x64"
-    ]
+    "get-lock-screen": "bin/get-lock-screen-image.js"
   },
   "dependencies": {
     "caporal": "1.3.0",
     "chalk": "3.0.0",
+    "chokidar-cli": "2.1.0",
     "enquirer": "2.3.4",
     "hasha": "5.1.0",
     "image-size": "0.8.3",
@@ -40,13 +30,13 @@
     "wallpaper": "4.4.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
-    "babel-eslint": "^10.0.3",
-    "babel-jest": "^25.1.0",
+    "@babel/cli": "7.8.4",
+    "@babel/core": "7.8.4",
+    "@babel/preset-env": "7.8.4",
+    "babel-eslint": "10.0.3",
+    "babel-jest": "25.1.0",
     "codacy-coverage": "3.4.0",
-    "eslint": "^6.8.0",
+    "eslint": "6.8.0",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.20.1",
     "jest": "25.1.0",
