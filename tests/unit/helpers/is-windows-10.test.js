@@ -1,5 +1,5 @@
-const isWindows10 = require('../../../source/helpers/is-windows-10');
-const os = require('os');
+import isWindows10 from '../../../source/helpers/is-windows-10';
+import os from 'os';
 
 describe('Helper - Function is-windows-10', () => {
   it('Should return true if platform is win32', () => {

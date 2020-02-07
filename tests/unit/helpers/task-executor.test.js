@@ -1,4 +1,4 @@
-const taskExecutor = require('../../../source/helpers/task-executor');
+import taskExecutor from '../../../source/helpers/task-executor';
 
 describe('Helper - Function task-executor', () => {
   it('Should return task output', async () => {

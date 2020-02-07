@@ -1,4 +1,4 @@
-const isValidSizeImage = require('../../../source/helpers/is-valid-size-image');
+import isValidSizeImage from '../../../source/helpers/is-valid-size-image';
 
 describe('Helper - Function is-valid-size-image', () => {
   it('Should return true if image has a valid resolution', () => {

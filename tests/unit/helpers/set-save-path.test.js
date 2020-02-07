@@ -1,9 +1,9 @@
-const fs = require('fs');
-const setSavePath = require('../../../source/helpers/set-save-path');
-const normalizePath = require('../../../source/helpers/normalize-path');
-const {
+import fs from 'fs';
+import setSavePath from '../../../source/helpers/set-save-path';
+import normalizePath from '../../../source/helpers/normalize-path';
+import {
   PATH_TO_CONFIG
-} = require('../../../source/constants');
+} from '../../../source/constants';
 
 describe('Helper - Function set-save-path', () => {
   const path = 'D:/saved-folder';

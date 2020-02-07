@@ -1,5 +1,5 @@
-const getFiles = require('../../../source/helpers/get-files');
-const normalizePath = require('../../../source/helpers/normalize-path');
+import getFiles from '../../../source/helpers/get-files';
+import normalizePath from '../../../source/helpers/normalize-path';
 
 describe('Helper - Function get-files', () => {
   it('Should return an array of file meta objects', () => {

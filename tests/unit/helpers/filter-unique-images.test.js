@@ -1,7 +1,7 @@
-const fs = require('fs');
-const createImagesFolder = require('../../../source/helpers/create-images-folder');
-const deleteFolderRecursive = require('./../../mock-data/delete-folder-recursive');
-const filterUniqueImages = require('../../../source/helpers/filter-unique-images');
+import fs from 'fs';
+import createImagesFolder from '../../../source/helpers/create-images-folder';
+import deleteFolderRecursive from './../../mock-data/delete-folder-recursive';
+import filterUniqueImages from '../../../source/helpers/filter-unique-images';
 
 describe('Helper - Function filter-unique-images', () => {
   const firstFolder = `${process.cwd()}/tests/old-images`;

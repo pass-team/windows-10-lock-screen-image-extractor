@@ -1,8 +1,9 @@
-const filterImages = require('../../../source/helpers/filter-images');
-const mockFiles = require('../../mock-data/mock-files');
-const mockPathToImages = `${process.cwd()}/tests/mock-assets/`;
+import filterImages from '../../../source/helpers/filter-images';
+import mockFiles from '../../mock-data/mock-files';
 
 describe('Helper - Function filter-images', () => {
+  const mockPathToImages = `${process.cwd()}/tests/mock-assets/`;
+
   it('Should be able to filter both landscape and portrait imags', () => {
     const constraint = { orientation: 'all' };
     const images = [{
