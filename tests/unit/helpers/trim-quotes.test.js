@@ -1,4 +1,4 @@
-const trimQuotes = require('../../../source/helpers/trim-quotes');
+import trimQuotes from '../../../source/helpers/trim-quotes';
 
 describe('Helper - Function trim-quotes', () => {
   const string = 'RegExr was created by "gskinner.com"';

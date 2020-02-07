@@ -7,4 +7,4 @@
  *      - true: if image is portrait
  *      - false: otherwise
  */
-module.exports = ({ width, height }) => (height > width);
+export default ({ width, height }) => (height > width);

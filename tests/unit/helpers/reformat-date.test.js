@@ -1,5 +1,5 @@
-const reformatDate = require('../../../source/helpers/reformat-date');
-const mockDateNow = require('./../../mock-data/mock-date-now');
+import reformatDate from '../../../source/helpers/reformat-date';
+import mockDateNow from './../../mock-data/mock-date-now';
 
 describe('Helper - Function get-current-date', () => {
   // Cache and reset process.env for each test case

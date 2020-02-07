@@ -1,12 +1,15 @@
-const sizeOf = require('image-size');
-const {
+import sizeOf from 'image-size';
+import {
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
-} = require('../constants');
-const isImage = require('../helpers/is-image');
-const isLandscapeImage = require('../helpers/is-landscape-image');
-const isPortraitImage = require('../helpers/is-portrait-image');
-const isValidSizeImage = require('../helpers/is-valid-size-image');
+} from '../constants';
+
+import {
+  isImage,
+  isValidSizeImage,
+  isPortraitImage,
+  isLandscapeImage,
+} from '.';
 
 /**
  *  @Helper
@@ -19,7 +22,7 @@ const isValidSizeImage = require('../helpers/is-valid-size-image');
  *  @Output:
  *    - return array of image meta objects that match criteria
  */
-module.exports = function (files, constraint) {
+export default function (files, constraint) {
   const { orientation } = constraint;
 
   /* Measure file stats to pass to filters */
@@ -27,14 +30,11 @@ module.exports = function (files, constraint) {
     .map((image) => {
       const uri = image.path + image.name;
       const stats = sizeOf(uri);
-      return {
-        ...image,
-        ...stats,
-      };
+      return { ...image, ...stats };
     });
 
   /**
-   *  - Filter images out of windows files
+   *  - Filter images out of windo  ws files
    *  - Then filter images with hd resolution
    */
   const imageValidSize = images.filter(isImage).filter(isValidSizeImage);
@@ -49,4 +49,4 @@ module.exports = function (files, constraint) {
       break;
   }
   return imageValidSize;
-};
+}

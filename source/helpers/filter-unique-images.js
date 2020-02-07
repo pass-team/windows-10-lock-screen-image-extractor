@@ -1,10 +1,15 @@
-const {
+// eslint-disable-next-line import/no-cycle
+
+import {
   IMAGE_NAME_FORMAT_ORIGIN,
   IMAGE_NAME_FORMAT_DATE,
   IMAGE_NAME_FORMAT_HASH,
-} = require('../constants');
-const hashBulkFile = require('./hash-bulk-file');
-const reformatDate = require('./reformat-date');
+} from '../constants';
+
+import {
+  hashBulkFile,
+  reformatDate,
+} from '.';
 
 /**
  *  @Helper
@@ -14,7 +19,7 @@ const reformatDate = require('./reformat-date');
  *  @Output:
  *    - uniqueImages: An array of unique image meta objects
  */
-module.exports = function (newImages, oldImages) {
+export default function (newImages, oldImages) {
   /* Hash all new and old images  */
   const newImageHashes = hashBulkFile(newImages);
   const oldImageHashes = hashBulkFile(oldImages);
@@ -35,4 +40,4 @@ module.exports = function (newImages, oldImages) {
     }
     return uniqueImages;
   }, []);
-};
+}

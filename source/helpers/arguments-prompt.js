@@ -1,6 +1,7 @@
-const { Select, Input } = require('enquirer');
+import Select from 'enquirer/lib/prompts/select';
+import Input from 'enquirer/lib/prompts/input';
 
-const {
+import {
   ORIENTATION_PORTRAIT,
   ORIENTATION_LANDSCAPE,
   ORIENTATION_ALL,
@@ -8,15 +9,14 @@ const {
   IMAGE_NAME_FORMAT_DATE,
   IMAGE_NAME_FORMAT_HASH,
   DEFAULT_SAVE_PATH,
-
-} = require('../constants');
+} from '../constants';
 
 /**
  *  @Helper
  *  @Input: No
  *  @Output: User answers that customize action: get-lock-screen-image
  */
-module.exports = async function () {
+export default async function () {
   const requestForPrompt = new Select({
     name: 'menu',
     message: 'We will ask you some questions to personalize, are you willing?:',
@@ -102,4 +102,4 @@ module.exports = async function () {
   }).run();
 
   return answers;
-};
+}

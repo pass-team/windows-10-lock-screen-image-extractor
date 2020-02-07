@@ -1,4 +1,4 @@
-const createImagesFolder = require('../../../source/helpers/create-images-folder');
+import createImagesFolder from '../../../source/helpers/create-images-folder';
 
 describe('Helper - Function create-images-folder', () => {
   it('Should return true if create successfully', () => {
