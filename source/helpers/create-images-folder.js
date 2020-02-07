@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 /**
  *  @Helper
@@ -8,11 +8,11 @@ const fs = require('fs');
  *    - true if create successfully or EEXIST exception occurs: means the folder already existed
  *    - false otherwise
  */
-module.exports = function (path) {
+export default function (path) {
   try {
     fs.mkdirSync(path, { recursive: true });
   } catch (e) {
     if (e.code !== 'EEXIST') return false;
   }
   return true;
-};
+}

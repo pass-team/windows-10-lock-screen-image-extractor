@@ -1,8 +1,8 @@
-const fs = require('fs');
-const normalizePath = require('./normalize-path');
-const {
+import fs from 'fs';
+import normalizePath from './normalize-path';
+import {
   IMAGE_NAME_FORMAT_DATE,
-} = require('../constants');
+} from '../constants';
 
 /**
  *  @Helper
@@ -19,7 +19,7 @@ const {
  *  @Output:
  *    - file are copy to dest folder
  */
-module.exports = function (file, src, dest, namePattern, index) {
+export default function (file, src, dest, namePattern, index) {
   /* Process the path, so different path format won't break nodejs copyFileSync api */
   const srcUri = normalizePath(src) + file.name;
   const destUri = `${
@@ -28,4 +28,4 @@ module.exports = function (file, src, dest, namePattern, index) {
     + (namePattern === IMAGE_NAME_FORMAT_DATE ? (`_${index}`) : '')
   }.jpg`;
   fs.copyFileSync(srcUri, destUri, fs.constants.COPYFILE_EXCL);
-};
+}

@@ -1,4 +1,11 @@
-exports.getImages = require('./get-images');
-exports.showSettings = require('./show-settings');
-exports.randomDesktop = require('./random-desktop');
-exports.showMenu = require('./show-menu');
+import getImages from './get-images';
+import showSettings from './show-settings';
+import randomDesktop from './random-desktop';
+import showMenu from './show-menu';
+
+export {
+  getImages,
+  showSettings,
+  randomDesktop,
+  showMenu,
+};

@@ -1,24 +1,48 @@
-exports.isPortraitImage = require('./is-portrait-image');
-exports.isLandscapeImage = require('./is-landscape-image');
-exports.isValidSizeImage = require('./is-valid-size-image');
-exports.isImage = require('./is-image');
-exports.isWindows10 = require('./is-windows-10');
+import isPortraitImage from './is-portrait-image';
+import isLandscapeImage from './is-landscape-image';
+import isValidSizeImage from './is-valid-size-image';
+import isImage from './is-image';
+import isWindows10 from './is-windows-10';
 
-exports.trimQuotes = require('./trim-quotes');
-exports.normalizePath = require('./normalize-path');
-exports.reformatDate = require('./reformat-date');
-exports.promptConditionMatch = require('./prompt-condition-match');
-exports.argumentsPrompt = require('./arguments-prompt');
+import trimQuotes from './trim-quotes';
+import normalizePath from './normalize-path';
+import reformatDate from './reformat-date';
+import promptConditionMatch from './prompt-condition-match';
+import argumentsPrompt from './arguments-prompt';
 
-exports.getFiles = require('./get-files');
-exports.hashFile = require('./hash-file');
-exports.hashBulkFile = require('./hash-bulk-file');
-exports.filterImages = require('./filter-images');
-exports.filterUniqueImages = require('./filter-unique-images');
-exports.createImagesFolder = require('./create-images-folder');
-exports.copyFiles = require('./copy-file');
-exports.copyBulkFiles = require('./copy-bulk-files');
-exports.setSavePath = require('./set-save-path');
-exports.getSavePath = require('./get-save-path');
+import getFiles from './get-files';
+import hashFile from './hash-file';
+import hashBulkFile from './hash-bulk-file';
+import filterImages from './filter-images';
+import filterUniqueImages from './filter-unique-images';
+import createImagesFolder from './create-images-folder';
+import copyFiles from './copy-file';
+import copyBulkFiles from './copy-bulk-files';
+import setSavePath from './set-save-path';
+import getSavePath from './get-save-path';
 
-exports.taskExecutor = require('./task-executor');
+import taskExecutor from './task-executor';
+
+export {
+  isPortraitImage,
+  isLandscapeImage,
+  isValidSizeImage,
+  isImage,
+  isWindows10,
+  trimQuotes,
+  normalizePath,
+  reformatDate,
+  promptConditionMatch,
+  argumentsPrompt,
+  getFiles,
+  hashFile,
+  hashBulkFile,
+  filterImages,
+  filterUniqueImages,
+  createImagesFolder,
+  copyFiles,
+  copyBulkFiles,
+  setSavePath,
+  getSavePath,
+  taskExecutor,
+};

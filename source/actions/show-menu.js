@@ -1,15 +1,15 @@
-const { Select } = require('enquirer');
+import Select from 'enquirer/lib/prompts/select';
 
-const {
+import {
   randomDesktop,
   getImages,
   showSettings,
-} = require('../actions');
+} from '.';
 
-const { MENU_OPTIONS } = require('../constants');
+import { MENU_OPTIONS } from '../constants';
 
 /* Action that pack the app into one single Windows executable file */
-module.exports = async function (args, options, logger) {
+export default async function (args, options, logger) {
   const menuPrompt = new Select({
     name: 'menu',
     message: 'Welcome to Windows 10 lock screen image extractor.\n You want to',
@@ -49,4 +49,4 @@ module.exports = async function (args, options, logger) {
     default:
       return getImages(args, options, logger);
   }
-};
+}

@@ -1,7 +1,7 @@
-const hashFile = require('../../../source/helpers');
-const creatImagesFolder = require('../../../source/helpers/create-images-folder');
-const copyBulkFiles = require('../../../source/helpers/copy-bulk-files');
-const deleteFolderRecursive = require('./../../mock-data/delete-folder-recursive');
+import hashFile from '../../../source/helpers/hash-file';
+import creatImagesFolder from '../../../source/helpers/create-images-folder';
+import copyBulkFiles from '../../../source/helpers/copy-bulk-files';
+import deleteFolderRecursive from './../../mock-data/delete-folder-recursive';
 
 describe('Helper - Function copy-bulk-files', () => {
   let mockSource = `${process.cwd()}/tests/mock-assets/`

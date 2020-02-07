@@ -1,4 +1,4 @@
-const hasha = require('hasha');
+import hasha from 'hasha';
 
 /**
  *  @Helper
@@ -7,6 +7,6 @@ const hasha = require('hasha');
  *  @Output:
  *    - return the file hash as string
  */
-module.exports = function (uri) {
+export default function (uri) {
   return hasha.fromFileSync(uri, { algorithm: 'md5' });
-};
+}

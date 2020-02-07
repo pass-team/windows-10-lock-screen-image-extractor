@@ -7,4 +7,4 @@
  *      - true: if image is landscape
  *      - false: otherwise
  */
-module.exports = ({ width, height }) => (width > height);
+export default ({ width, height }) => (width > height);
