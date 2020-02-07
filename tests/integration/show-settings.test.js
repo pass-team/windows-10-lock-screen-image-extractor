@@ -1,6 +1,7 @@
-var nixt = require('nixt');
+import nixt from 'nixt/lib/nixt/runner';
+
 describe('Feature show-settings', () => {
-  it('Should display path to saving folder', function(done) {
+  it('Should display path to saving folder', (done) => {
     nixt()
     .stdin('\n')
     .run('get-lock-screen get-images')
