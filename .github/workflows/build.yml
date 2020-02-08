@@ -52,8 +52,10 @@ jobs:
         run: |
           yarn run test:unit:coverage --token=${{secrets.CODACY_PROJECT_API_TOKEN}}
       - name: Code coverage
-        run: |
-          cd coverage && dir
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage
+          path: coverage/clover.xml
       - name: Build exe file
         run: yarn run build:win
       - name: Mock assets for integration tests
