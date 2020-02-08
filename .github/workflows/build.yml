@@ -52,6 +52,8 @@ jobs:
         run: |
           yarn run test:unit:coverage --token=${{secrets.CODACY_PROJECT_API_TOKEN}}
       - name: Code coverage
+        run: |
+          yarn run test:unit --coverage
         uses: actions/upload-artifact@v1
         with:
           name: code-coverage
