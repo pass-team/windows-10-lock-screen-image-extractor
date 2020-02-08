@@ -53,7 +53,7 @@ jobs:
           yarn run test:unit:coverage --token=${{secrets.CODACY_PROJECT_API_TOKEN}}
       - name: Code coverage
         run: |
-          dir
+          cd coverage && dir
       - name: Build exe file
         run: yarn run build:win
       - name: Mock assets for integration tests
