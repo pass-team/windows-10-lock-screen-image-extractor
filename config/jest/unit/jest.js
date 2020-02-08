@@ -4,6 +4,6 @@ module.exports = {
   cacheDirectory: '<rootDir>/.cache/jest',
   testMatch: ['<rootDir>/tests/unit/**/*.test.js'],
   collectCoverageFrom: [
-    '<rootDir>/source/**/*.js',
+    '<rootDir>/source/helpers/*.js',
   ],
 };

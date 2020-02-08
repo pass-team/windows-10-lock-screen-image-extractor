@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import Select from 'enquirer/lib/prompts/select';
 import Input from 'enquirer/lib/prompts/input';
 
