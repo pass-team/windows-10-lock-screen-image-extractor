@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: code-coverage
-          path: coverage/clover.xml
+          path: coverage/lcov-report/index.html
       - name: Build exe file
         run: yarn run build:win
       - name: Mock assets for integration tests
