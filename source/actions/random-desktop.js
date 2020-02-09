@@ -1,10 +1,10 @@
-import wallpaper from 'wallpaper';
 import chalk from 'chalk';
 import {
   getSavePath,
   getFiles,
   taskExecutor,
 } from '../helpers';
+import setWallpaper from '../helpers/set-wallpaper';
 
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {
@@ -30,7 +30,7 @@ export default async function (args, options, logger) {
 
     await taskExecutor(
       /* 3. Randomly set desktop background and announce */
-      await wallpaper.set(pick),
+      setWallpaper(pick),
       `Found ${savedImages.length} images. Picking a new desktop..`,
       500,
     );
