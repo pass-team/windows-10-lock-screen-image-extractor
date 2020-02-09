@@ -12,7 +12,7 @@
     "test:unit:coverage": "npx jest --config='config/jest/unit/jest.js' --coverage && codacy-coverage < ./coverage/lcov.info --debug",
     "dev": "npx chokidar \"./source\" \"./bin\" -c \"yarn run build:es5\"",
     "build:es5": "npx del-cli build && npx babel ./ --only ./source,./bin --extensions .js  --out-dir build --no-copy-ignored",
-    "build:win": "yarn run build:es5 --minified && npx pkg ./build/bin/get-lock-screen-image.js --targets node8-win-x64 --output=build/get-lock-screen.exe --config ./package.json --debug",
+    "build:win": "yarn run build:es5 --minified --no-comments && npx pkg ./build/bin/get-lock-screen-image.js --targets node8-win-x64 --output=build/get-lock-screen.exe --config ./package.json --debug",
     "test:integration": "npx jest --config='config/jest/integration/jest.js'"
   },
   "bin": {
@@ -22,6 +22,7 @@
     "caporal": "1.3.0",
     "chalk": "3.0.0",
     "enquirer": "2.3.4",
+    "find-up": "4.1.0",
     "hasha": "5.1.0",
     "image-size": "0.8.3",
     "ora": "4.0.3",

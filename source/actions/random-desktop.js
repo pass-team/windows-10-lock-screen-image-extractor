@@ -3,8 +3,10 @@ import {
   getSavePath,
   getFiles,
   taskExecutor,
+  filterImages,
 } from '../helpers';
 import setWallpaper from '../helpers/set-wallpaper';
+import { ORIENTATION_LANDSCAPE } from '../constants';
 
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {
@@ -26,14 +28,22 @@ export default async function (args, options, logger) {
   if (!savedImages.length) {
     logger.warn(chalk.yellow('\nNo existing images, try getting the images first, run "get-lock-screen -h" for usage'));
   } else {
-    const pick = `${currentSavePath.toString()}/${savedImages[Math.floor(Math.random() * savedImages.length)].name}`;
+    /* Only pick landscape images */
+    const savedLandscapeImages = filterImages(savedImages, { orientation: ORIENTATION_LANDSCAPE });
+    const pick = `${currentSavePath.toString()}`
+      + `/${savedLandscapeImages[Math.floor(Math.random() * savedLandscapeImages.length)].name}`;
 
-    await taskExecutor(
+    const result = await taskExecutor(
       /* 3. Randomly set desktop background and announce */
       setWallpaper(pick),
-      `Found ${savedImages.length} images. Picking a new desktop..`,
+      `Found ${savedImages.length} images. Picking a random wallpaper..`,
       500,
     );
-    logger.info(chalk.green('\nNew desktop background has been set!'));
+
+    if (result) {
+      logger.info(chalk.green('\nNew desktop background has been set!'));
+    } else {
+      logger.warn(chalk.yellow('\nUnexpected errors!'));
+    }
   }
 }
