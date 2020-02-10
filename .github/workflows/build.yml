@@ -51,6 +51,11 @@ jobs:
       - name: Run unit tests with coverage
         run: |
           yarn run test:unit:coverage --token=${{secrets.CODACY_PROJECT_API_TOKEN}}
+      - name: Export code coverage
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage
+          path: coverage
       - name: Build exe file
         run: yarn run build:win
       - name: Mock assets for integration tests
