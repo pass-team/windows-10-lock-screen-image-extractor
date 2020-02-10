@@ -12,8 +12,8 @@
     "test:unit:coverage": "npx jest --config='config/jest/unit/jest.js' --coverage && codacy-coverage < ./coverage/lcov.info --debug",
     "dev": "npx chokidar \"./source\" \"./bin\" -c \"yarn run build:es5\"",
     "build:es5": "npx del-cli build && npx babel ./ --only ./source,./bin --extensions .js  --out-dir build --no-copy-ignored",
-    "build:win": "yarn run build:es5 --minified && npx pkg ./build/bin/get-lock-screen-image.js --targets node8-win-x64 --output=get-lock-screen.exe",
-    "test:integration": "npx jest --config='config/jest/integration/jest.js'"
+    "build:win": "yarn run build:es5 --minified --no-comments && npx pkg ./build/bin/get-lock-screen-image.js --targets node10-win-x64 --output=build/get-lock-screen.exe --config ./package.json",
+    "test:integration": "npx jest --config='config/jest/integration/jest.js' --runInBand"
   },
   "bin": {
     "get-lock-screen": "bin/get-lock-screen-image.js"
@@ -22,10 +22,10 @@
     "caporal": "1.3.0",
     "chalk": "3.0.0",
     "enquirer": "2.3.4",
+    "find-up": "4.1.0",
     "hasha": "5.1.0",
     "image-size": "0.8.3",
     "ora": "4.0.3",
-    "pkg": "4.4.2",
     "wallpaper": "4.4.1"
   },
   "devDependencies": {
@@ -41,6 +41,7 @@
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.20.1",
     "jest": "25.1.0",
-    "nixt": "0.5.1"
+    "nixt": "0.5.1",
+    "pkg": "4.4.2"
   }
 }
