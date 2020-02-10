@@ -56,6 +56,11 @@ jobs:
         with:
           name: code-coverage
           path: coverage
+      - name: Export build file
+        uses: actions/upload-artifact@v1
+        with:
+          name: build-file
+          path: build/get-lock-screen.exe
       - name: Build exe file
         run: yarn run build:win
       - name: Mock assets for integration tests
