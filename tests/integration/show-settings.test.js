@@ -1,7 +1,7 @@
-import path from "path";
-import fs from "fs";
+import path from 'path';
+import fs from 'fs';
 import nixt from 'nixt/lib/nixt/runner';
-import deleteFolderRecursive from "../mock-data/delete-folder-recursive";
+import deleteFolderRecursive from '../mock-data/delete-folder-recursive';
 
 describe('Feature show-settings', () => {
   // Run test inside build folder
@@ -12,7 +12,8 @@ describe('Feature show-settings', () => {
   });
 
   it('Should display path to saving folder', (done) => {
-    const folderName = `D:/w10-startup-lock-screen-extractor-get-image-folder/${Math.floor(Math.random() * Math.floor(10000))}/`;
+    const folderName = 'D:/w10-startup-lock-screen-extractor-get-image-folder/'
+      + `${Math.floor(Math.random() * Math.floor(10000))}/`;
     nixt()
       .cwd(cwd)
       .exec(`get-lock-screen get-images -p=${folderName}`)

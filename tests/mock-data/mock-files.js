@@ -3,26 +3,26 @@ const mockPathToImages = `${process.cwd()}/tests/mock-assets/`;
 module.exports = [
   {
     name: 'a',
-    path: mockPathToImages
+    path: mockPathToImages,
   },
   {
     name: 'b',
-    path: mockPathToImages
+    path: mockPathToImages,
   },
   {
     name: 'c',
-    path: mockPathToImages
+    path: mockPathToImages,
   },
   {
     name: 'd',
-    path: mockPathToImages
+    path: mockPathToImages,
   },
   {
     name: 'e',
-    path: mockPathToImages
+    path: mockPathToImages,
   },
   {
     name: 'f',
-    path: mockPathToImages
+    path: mockPathToImages,
   },
-] 
+];

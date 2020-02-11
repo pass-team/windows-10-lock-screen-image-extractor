@@ -19,6 +19,7 @@ import {
   ORIENTATION_ALL,
   IMAGE_NAME_FORMAT_ORIGIN,
 } from '../constants';
+import waitKeyToExit from '../helpers/wait-key-to-exit';
 
 /* Action that handle extracting lock screen from windows */
 export default async function (args, options, logger) {
@@ -80,5 +81,8 @@ export default async function (args, options, logger) {
     logger.info(chalk(`Save folder (Ctrl + click to open): ${chalk.underline.cyan(`file://${pathToSave}`)}`));
   } else {
     logger.info(chalk.yellow('\nI found no NEW images :) Better luck next time!'));
+  }
+  if (/^[\\/][a-zA-Z-]+\.exe$/.test(process.title.replace(process.cwd(), ''))) {
+    waitKeyToExit();
   }
 }

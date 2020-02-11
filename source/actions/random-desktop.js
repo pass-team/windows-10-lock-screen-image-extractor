@@ -7,6 +7,7 @@ import {
 } from '../helpers';
 import setWallpaper from '../helpers/set-wallpaper';
 import { ORIENTATION_LANDSCAPE } from '../constants';
+import waitKeyToExit from '../helpers/wait-key-to-exit';
 
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {
@@ -44,6 +45,9 @@ export default async function (args, options, logger) {
       logger.info(chalk.green('\nNew desktop background has been set!'));
     } else {
       logger.warn(chalk.yellow('\nUnexpected errors!'));
+    }
+    if (/^[\\/][a-zA-Z-]+\.exe$/.test(process.title.replace(process.cwd(), ''))) {
+      waitKeyToExit();
     }
   }
 }

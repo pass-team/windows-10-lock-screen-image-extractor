@@ -8,13 +8,11 @@ describe('Helper - Function get-files', () => {
     const metaObjects = getFiles(path);
 
     // Check for correct path
-    const check = metaObjects.every(object => {
-      return (
-        Object.prototype.hasOwnProperty.call(object, 'name') &&
-        Object.prototype.hasOwnProperty.call(object, 'path') &&
-        object.path === normalizePath(path)
-      );
-    });
+    const check = metaObjects.every((object) => (
+      Object.prototype.hasOwnProperty.call(object, 'name')
+        && Object.prototype.hasOwnProperty.call(object, 'path')
+        && object.path === normalizePath(path)
+    ));
     expect(check).toBe(true);
 
     // Check for false path
