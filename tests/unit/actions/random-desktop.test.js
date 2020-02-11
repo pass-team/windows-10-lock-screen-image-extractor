@@ -18,8 +18,6 @@ describe('Feature random-desktop', () => {
 
   it('Should set new desktop wallpaper', async () => {
     const folder = `D:/w10-startup-lock-screen-extractor-random-desktop-folder/${Math.floor(Math.random() * Math.floor(10000))}/`;
-    console.log('Folder exist:' + fs.existsSync(folder));
-    const cacheWallpaperFolder = `${os.homedir()}/AppData/Roaming/Microsoft/Windows/Themes/`;
     const logger = {
       info: jest.fn().mockReturnValue(''),
       warn: jest.fn().mockReturnValue(''),
@@ -31,12 +29,6 @@ describe('Feature random-desktop', () => {
 
     const images = fs.readdirSync(folder);
     const wallpaperName = path.basename(await wallpaper.get());
-    console.log('images');
-    console.log(images);
-    console.log('wallpaperName');
-    console.log(wallpaperName);
-    console.log('fs.readdirSync(cacheWallpaperFolder)');
-    console.log(fs.readdirSync(cacheWallpaperFolder));
     expect(images.includes(wallpaperName)).toBe(true);
     // Clean up trash files created by test case
     deleteFolderRecursive(folder);
