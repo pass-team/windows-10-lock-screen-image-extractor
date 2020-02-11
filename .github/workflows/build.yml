@@ -48,6 +48,10 @@ jobs:
       - name: Run linting
         run: |
           yarn run lint:scripts
+      - name: Mock assets for testing
+        run: |
+          (robocopy ./tests/mock-assets/ %userprofile%\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets\ /v) ^& IF %ERRORLEVEL% LEQ 4 exit /B 0
+        shell: cmd
       - name: Run unit tests with coverage
         run: |
           yarn run test:unit:coverage --token=${{secrets.CODACY_PROJECT_API_TOKEN}}
@@ -63,9 +67,6 @@ jobs:
         with:
           name: build-file
           path: build/get-lock-screen.exe
-      - name: Mock assets for integration tests
-        run: |
-          (robocopy ./tests/mock-assets/ %userprofile%\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets\ /v) ^& IF %ERRORLEVEL% LEQ 4 exit /B 0
-        shell: cmd
+
       - name: Run integration tests
         run: yarn run test:integration
