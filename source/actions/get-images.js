@@ -67,6 +67,8 @@ export default async function (args, options, logger) {
     'Exclude duplicates',
     400,
   );
+  console.log('unique images');
+  console.log(uniqueImages);
   /* 6. Check if there were unique images (new images) */
   if (uniqueImages.length) {
     /* 7. Copy them to saving folder */
