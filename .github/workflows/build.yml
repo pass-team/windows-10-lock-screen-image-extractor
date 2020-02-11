@@ -61,7 +61,6 @@ jobs:
         with:
           name: code-coverage
           path: coverage
-        shell: cmd
       - name: Build exe file
         run: yarn run build:win
         shell: cmd
@@ -70,7 +69,6 @@ jobs:
         with:
           name: build-file
           path: build/get-lock-screen.exe
-        shell: cmd
       - name: Run integration tests
         run: yarn run test:integration
         shell: cmd
