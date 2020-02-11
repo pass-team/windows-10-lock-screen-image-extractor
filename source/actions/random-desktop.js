@@ -7,7 +7,7 @@ import {
 } from '../helpers';
 import setWallpaper from '../helpers/set-wallpaper';
 import { ORIENTATION_LANDSCAPE } from '../constants';
-import waitKeyToExit from "../helpers/wait-key-to-exit";
+import waitKeyToExit from '../helpers/wait-key-to-exit';
 
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {

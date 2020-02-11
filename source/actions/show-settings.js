@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import {
   getSavePath,
 } from '../helpers';
-import waitKeyToExit from "../helpers/wait-key-to-exit";
+import waitKeyToExit from '../helpers/wait-key-to-exit';
 
 /* Action that retrieve user's configurations and display */
 export default function (args, options, logger) {
