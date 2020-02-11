@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import os from 'os';
 import wallpaper from 'wallpaper';
 import {IMAGE_NAME_FORMAT_HASH, ORIENTATION_LANDSCAPE} from '../../../source/constants';
 import getImages from '../../../source/actions/get-images';
