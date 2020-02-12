@@ -16,12 +16,12 @@ describe('Helper - Function copy-file', () => {
     type: 'jpg',
     origin: 'a',
     hash: 'db7ee7b47dd509ac37bc930322e0f1b3',
-    date: 'February 5 2020'
-  }
+    date: 'February 5 2020',
+  };
 
   beforeEach(() => {
     createImagesFolder(mockDestination);
-  })
+  });
 
   afterEach(() => {
     deleteFolderRecursive(mockDestination);
