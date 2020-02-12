@@ -1,39 +1,31 @@
 import fs from 'fs';
 import path from 'path';
+import logger from 'caporal/lib/logger';
 import {
   IMAGE_NAME_FORMAT_HASH,
-  ORIENTATION_LANDSCAPE
+  ORIENTATION_LANDSCAPE,
 } from '../../../source/constants';
 import getImages from '../../../source/actions/get-images';
 import showSettings from '../../../source/actions/show-settings';
-import logger from 'caporal/lib/logger';
 import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
 
 jest.mock('caporal/lib/logger');
 
 let infoRecord = '';
 let warnRecord = '';
-let errorRecord = '';
 
-const mockLogger = logger.createLogger.mockImplementation(() => {
-  return {
-    info: jest.fn(
-      function (data) {
-        infoRecord += data;
-      }
-    ),
-    warn: jest.fn(
-      function (data) {
-        warnRecord += data;
-      }
-    ),
-    error: jest.fn(
-      function (data) {
-        errorRecord += data;
-      }
-    )
-  }
-});
+const mockLogger = logger.createLogger.mockImplementation(() => ({
+  info: jest.fn(
+    (data) => {
+      infoRecord += data;
+    },
+  ),
+  warn: jest.fn(
+    (data) => {
+      warnRecord += data;
+    },
+  ),
+}));
 
 describe('Feature show-settings', () => {
   beforeEach(() => {
@@ -43,12 +35,13 @@ describe('Feature show-settings', () => {
   // Run test inside build folder
   // Remove user settings to avoid side effect on other test cases
   afterEach(() => {
-    if(fs.existsSync(path.join(process.cwd(), '\\.userconfig'))) {
+    if (fs.existsSync(path.join(process.cwd(), '\\.userconfig'))) {
       fs.unlinkSync(path.join(process.cwd(), '\\.userconfig'));
     }
   });
 
   it('Should display "No user settings has been recorded yet.." when .userconfig does not exist', async () => {
+    // eslint-disable-next-line no-shadow
     const logger = mockLogger();
     await showSettings({}, {}, logger);
 
@@ -56,12 +49,13 @@ describe('Feature show-settings', () => {
   });
 
   it('Should print out path to images', async () => {
+    // eslint-disable-next-line no-shadow
     const logger = mockLogger();
     const folder = 'D://screen-images';
     const answers = {
       path: folder,
       orientation: ORIENTATION_LANDSCAPE,
-      namePattern: IMAGE_NAME_FORMAT_HASH
+      namePattern: IMAGE_NAME_FORMAT_HASH,
     };
     await getImages({}, answers, logger);
     await showSettings({}, {}, logger);
