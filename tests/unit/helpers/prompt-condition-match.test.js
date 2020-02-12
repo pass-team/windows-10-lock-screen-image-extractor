@@ -6,14 +6,13 @@ describe('Helper - Function prompt-condition-match', () => {
     process.argv = oldProcessArgv;
   });
   it('Should return true when the process has no argument', () => {
-    process.argv = ['a','b'];
+    process.argv = ['a', 'b'];
 
     expect(promptConditionMatch(process)).toBeTruthy();
   });
   it('Should return false when the process has more than one arguments', () => {
-    process.argv = ['a','b','c'];
+    process.argv = ['a', 'b', 'c'];
 
     expect(promptConditionMatch(process)).toBeFalsy();
   });
 });
-

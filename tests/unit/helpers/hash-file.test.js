@@ -6,6 +6,6 @@ describe('Helper - Function hash-file', () => {
     const hash = hashFile(uri);
     expect(hash).toBeTruthy();
     expect(typeof hash).toBe('string');
-    expect(hash).toBe('db7ee7b47dd509ac37bc930322e0f1b3')
+    expect(hash).toBe('db7ee7b47dd509ac37bc930322e0f1b3');
   });
 });

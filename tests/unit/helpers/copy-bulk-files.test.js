@@ -1,10 +1,10 @@
 import hashFile from '../../../source/helpers/hash-file';
 import creatImagesFolder from '../../../source/helpers/create-images-folder';
 import copyBulkFiles from '../../../source/helpers/copy-bulk-files';
-import deleteFolderRecursive from './../../mock-data/delete-folder-recursive';
+import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
 
 describe('Helper - Function copy-bulk-files', () => {
-  let mockSource = `${process.cwd()}/tests/mock-assets/`
+  let mockSource = `${process.cwd()}/tests/mock-assets/`;
   const mockDestination = `${process.cwd()}/tests/mock-destination/`;
   const mockNamePatter = 'origin';
   let files;
@@ -22,8 +22,8 @@ describe('Helper - Function copy-bulk-files', () => {
         type: 'jpg',
         origin: originalFileName,
         hash: hashFile(`${process.cwd()}/tests/mock-assets/${originalFileName}`),
-        date: 'February 5 2020'
-      }
+        date: 'February 5 2020',
+      };
     });
     creatImagesFolder(mockDestination);
   });
@@ -48,4 +48,3 @@ describe('Helper - Function copy-bulk-files', () => {
     expect(copyCount).toEqual(0);
   });
 });
-

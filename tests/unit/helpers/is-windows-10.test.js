@@ -1,5 +1,5 @@
-import isWindows10 from '../../../source/helpers/is-windows-10';
 import os from 'os';
+import isWindows10 from '../../../source/helpers/is-windows-10';
 
 describe('Helper - Function is-windows-10', () => {
   it('Should return true if platform is win32', () => {
