@@ -8,6 +8,12 @@ describe('Feature get-images', () => {
   const cwd = path.join(process.cwd(), '/build');
   // Remove user settings to avoid side effect on other test cases
   afterEach(() => {
+    if (fs.existsSync(path.join(cwd, '\\.userconfig'))) {
+      fs.unlinkSync(path.join(cwd, '\\.userconfig'));
+    }
+  });
+
+  afterEach(() => {
     fs.unlinkSync(path.join(cwd, '\\.userconfig'));
   });
 

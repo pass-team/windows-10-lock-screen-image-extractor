@@ -37,6 +37,6 @@ describe('Feature random-desktop', () => {
         done();
       });
     // Clean up trash files created by test case
-    deleteFolderRecursive(folderName);
+    deleteFolderRecursive('D:\\w10-startup-lock-screen-extractor-get-image-folder\\');
   });
 });
