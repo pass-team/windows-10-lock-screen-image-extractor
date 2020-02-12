@@ -3,7 +3,7 @@ import getSavePath from '../../../source/helpers/get-save-path';
 import setSavePath from '../../../source/helpers/set-save-path';
 import normalizePath from '../../../source/helpers/normalize-path';
 import {
-  PATH_TO_CONFIG
+  PATH_TO_CONFIG,
 } from '../../../source/constants';
 
 describe('Helper - Function get-save-path', () => {
@@ -17,9 +17,9 @@ describe('Helper - Function get-save-path', () => {
     expect(getSavePath()).toEqual('');
   });
 
-  afterEach(function () {
-    try {
+  afterEach(() => {
+    if (fs.existsSync(PATH_TO_CONFIG)) {
       fs.unlinkSync(PATH_TO_CONFIG);
-    } catch (e) {}
+    }
   });
 });

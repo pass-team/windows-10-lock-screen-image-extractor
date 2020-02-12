@@ -12,7 +12,7 @@ import {
 } from '../../../source/constants';
 import getImages from '../../../source/actions/get-images';
 import randomDesktop from '../../../source/actions/random-desktop';
-import deleteFolderRecursive from './../../mock-data/delete-folder-recursive';
+import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
 
 let infoRecord = '';
 let warnRecord = '';
