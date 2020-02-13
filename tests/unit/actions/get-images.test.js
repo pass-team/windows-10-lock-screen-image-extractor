@@ -21,7 +21,6 @@ jest.mock('caporal/lib/logger');
 jest.mock('../../../source/helpers/arguments-prompt');
 jest.mock('../../../source/constants');
 // jest.mock('../../../source/helpers/get-files');
-// jest.mock('../../../source/helpers/create-images-folder');
 
 let infoRecord = '';
 let warnRecord = '';
@@ -45,7 +44,7 @@ const mockLogger = logger.createLogger.mockImplementation(() => ({
   ),
 }));
 
-describe('Action get-images', () => {
+describe('Action - Feature get-images', () => {
   const myLogger = mockLogger();
   // const path = `${process.cwd()}\\tests\\mock-assets\\`;
   it('Should be able to get images with provided cli arguments', async () => {
@@ -77,13 +76,13 @@ describe('Action get-images', () => {
 
   it('Should be able to', async () => {
     const folder = DEFAULT_SAVE_PATH;
-    argumentsPrompt.mockImplementation(() => false);
-    // createImagesFolder.mockResolvedValue(false);
-    await getImages({}, {}, myLogger);
-    expect(6).toEqual(6);
-    fs.readdirSync(folder).forEach((file, index) => {
-      // expect(file).toEqual(`${hashFile(`${path}/${fs.readdirSync(path)[index]}`)}.jpg`);
-    });
+    const answers = {
+      path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
+    };
+    jest.mock('../../../source/helpers/create-images-folder');
+    createImagesFolder.mockResolvedValue(false);
+    await getImages({}, answers, myLogger);
+    expect(true).toEqual(true);
     deleteFolderRecursive(folder);
   });
 
