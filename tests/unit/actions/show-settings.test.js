@@ -1,4 +1,5 @@
 import fs from 'fs';
+import chalk from 'chalk';
 import path from 'path';
 import logger from 'caporal/lib/logger';
 import {
@@ -28,6 +29,9 @@ const mockLogger = logger.createLogger.mockImplementation(() => ({
 }));
 
 describe('Feature show-settings', () => {
+  const myLogger = mockLogger();
+  const folder = 'D://screen-images';
+
   beforeEach(() => {
     infoRecord = '';
     warnRecord = '';
@@ -41,27 +45,54 @@ describe('Feature show-settings', () => {
   });
 
   it('Should display "No user settings has been recorded yet.." when .userconfig does not exist', async () => {
-    // eslint-disable-next-line no-shadow
-    const logger = mockLogger();
-    await showSettings({}, {}, logger);
+    await showSettings({}, {}, myLogger);
 
     expect(warnRecord.includes('No user settings has been recorded yet')).toBeTruthy();
   });
 
   it('Should print out path to images', async () => {
-    // eslint-disable-next-line no-shadow
-    const logger = mockLogger();
-    const folder = 'D://screen-images';
     const answers = {
       path: folder,
       orientation: ORIENTATION_LANDSCAPE,
       namePattern: IMAGE_NAME_FORMAT_HASH,
     };
-    await getImages({}, answers, logger);
-    await showSettings({}, {}, logger);
+    await getImages({}, answers, myLogger);
+    await showSettings({}, {}, myLogger);
 
     expect(infoRecord.includes(`file://${folder}`)).toBeTruthy();
     // Clean up trash files created by test case
     deleteFolderRecursive(folder);
+  });
+
+  it('Should require keypress to exit when not run from cli', async () => {
+    const answers = {
+      path: folder,
+      orientation: ORIENTATION_LANDSCAPE,
+      namePattern: IMAGE_NAME_FORMAT_HASH,
+    };
+    // Mock process.argv and process title to trigger Enter key to exit
+    const oldProcessTitle = process.title;
+    process.title = `${process.cwd()}\\get-lock-screen.exe`;
+    const oldProcessArgv = process.argv;
+    process.argv = [...oldProcessArgv, '', ''];
+    const oldConsoleLog = console.log;
+    console.log = jest.fn((data) => {
+      infoRecord += data;
+    });
+    const oldProcessExit = process.exit;
+    process.exit = jest.fn(() => {
+      infoRecord += 'Exit';
+    });
+    // Get images
+    await getImages({}, answers, myLogger);
+    // Run show-settings
+    await showSettings({}, {}, myLogger);
+    // Expect output from function wait-key-to-exit
+    expect(infoRecord.includes(chalk.cyan('\nPress any key to exit..'))).toBeTruthy();
+    // Restore mock
+    console.log = oldConsoleLog;
+    process.argv = oldProcessArgv;
+    process.title = oldProcessTitle;
+    process.exit = oldProcessExit;
   });
 });
