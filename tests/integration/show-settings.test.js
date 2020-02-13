@@ -8,7 +8,9 @@ describe('Feature show-settings', () => {
   const cwd = path.join(process.cwd(), '\\build');
   // Remove user settings to avoid side effect on other test cases
   afterEach(() => {
-    fs.unlinkSync(path.join(cwd, '\\.userconfig'));
+    if (fs.existsSync(path.join(cwd, '\\.userconfig'))) {
+      fs.unlinkSync(path.join(cwd, '\\.userconfig'));
+    }
   });
 
   it('Should display path to saving folder', (done) => {
