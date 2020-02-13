@@ -43,7 +43,7 @@ const mockLogger = logger.createLogger.mockImplementation(() => ({
   ),
 }));
 
-describe('Action - Feature get-images', () => {
+describe('Action - Function get-images', () => {
   const myLogger = mockLogger();
 
   afterEach(() => {
