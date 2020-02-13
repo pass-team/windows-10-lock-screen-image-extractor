@@ -1,30 +1,146 @@
+/* eslint-disable no-console */
 import fs from 'fs';
+import logger from 'caporal/lib/logger';
+import chalk from 'chalk';
 import {
   IMAGE_NAME_FORMAT_HASH,
   ORIENTATION_ALL,
+  DEFAULT_SAVE_PATH,
+  PATH_TO_IMAGE,
 } from '../../../source/constants';
 import {
   getImages,
 } from '../../../source/actions';
+import getFiles from '../../../source/helpers/get-files';
+import hashFile from '../../../source/helpers/hash-file';
+import createImagesFolder from '../../../source/helpers/create-images-folder';
+import argumentsPrompt from '../../../source/helpers/arguments-prompt';
 import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
 
+jest.mock('caporal/lib/logger');
+jest.mock('../../../source/helpers/arguments-prompt');
+jest.mock('../../../source/constants');
+// jest.mock('../../../source/helpers/get-files');
+// jest.mock('../../../source/helpers/create-images-folder');
+
+let infoRecord = '';
+let warnRecord = '';
+let errorRecord = '';
+
+const mockLogger = logger.createLogger.mockImplementation(() => ({
+  info: jest.fn(
+    (data) => {
+      infoRecord += data;
+    },
+  ),
+  warn: jest.fn(
+    (data) => {
+      warnRecord += data;
+    },
+  ),
+  error: jest.fn(
+    (data) => {
+      errorRecord += data;
+    },
+  ),
+}));
+
 describe('Action get-images', () => {
-  it('Should get images with additional arguments', async () => {
+  const myLogger = mockLogger();
+  // const path = `${process.cwd()}\\tests\\mock-assets\\`;
+  it('Should be able to get images with provided cli arguments', async () => {
     const folder = 'D://screen-images';
     const answers = {
       path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
     };
-    const mockLogger = {
-      info: jest.fn().mockReturnValue('console log'),
-      warn: jest.fn().mockReturnValue('console warning'),
-      error: jest.fn().mockReturnValue('console error'),
-    };
-    await getImages(
-      {},
-      answers,
-      mockLogger,
-    );
-    expect(fs.readdirSync(folder).length).toBeGreaterThan(0);
+    process.argv = ['a', 'b'];
+    argumentsPrompt.mockImplementation(() => answers);
+    await getImages({}, {}, myLogger);
+    expect(fs.readdirSync(folder).length).toEqual(6);
+    fs.readdirSync(folder).forEach((file, index) => {
+      // expect(file).toEqual(`${hashFile(`${path}/${fs.readdirSync(path)[index]}`)}.jpg`);
+    });
+    // deleteFolderRecursive(folder);
+  });
+
+  it('Should be able to get images with default arguments', async () => {
+    const folder = DEFAULT_SAVE_PATH;
+    const answers = {};
+    argumentsPrompt.mockImplementation(() => answers);
+    await getImages({}, {}, myLogger);
+    expect(fs.readdirSync(folder).length).toEqual(6);
+    fs.readdirSync(folder).forEach((file, index) => {
+      // expect(file).toEqual(`${hashFile(`${path}/${fs.readdirSync(path)[index]}`)}.jpg`);
+    });
     deleteFolderRecursive(folder);
-  }, 10000);
+  });
+
+  it('Should be able to', async () => {
+    const folder = DEFAULT_SAVE_PATH;
+    argumentsPrompt.mockImplementation(() => false);
+    // createImagesFolder.mockResolvedValue(false);
+    await getImages({}, {}, myLogger);
+    expect(6).toEqual(6);
+    fs.readdirSync(folder).forEach((file, index) => {
+      // expect(file).toEqual(`${hashFile(`${path}/${fs.readdirSync(path)[index]}`)}.jpg`);
+    });
+    deleteFolderRecursive(folder);
+  });
+
+  it('Should be able to get images that satisfy user’s answer', async () => {
+    const folder = 'D://screen-images';
+    const answers = {
+      path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
+    };
+    await getImages({}, answers, myLogger);
+    expect(fs.readdirSync(folder).length).toEqual(6);
+    fs.readdirSync(folder).forEach((file, index) => {
+      // expect(file).toEqual(`${hashFile(`${path}/${fs.readdirSync(path)[index]}`)}.jpg`);
+    });
+    deleteFolderRecursive(folder);
+  });
+
+  it('Should avoid saving duplicate images', async () => {
+    const folder = 'D://screen-images';
+    const answers = {
+      path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
+    };
+    argumentsPrompt.mockImplementation(() => false);
+    await getImages({}, answers, myLogger);
+    await getImages({}, answers, myLogger);
+    expect(fs.readdirSync(folder).length).toEqual(6);
+    deleteFolderRecursive(folder);
+  });
+
+  it('Should require keypress to exit when not run from cli', async () => {
+    const folder = `D:/w10-startup-lock-screen-extractor/${Math.floor(Math.random() * Math.floor(10000))}/`;
+    const answers = {
+      path: folder,
+      orientation: ORIENTATION_ALL,
+      namePattern: IMAGE_NAME_FORMAT_HASH,
+    };
+    // Mock process.argv and process title to trigger Enter key to exit
+    const oldProcessTitle = process.title;
+    process.title = `${process.cwd()}\\get-lock-screen.exe`;
+    const oldProcessArgv = process.argv;
+    process.argv = [...oldProcessArgv, '', ''];
+    const oldConsoleLog = console.log;
+    console.log = jest.fn((data) => {
+      infoRecord += data;
+    });
+    const oldProcessExit = process.exit;
+    process.exit = jest.fn(() => {
+      infoRecord += 'Exit';
+    });
+    // Get images
+    await getImages({}, answers, myLogger);
+    // Expect output from function wait-key-to-exit
+    expect(infoRecord.includes(chalk.cyan('\nPress any key to exit..'))).toBeTruthy();
+    // Restore mock
+    console.log = oldConsoleLog;
+    process.argv = oldProcessArgv;
+    process.title = oldProcessTitle;
+    process.exit = oldProcessExit;
+    deleteFolderRecursive(folder);
+  });
 });
