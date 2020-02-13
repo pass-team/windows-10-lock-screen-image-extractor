@@ -22,7 +22,6 @@ jest.mock('../../../source/constants');
 let infoRecord = '';
 // eslint-disable-next-line no-unused-vars
 let warnRecord = '';
-// eslint-disable-next-line no-unused-vars
 let errorRecord = '';
 
 const mockLogger = logger.createLogger.mockImplementation(() => ({
@@ -45,15 +44,13 @@ const mockLogger = logger.createLogger.mockImplementation(() => ({
 
 describe('Action - Feature get-images', () => {
   const myLogger = mockLogger();
-  // const path = `${process.cwd()}\\tests\\mock-assets\\`;
-  it('Should be able to get images with provided cli arguments', async () => {
+
+  it('Should be able to get images that satisfy user’s answer', async () => {
     const folder = 'D://screen-images';
     const answers = {
       path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
     };
-    process.argv = ['a', 'b'];
-    argumentsPrompt.mockImplementation(() => answers);
-    await getImages({}, {}, myLogger);
+    await getImages({}, answers, myLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     fs.readdirSync(folder).forEach((file, index) => {
       expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
@@ -76,12 +73,14 @@ describe('Action - Feature get-images', () => {
     deleteFolderRecursive(folder);
   });
 
-  it('Should be able to get images that satisfy user’s answer', async () => {
+  it('Should be able to get images with provided cli arguments', async () => {
     const folder = 'D://screen-images';
     const answers = {
       path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
     };
-    await getImages({}, answers, myLogger);
+    process.argv = ['a', 'b'];
+    argumentsPrompt.mockImplementation(() => answers);
+    await getImages({}, {}, myLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     fs.readdirSync(folder).forEach((file, index) => {
       expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
@@ -99,6 +98,17 @@ describe('Action - Feature get-images', () => {
     await getImages({}, answers, myLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     deleteFolderRecursive(folder);
+  });
+
+  it('Should print "Error while creating images folder" when fail to create saved folder', async () => {
+    const folder = 'D:/';
+    const answers = {
+      path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
+    };
+    process.argv = ['a', 'b'];
+    argumentsPrompt.mockImplementation(() => answers);
+    await getImages({}, {}, myLogger);
+    expect(errorRecord.includes('Error while creating images folder!')).toBeTruthy();
   });
 
   it('Should require keypress to exit when not run from cli', async () => {
