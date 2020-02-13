@@ -18,22 +18,14 @@ import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
 jest.mock('caporal/lib/logger');
 jest.mock('../../../source/helpers/arguments-prompt');
 jest.mock('../../../source/constants');
-// jest.mock('../../../source/helpers/get-files');
 
 let infoRecord = '';
-// eslint-disable-next-line no-unused-vars
-let warnRecord = '';
 let errorRecord = '';
 
 const mockLogger = logger.createLogger.mockImplementation(() => ({
   info: jest.fn(
     (data) => {
       infoRecord += data;
-    },
-  ),
-  warn: jest.fn(
-    (data) => {
-      warnRecord += data;
     },
   ),
   error: jest.fn(
@@ -70,6 +62,7 @@ describe('Action - Function get-images', () => {
     const answers = {
       namePattern: IMAGE_NAME_FORMAT_HASH,
     };
+    const oldProcessArgv = process.argv;
     process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
     await getImages({}, {}, myLogger);
@@ -77,6 +70,8 @@ describe('Action - Function get-images', () => {
     fs.readdirSync(folder).forEach((file, index) => {
       expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
     });
+
+    process.argv = oldProcessArgv;
     deleteFolderRecursive(folder);
   });
 
@@ -85,6 +80,7 @@ describe('Action - Function get-images', () => {
     const answers = {
       path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
     };
+    const oldProcessArgv = process.argv;
     process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
     await getImages({}, {}, myLogger);
@@ -92,6 +88,8 @@ describe('Action - Function get-images', () => {
     fs.readdirSync(folder).forEach((file, index) => {
       expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
     });
+
+    process.argv = oldProcessArgv;
     deleteFolderRecursive(folder);
   });
 
@@ -112,10 +110,13 @@ describe('Action - Function get-images', () => {
     const answers = {
       path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
     };
+    const oldProcessArgv = process.argv;
     process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
     await getImages({}, {}, myLogger);
     expect(errorRecord.includes('Error while creating images folder!')).toBeTruthy();
+
+    process.argv = oldProcessArgv;
   });
 
   it('Should require keypress to exit when not run from cli', async () => {
