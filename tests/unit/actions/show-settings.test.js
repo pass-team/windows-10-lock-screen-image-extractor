@@ -29,7 +29,7 @@ const mockLogger = logger.createLogger.mockImplementation(() => ({
   ),
 }));
 
-describe('Action show-settings', () => {
+describe('Action - Function show-settings', () => {
   const myLogger = mockLogger();
   const folder = 'D://screen-images';
 
