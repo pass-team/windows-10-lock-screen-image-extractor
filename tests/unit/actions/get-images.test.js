@@ -6,7 +6,6 @@ import {
   IMAGE_NAME_FORMAT_HASH,
   ORIENTATION_ALL,
   DEFAULT_SAVE_PATH,
-  PATH_TO_IMAGE,
 } from '../../../source/constants';
 import {
   getImages,
@@ -57,19 +56,22 @@ describe('Action - Feature get-images', () => {
     await getImages({}, {}, myLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     fs.readdirSync(folder).forEach((file, index) => {
-      expect(file).toEqual(`${hashFile(`${PATH_TO_IMAGE}/${fs.readdirSync(PATH_TO_IMAGE)[index]}`)}.jpg`);
+      expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
     });
     deleteFolderRecursive(folder);
   });
 
   it('Should be able to get images with default arguments', async () => {
     const folder = DEFAULT_SAVE_PATH;
-    const answers = {};
+    const answers = {
+      namePattern: IMAGE_NAME_FORMAT_HASH,
+    };
+    process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
     await getImages({}, {}, myLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     fs.readdirSync(folder).forEach((file, index) => {
-      expect(file).toEqual(`${hashFile(`${PATH_TO_IMAGE}/${fs.readdirSync(PATH_TO_IMAGE)[index]}`)}.jpg`);
+      expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
     });
     deleteFolderRecursive(folder);
   });
@@ -82,7 +84,7 @@ describe('Action - Feature get-images', () => {
     await getImages({}, answers, myLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     fs.readdirSync(folder).forEach((file, index) => {
-      expect(file).toEqual(`${hashFile(`${PATH_TO_IMAGE}/${fs.readdirSync(PATH_TO_IMAGE)[index]}`)}.jpg`);
+      expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
     });
     deleteFolderRecursive(folder);
   });
