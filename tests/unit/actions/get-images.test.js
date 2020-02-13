@@ -11,9 +11,7 @@ import {
 import {
   getImages,
 } from '../../../source/actions';
-import getFiles from '../../../source/helpers/get-files';
 import hashFile from '../../../source/helpers/hash-file';
-import createImagesFolder from '../../../source/helpers/create-images-folder';
 import argumentsPrompt from '../../../source/helpers/arguments-prompt';
 import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
 
@@ -23,7 +21,9 @@ jest.mock('../../../source/constants');
 // jest.mock('../../../source/helpers/get-files');
 
 let infoRecord = '';
+// eslint-disable-next-line no-unused-vars
 let warnRecord = '';
+// eslint-disable-next-line no-unused-vars
 let errorRecord = '';
 
 const mockLogger = logger.createLogger.mockImplementation(() => ({
@@ -57,9 +57,9 @@ describe('Action - Feature get-images', () => {
     await getImages({}, {}, myLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     fs.readdirSync(folder).forEach((file, index) => {
-      // expect(file).toEqual(`${hashFile(`${path}/${fs.readdirSync(path)[index]}`)}.jpg`);
+      expect(file).toEqual(`${hashFile(`${PATH_TO_IMAGE}/${fs.readdirSync(PATH_TO_IMAGE)[index]}`)}.jpg`);
     });
-    // deleteFolderRecursive(folder);
+    deleteFolderRecursive(folder);
   });
 
   it('Should be able to get images with default arguments', async () => {
@@ -69,20 +69,8 @@ describe('Action - Feature get-images', () => {
     await getImages({}, {}, myLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     fs.readdirSync(folder).forEach((file, index) => {
-      // expect(file).toEqual(`${hashFile(`${path}/${fs.readdirSync(path)[index]}`)}.jpg`);
+      expect(file).toEqual(`${hashFile(`${PATH_TO_IMAGE}/${fs.readdirSync(PATH_TO_IMAGE)[index]}`)}.jpg`);
     });
-    deleteFolderRecursive(folder);
-  });
-
-  it('Should be able to', async () => {
-    const folder = DEFAULT_SAVE_PATH;
-    const answers = {
-      path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
-    };
-    jest.mock('../../../source/helpers/create-images-folder');
-    createImagesFolder.mockResolvedValue(false);
-    await getImages({}, answers, myLogger);
-    expect(true).toEqual(true);
     deleteFolderRecursive(folder);
   });
 
@@ -94,7 +82,7 @@ describe('Action - Feature get-images', () => {
     await getImages({}, answers, myLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     fs.readdirSync(folder).forEach((file, index) => {
-      // expect(file).toEqual(`${hashFile(`${path}/${fs.readdirSync(path)[index]}`)}.jpg`);
+      expect(file).toEqual(`${hashFile(`${PATH_TO_IMAGE}/${fs.readdirSync(PATH_TO_IMAGE)[index]}`)}.jpg`);
     });
     deleteFolderRecursive(folder);
   });
