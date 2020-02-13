@@ -2,6 +2,7 @@
 import fs from 'fs';
 import logger from 'caporal/lib/logger';
 import chalk from 'chalk';
+import path from 'path';
 import {
   IMAGE_NAME_FORMAT_HASH,
   ORIENTATION_ALL,
@@ -44,6 +45,12 @@ const mockLogger = logger.createLogger.mockImplementation(() => ({
 
 describe('Action - Feature get-images', () => {
   const myLogger = mockLogger();
+
+  afterEach(() => {
+    if (fs.existsSync(path.join(process.cwd(), '\\.userconfig'))) {
+      fs.unlinkSync(path.join(process.cwd(), '\\.userconfig'));
+    }
+  });
 
   it('Should be able to get images that satisfy user’s answer', async () => {
     const folder = 'D://screen-images';
