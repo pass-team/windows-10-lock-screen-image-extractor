@@ -62,7 +62,7 @@ jobs:
           name: code-coverage
           path: coverage
       - name: Deploying code coverage to Surge
-      - run: |
+        run: |
           npm install -g surge && surge coverage/lcov-report/ code-coverage.surge.sh --token=${{ secrets.SURGE_TOKEN }}
         shell: cmd
       - name: Build exe file
