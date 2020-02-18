@@ -14,4 +14,23 @@ describe('Helper - Function wait-key-to-exit', () => {
     console.log = oldLog;
     expect(logRecord).toEqual(chalk.cyan('\nPress any key to exit..'));
   });
+
+  it('Should display "Press any key to exit.." in raw mode', () => {
+    // Mock console.log()
+    const oldLog = console.log;
+    const oldIsTTY = process.stdin.isTTY;
+    let logRecord = '';
+
+    console.log = (input) => {
+      logRecord += input;
+    };
+    process.stdin.isTTY = true;
+    process.stdin.setRawMode = jest.fn(() => true);
+
+    waitKeyToExit();
+
+    console.log = oldLog;
+    process.stdin.isTTY = oldIsTTY;
+    expect(logRecord).toEqual(chalk.cyan('\nPress any key to exit..'));
+  });
 });
