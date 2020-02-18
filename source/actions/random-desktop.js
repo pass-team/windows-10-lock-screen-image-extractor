@@ -6,7 +6,10 @@ import {
   filterImages,
 } from '../helpers';
 import setWallpaper from '../helpers/set-wallpaper';
-import { ORIENTATION_LANDSCAPE } from '../constants';
+import {
+  ORIENTATION_LANDSCAPE,
+  ERROR_CODES,
+} from '../constants';
 import waitKeyToExit from '../helpers/wait-key-to-exit';
 
 /* Action that randomly set extracted images as desktop background */
@@ -16,7 +19,8 @@ export default async function (args, options, logger) {
   /* 1. Retrieve image saving path, stop if no save path found */
   const currentSavePath = await taskExecutor(getSavePath(), 'Checking saved images..', 400);
   if (!currentSavePath) {
-    logger.warn(chalk.yellow('\nNo existing images, try getting the images first, run "get-lock-screen -h" for usage'));
+    logger.warn(chalk.redBright(`\nError ${ERROR_CODES.ER05}: No existing images, try getting the images first`));
+    logger.info('Type get-lock-screen get-images');
     return;
   }
   /* 2. Retrieve saved images */
@@ -27,7 +31,8 @@ export default async function (args, options, logger) {
    *  Otherwise randomly set desktop background
    */
   if (!savedImages.length) {
-    logger.warn(chalk.yellow('\nNo existing images, try getting the images first, run "get-lock-screen -h" for usage'));
+    logger.warn(chalk.redBright(`\n${ERROR_CODES.ER04}: No existing images, try getting the images first`));
+    logger.info('Type get-lock-screen get-images');
   } else {
     /* Only pick landscape images */
     const savedLandscapeImages = filterImages(savedImages, { orientation: ORIENTATION_LANDSCAPE });
@@ -44,7 +49,9 @@ export default async function (args, options, logger) {
     if (result) {
       logger.info(chalk.green('\nNew desktop background has been set!'));
     } else {
-      logger.warn(chalk.yellow('\nUnexpected errors!'));
+      logger.error(chalk.redBright(`\n${ERROR_CODES.ER03}: `
+        + 'Error setting new desktop wallpaper!'));
+      logger.info(chalk.yellow('\nType get-lock-screen random-desktop --help for help'));
     }
     if (/^[\\/][a-zA-Z-]+\.exe$/.test(process.title.replace(process.cwd(), ''))) {
       waitKeyToExit();
