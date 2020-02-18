@@ -14,7 +14,7 @@ jest.mock('../../../source/actions/get-images');
 jest.mock('../../../source/actions/show-settings');
 jest.mock('../../../source/actions/random-desktop');
 
-describe('Action show-menu', () => {
+describe('Action - Function show-menu', () => {
   it('Should call action get-images when no item chosen', async () => {
     getImages.mockImplementation(() => '');
     await showMenu({}, {}, logger);
