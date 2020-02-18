@@ -20,7 +20,7 @@ jest.mock('../../../source/helpers/arguments-prompt');
 jest.mock('../../../source/constants');
 
 let infoRecord = '';
-let errorRecord = '';
+let warnRecord = '';
 
 const mockLogger = logger.createLogger.mockImplementation(() => ({
   info: jest.fn(
@@ -28,9 +28,9 @@ const mockLogger = logger.createLogger.mockImplementation(() => ({
       infoRecord += data;
     },
   ),
-  error: jest.fn(
+  warn: jest.fn(
     (data) => {
-      errorRecord += data;
+      warnRecord += data;
     },
   ),
 }));
@@ -114,7 +114,7 @@ describe('Action - Function get-images', () => {
     process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
     await getImages({}, {}, myLogger);
-    expect(errorRecord.includes('Error while creating images folder!')).toBeTruthy();
+    expect(warnRecord.includes('Error while creating images folder!')).toBeTruthy();
 
     process.argv = oldProcessArgv;
   });

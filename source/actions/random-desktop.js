@@ -19,7 +19,7 @@ export default async function (args, options, logger) {
   /* 1. Retrieve image saving path, stop if no save path found */
   const currentSavePath = await taskExecutor(getSavePath(), 'Checking saved images..', 400);
   if (!currentSavePath) {
-    logger.warn(chalk.redBright(`\nError ${ERROR_CODES.ER05}: No existing images, try getting the images first`));
+    logger.warn(chalk.redBright(`\n${ERROR_CODES.ER05}: No existing images, try getting the images first`));
     logger.info('Type get-lock-screen get-images');
     return;
   }
