@@ -25,6 +25,7 @@ describe('Helper - Function wait-key-to-exit', () => {
       logRecord += input;
     };
     process.stdin.isTTY = true;
+    process.stdin.setRawMode = jest.fn(() => true);
 
     waitKeyToExit();
 
