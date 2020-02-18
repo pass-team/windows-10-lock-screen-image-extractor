@@ -18,6 +18,7 @@ import {
   PATH_TO_IMAGE,
   ORIENTATION_ALL,
   IMAGE_NAME_FORMAT_ORIGIN,
+  ERROR_CODES,
 } from '../constants';
 import waitKeyToExit from '../helpers/wait-key-to-exit';
 
@@ -49,7 +50,9 @@ export default async function (args, options, logger) {
   logger.info(chalk.cyan('\nStart processing'));
   /* 1. Create saving folder if hasn't */
   if (!await taskExecutor(createImagesFolder(pathToSave), 'Create images folder', 250)) {
-    logger.error('\nError while creating images folder! Please try againl later!');
+    logger.error(chalk.redBright(`\n${ERROR_CODES.ER02}: `
+      + 'Error while creating images folder! The path provided is invalid or being used by other processes'));
+    logger.info('Type get-lock-screen --help for help.');
     return;
   }
   /* 2. Crawl images from windows's image folder */
@@ -68,7 +71,7 @@ export default async function (args, options, logger) {
     'Exclude duplicates',
     400,
   );
-    /* 6. Check if there were unique images (new images) */
+  /* 6. Check if there were unique images (new images) */
   if (uniqueImages.length) {
     /* 7. Copy them to saving folder */
     const count = await taskExecutor(
