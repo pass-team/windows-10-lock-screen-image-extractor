@@ -12,7 +12,7 @@ export default function (args, options, logger) {
     logger.info('\nImage saved folder(Ctrl + click to open):');
     logger.info(chalk.cyan(`file://${currentSavePath}`));
   } else {
-    logger.error(chalk.redBright(`\n${ERROR_CODES.ER05}: `
+    logger.warn(chalk.redBright(`\n${ERROR_CODES.ER05}: `
       + 'No user settings has been recorded yet, try getting the images first'));
     logger.info(chalk.yellow('Run "get-lock-screen -h" for help'));
   }

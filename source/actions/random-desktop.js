@@ -49,7 +49,7 @@ export default async function (args, options, logger) {
     if (result) {
       logger.info(chalk.green('\nNew desktop background has been set!'));
     } else {
-      logger.error(chalk.redBright(`\n${ERROR_CODES.ER03}: `
+      logger.warn(chalk.redBright(`\n${ERROR_CODES.ER03}: `
         + 'Error setting new desktop wallpaper!'));
       logger.info(chalk.yellow('\nType get-lock-screen random-desktop --help for help'));
     }

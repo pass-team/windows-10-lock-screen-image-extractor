@@ -50,7 +50,7 @@ export default async function (args, options, logger) {
   logger.info(chalk.cyan('\nStart processing'));
   /* 1. Create saving folder if hasn't */
   if (!await taskExecutor(createImagesFolder(pathToSave), 'Create images folder', 250)) {
-    logger.error(chalk.redBright(`\n${ERROR_CODES.ER02}: `
+    logger.warn(chalk.redBright(`\n${ERROR_CODES.ER02}: `
       + 'Error while creating images folder! The path provided is invalid or being used by other processes'));
     logger.info('Type get-lock-screen --help for help.');
     return;
