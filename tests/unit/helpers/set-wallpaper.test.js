@@ -4,7 +4,7 @@ import path from 'path';
 import setWallpaper from '../../../source/helpers/set-wallpaper';
 
 describe('Helper - Function set-wallpaper', () => {
-  it('Should be able to set new desktop wallpaper after successfully set wallpaper', async () => {
+  it('Should be able to set new desktop wallpaper', async () => {
     const mockPath = `${process.cwd()}/tests/mock-assets/`;
     const image = `${mockPath}/a`;
     const images = fs.readdirSync(mockPath);
