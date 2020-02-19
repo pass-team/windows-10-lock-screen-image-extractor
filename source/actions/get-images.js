@@ -71,7 +71,7 @@ export default async function (args, options, logger) {
   debug(`Crawled images from ${PATH_TO_IMAGE}, found ${files.length} images`);
   /* 3. Filter image based on user's input */
   const validImages = await taskExecutor(
-    filterImages(files, {orientation}),
+    filterImages(files, { orientation }),
     'Filtering ones that match your settings',
     400,
   );
