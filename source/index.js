@@ -6,7 +6,7 @@ import {
   IMAGE_NAME_FORMAT_DATE,
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
-  ORIENTATION_ALL,
+  ORIENTATION_ALL, ERROR_CODES,
 } from './constants';
 import {
   getImages,
@@ -14,6 +14,7 @@ import {
   randomDesktop,
   showMenu,
 } from './actions';
+
 
 /**
  *  Define app commands and respectively actions
@@ -30,7 +31,13 @@ app
   .command('get-images', 'Extract lock screen images from windows 10')
   /** @Option path: image saving folder */
   .option('-p, --path', 'Path to save images to',
-    /[A-Z]:.+|false/,
+    (option) => {
+      if (new RegExp(/[A-Z]:.+|false/)
+        .test(option)) {
+        return option;
+      }
+      throw new Error(` (${ERROR_CODES.ER01})`);
+    },
     DEFAULT_SAVE_PATH,
     false)
   .help(`Example:
@@ -42,7 +49,12 @@ app
     + `  '${ORIENTATION_LANDSCAPE}'\n`
     + `  '${ORIENTATION_PORTRAIT}'\n`
     + `  '${ORIENTATION_ALL}'\n`,
-    new RegExp(`${ORIENTATION_LANDSCAPE}|${ORIENTATION_PORTRAIT}|${ORIENTATION_ALL}|false`), ORIENTATION_ALL, false)
+    (option) => {
+      if (new RegExp(`${ORIENTATION_LANDSCAPE}|${ORIENTATION_PORTRAIT}|${ORIENTATION_ALL}|false`).test(option)) {
+        return option;
+      }
+      throw new Error(` (${ERROR_CODES.ER01})`);
+    }, ORIENTATION_ALL, false)
   .help(`Example:
    get-lock-screen get-images -o landscape`)
   /** @Option name pattern: origin, hash, date */
@@ -51,8 +63,13 @@ app
     + 'Choose: \n'
     + `  '${IMAGE_NAME_FORMAT_ORIGIN}': Keep name that windows give\n`
     + `  '${IMAGE_NAME_FORMAT_HASH}': Use image hash as name\n`
-    + `  '${IMAGE_NAME_FORMAT_DATE}': Use current date as name`,
-    new RegExp(`${IMAGE_NAME_FORMAT_ORIGIN}|${IMAGE_NAME_FORMAT_HASH}|${IMAGE_NAME_FORMAT_DATE}|false`),
+    + `  '${IMAGE_NAME_FORMAT_DATE}': Use current date as name`, (option) => {
+      if (new RegExp(`${IMAGE_NAME_FORMAT_ORIGIN}|${IMAGE_NAME_FORMAT_HASH}|${IMAGE_NAME_FORMAT_DATE}|false`)
+        .test(option)) {
+        return option;
+      }
+      throw new Error(` (${ERROR_CODES.ER01})`);
+    },
     IMAGE_NAME_FORMAT_ORIGIN,
     false)
   .help(`Example:

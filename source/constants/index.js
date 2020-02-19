@@ -34,6 +34,15 @@ const MENU_OPTIONS = Object.freeze({
   QUIT: '4. Quit',
 });
 
+/* Error codes */
+const ERROR_CODES = {
+  ER01: 'ER01',
+  ER02: 'ER02',
+  ER03: 'ER03',
+  ER04: 'ER04',
+  ER05: 'ER05',
+};
+
 export {
   PATH_TO_IMAGE,
   DEFAULT_SAVE_PATH,
@@ -50,4 +59,5 @@ export {
   IMAGE_NAME_FORMAT_HASH,
   IMAGE_NAME_FORMAT_DATE,
   MENU_OPTIONS,
+  ERROR_CODES,
 };

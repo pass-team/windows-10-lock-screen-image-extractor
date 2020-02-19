@@ -5,6 +5,7 @@ import wallpaper from 'wallpaper';
 import chalk from 'chalk';
 import logger from 'caporal/lib/logger';
 import {
+  ERROR_CODES,
   IMAGE_NAME_FORMAT_HASH,
   ORIENTATION_LANDSCAPE,
   PATH_TO_CONFIG,
@@ -68,9 +69,9 @@ describe('Action - Function random-desktop', () => {
     // Mock an empty .userconfig file, which should be containing path to image folder
     fs.writeFileSync(PATH_TO_CONFIG, '');
     await randomDesktop({}, {}, myLogger);
-    expect(infoRecord).toEqual(chalk.cyan('\nStart processing'));
+    expect(infoRecord).toEqual(`${chalk.cyan('\nStart processing')}Type get-lock-screen get-images`);
     expect(warnRecord)
-      .toEqual(chalk.yellow('\nNo existing images, try getting the images first, run "get-lock-screen -h" for usage'));
+      .toEqual(chalk.redBright(`\n${ERROR_CODES.ER05}: No existing images, try getting the images first`));
   });
 
   it('Should display “No existing images…“ when found no image to use', async () => {
@@ -79,7 +80,7 @@ describe('Action - Function random-desktop', () => {
     fs.writeFileSync(PATH_TO_CONFIG, folder);
     await randomDesktop({}, {}, myLogger);
     expect(warnRecord)
-      .toEqual(chalk.yellow('\nNo existing images, try getting the images first, run "get-lock-screen -h" for usage'));
+      .toEqual(chalk.redBright(`\n${ERROR_CODES.ER04}: No existing images, try getting the images first`));
   });
 
   it('Should display “Unexpected errors…“ when fail to set wallpaper for some reasons', async () => {
@@ -99,7 +100,8 @@ describe('Action - Function random-desktop', () => {
     });
     await randomDesktop({}, {}, myLogger);
     // Mock an empty .userconfig file, which should be containing path to image folder
-    expect(warnRecord).toEqual(chalk.yellow('\nUnexpected errors!'));
+    expect(warnRecord).toEqual(chalk.redBright(`\n${ERROR_CODES.ER03}: `
+      + 'Error setting new desktop wallpaper!'));
     fs.writeFileSync = old;
     process.argv = oldProcessArgv;
   });

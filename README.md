@@ -47,6 +47,15 @@ Passing one or multiple arguments to change the command’s behavior
 ### 3. Show image saved folder
 Run command: `get-lock-screen show-settings`
 
+## Errors Diagnosis
+| Error code | Error message  | Diagnosis | Action |
+| :--------: | :------------: | :-------- | :----- |
+| ER01 | Invalid value ... for option ... | The argument you provide is in wrong format | Run `get-lock-sceen --help` to know the right syntax |
+| ER02 | Error while creating images folder | The path provided is invalid or being used by other processes | Terminate that process then try again. If it still doesn't work. Raise an issue in our [Github Issue](https://github.com/pass-team/windows-10-lock-screen-image-extractor/issues) |
+| ER03 | Error setting new desktop wallpaper! | The exe file must have been broken in the build process | Check current version of your app. Then visit our release page and download another version |
+| ER04 | No existing images, try getting the images first | Randomize desktop feature only work if you already has an image folder that created by the app | Run `get-lock-screen get-images` to create/recreate the folder |
+| ER05 | No user settings has been recorded yet... | User settings are saved to `.userconfig` file after getting images, this file may be lost or you are running the app for the first time | Run `get-lock-screen get-images` to create/recreate the missing file |
+    
 ## Support
 If you have any problems running the apps, feel free to [open an issue](https://github.com/pass-team/windows-10-lock-screen-image-extractor/issues/new). We will tackle it right away.
 
