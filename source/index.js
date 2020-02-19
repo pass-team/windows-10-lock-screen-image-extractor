@@ -1,4 +1,5 @@
 import app from 'caporal';
+import Debug from 'debug';
 import {
   DEFAULT_SAVE_PATH,
   IMAGE_NAME_FORMAT_ORIGIN,
@@ -15,13 +16,17 @@ import {
   showMenu,
 } from './actions';
 
-
 /**
  *  Define app commands and respectively actions
  *  We are using Caporal.js as cli framework
  *  Checkout their document to better understand syntax
  *  Caporal.js https://github.com/mattallty/Caporal.js
  */
+
+if (!['--debug', '-v', '--verbose'].some((arg) => process.argv.includes(arg))) {
+  Debug.disable();
+}
+
 app
   .version('1.0.0')
   .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')

@@ -1,6 +1,9 @@
 /* eslint-disable global-require, no-console */
 
+import Debug from 'debug';
 import copyFile from './copy-file';
+
+const debug = Debug('helper:copy-bulk-files');
 
 /**
  *  @Helper
@@ -24,6 +27,7 @@ export default function (files, src, dest, pattern) {
        *  Copy single file with index to number file if using the 'date' file name pattern
        */
       copyFile(file, src, dest, pattern, index);
+      debug(`Copy images: ${file.name} to ${dest}`);
       return count + 1;
     } catch (e) {
       if (e.code !== 'EEXIST') return count;
