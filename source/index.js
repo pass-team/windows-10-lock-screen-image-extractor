@@ -6,7 +6,7 @@ import {
   IMAGE_NAME_FORMAT_DATE,
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
-  ORIENTATION_ALL, ERROR_CODES,
+  ORIENTATION_ALL,
 } from './constants';
 import {
   getImages,
@@ -15,6 +15,11 @@ import {
   showMenu,
 } from './actions';
 
+import {
+  pathValidator,
+  orientationValidator,
+  namePatternValidator,
+} from './helpers';
 
 /**
  *  Define app commands and respectively actions
@@ -31,13 +36,7 @@ app
   .command('get-images', 'Extract lock screen images from windows 10')
   /** @Option path: image saving folder */
   .option('-p, --path', 'Path to save images to',
-    (option) => {
-      if (new RegExp(/[A-Z]:.+|false/)
-        .test(option)) {
-        return option;
-      }
-      throw new Error(` (${ERROR_CODES.ER01})`);
-    },
+    pathValidator,
     DEFAULT_SAVE_PATH,
     false)
   .help(`Example:
@@ -49,12 +48,8 @@ app
     + `  '${ORIENTATION_LANDSCAPE}'\n`
     + `  '${ORIENTATION_PORTRAIT}'\n`
     + `  '${ORIENTATION_ALL}'\n`,
-    (option) => {
-      if (new RegExp(`${ORIENTATION_LANDSCAPE}|${ORIENTATION_PORTRAIT}|${ORIENTATION_ALL}|false`).test(option)) {
-        return option;
-      }
-      throw new Error(` (${ERROR_CODES.ER01})`);
-    }, ORIENTATION_ALL, false)
+    orientationValidator,
+    ORIENTATION_ALL, false)
   .help(`Example:
    get-lock-screen get-images -o landscape`)
   /** @Option name pattern: origin, hash, date */
@@ -63,13 +58,8 @@ app
     + 'Choose: \n'
     + `  '${IMAGE_NAME_FORMAT_ORIGIN}': Keep name that windows give\n`
     + `  '${IMAGE_NAME_FORMAT_HASH}': Use image hash as name\n`
-    + `  '${IMAGE_NAME_FORMAT_DATE}': Use current date as name`, (option) => {
-      if (new RegExp(`${IMAGE_NAME_FORMAT_ORIGIN}|${IMAGE_NAME_FORMAT_HASH}|${IMAGE_NAME_FORMAT_DATE}|false`)
-        .test(option)) {
-        return option;
-      }
-      throw new Error(` (${ERROR_CODES.ER01})`);
-    },
+    + `  '${IMAGE_NAME_FORMAT_DATE}': Use current date as name`,
+    namePatternValidator,
     IMAGE_NAME_FORMAT_ORIGIN,
     false)
   .help(`Example:
@@ -85,5 +75,4 @@ app
   .command('random-desktop', 'Randomly set a new desktop wallpaper')
   .help('Example: get-lock-screen random-desktop')
   .action(randomDesktop);
-
 app.parse(process.argv);
