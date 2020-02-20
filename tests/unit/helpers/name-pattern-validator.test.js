@@ -1,5 +1,5 @@
 import namePatternValidator from '../../../source/helpers/name-pattern-validator';
-import {IMAGE_NAME_FORMAT_HASH, IMAGE_NAME_FORMAT_DATE, IMAGE_NAME_FORMAT_ORIGIN} from '../../../source/constants';
+import { IMAGE_NAME_FORMAT_HASH, IMAGE_NAME_FORMAT_DATE, IMAGE_NAME_FORMAT_ORIGIN } from '../../../source/constants';
 
 describe('Helper - Function name-pattern-validator', () => {
   it('Should return name-pattern if input name-pattern is valid', () => {

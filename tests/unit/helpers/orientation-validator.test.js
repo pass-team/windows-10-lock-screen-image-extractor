@@ -1,5 +1,5 @@
 import orientationValidator from '../../../source/helpers/orientation-validator';
-import {ORIENTATION_ALL, ORIENTATION_LANDSCAPE, ORIENTATION_PORTRAIT} from '../../../source/constants';
+import { ORIENTATION_ALL, ORIENTATION_LANDSCAPE, ORIENTATION_PORTRAIT } from '../../../source/constants';
 
 describe('Helper - Function orientation-validator', () => {
   it('Should return orientation if input orientation is valid', () => {

@@ -1,5 +1,5 @@
 /* eslint-disable no-else-return */
-import {ERROR_CODES} from '../constants';
+import { ERROR_CODES } from '../constants';
 
 /**
  *  @Helper

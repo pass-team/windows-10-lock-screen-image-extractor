@@ -1,5 +1,7 @@
 /* eslint-disable no-else-return */
-import {ERROR_CODES, ORIENTATION_ALL, ORIENTATION_LANDSCAPE, ORIENTATION_PORTRAIT} from '../constants';
+import {
+  ERROR_CODES, ORIENTATION_ALL, ORIENTATION_LANDSCAPE, ORIENTATION_PORTRAIT,
+} from '../constants';
 
 /**
  *  @Helper

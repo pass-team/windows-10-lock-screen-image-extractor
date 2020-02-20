@@ -6,7 +6,7 @@ import {
   IMAGE_NAME_FORMAT_DATE,
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
-  ORIENTATION_ALL, ERROR_CODES,
+  ORIENTATION_ALL,
 } from './constants';
 import {
   getImages,
@@ -18,7 +18,7 @@ import {
 import {
   pathValidator,
   orientationValidator,
-  namePatternValidator
+  namePatternValidator,
 } from './helpers';
 
 /**
@@ -75,8 +75,4 @@ app
   .command('random-desktop', 'Randomly set a new desktop wallpaper')
   .help('Example: get-lock-screen random-desktop')
   .action(randomDesktop);
-try {
-  app.parse(process.argv);
-} catch (e) {
-  // console.log(e)
-}
+app.parse(process.argv);
