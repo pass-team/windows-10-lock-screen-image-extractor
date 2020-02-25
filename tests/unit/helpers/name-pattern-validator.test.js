@@ -11,7 +11,7 @@ describe('Helper - Function name-pattern-validator', () => {
     try {
       namePatternValidator('uppercase');
     } catch (e) {
-      expect(e.message).toEqual(expect.stringContaining('(ER01)'));
+      expect(e.message).toEqual(expect.stringContaining('ER01'));
     }
   });
 });

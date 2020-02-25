@@ -11,7 +11,7 @@ describe('Helper - Function orientation-validator', () => {
     try {
       orientationValidator('stretch');
     } catch (e) {
-      expect(e.message).toEqual(expect.stringContaining('(ER01)'));
+      expect(e.message).toEqual(expect.stringContaining('ER01'));
     }
   });
 });

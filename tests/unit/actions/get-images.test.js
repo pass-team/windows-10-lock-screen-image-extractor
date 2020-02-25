@@ -106,6 +106,21 @@ describe('Action - Function get-images', () => {
   });
 
   it('Should print "Error while creating images folder" when fail to create saved folder', async () => {
+    const folder = 'D:/"';
+    const answers = {
+      path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
+    };
+    const oldProcessArgv = process.argv;
+    process.argv = ['a', 'b'];
+
+    argumentsPrompt.mockImplementation(() => answers);
+    await getImages({}, {}, myLogger);
+    expect(warnRecord.includes('Error while creating images folder!')).toBeTruthy();
+
+    process.argv = oldProcessArgv;
+  });
+
+  it('Should throw an error when the path is invalid', async () => {
     const folder = 'D:/';
     const answers = {
       path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
@@ -113,9 +128,11 @@ describe('Action - Function get-images', () => {
     const oldProcessArgv = process.argv;
     process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
-    await getImages({}, {}, myLogger);
-    expect(warnRecord.includes('Error while creating images folder!')).toBeTruthy();
-
+    try {
+      await getImages({}, {}, myLogger);
+    } catch (e) {
+      expect(e.message).toEqual(expect.stringContaining('ER01'));
+    }
     process.argv = oldProcessArgv;
   });
 

@@ -9,19 +9,19 @@ describe('Helper - Function path-validator', () => {
     try {
       pathValidator('D:');
     } catch (e) {
-      expect(e.message).toEqual(expect.stringContaining('(ER01)'));
+      expect(e.message).toEqual(expect.stringContaining('ER01'));
     }
 
     try {
       pathValidator('D:\\');
     } catch (e) {
-      expect(e.message).toEqual(expect.stringContaining('(ER01)'));
+      expect(e.message).toEqual(expect.stringContaining('ER01'));
     }
 
     try {
       pathValidator('D:/zxczxc***');
     } catch (e) {
-      expect(e.message).toEqual(expect.stringContaining('(ER01)'));
+      expect(e.message).toEqual(expect.stringContaining('ER01'));
     }
   });
 });
