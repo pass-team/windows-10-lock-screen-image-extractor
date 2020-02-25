@@ -88,7 +88,6 @@ describe('Action - Function get-images', () => {
     fs.readdirSync(folder).forEach((file, index) => {
       expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
     });
-
     process.argv = oldProcessArgv;
     deleteFolderRecursive(folder);
   });
@@ -112,7 +111,6 @@ describe('Action - Function get-images', () => {
     };
     const oldProcessArgv = process.argv;
     process.argv = ['a', 'b'];
-
     argumentsPrompt.mockImplementation(() => answers);
     await getImages({}, {}, myLogger);
     expect(warnRecord.includes('Error while creating images folder!')).toBeTruthy();
