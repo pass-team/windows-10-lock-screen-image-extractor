@@ -88,7 +88,6 @@ describe('Action - Function get-images', () => {
     fs.readdirSync(folder).forEach((file, index) => {
       expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
     });
-
     process.argv = oldProcessArgv;
     deleteFolderRecursive(folder);
   });
@@ -106,7 +105,7 @@ describe('Action - Function get-images', () => {
   });
 
   it('Should print "Error while creating images folder" when fail to create saved folder', async () => {
-    const folder = 'D:/';
+    const folder = 'D:/"';
     const answers = {
       path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
     };
@@ -116,6 +115,22 @@ describe('Action - Function get-images', () => {
     await getImages({}, {}, myLogger);
     expect(warnRecord.includes('Error while creating images folder!')).toBeTruthy();
 
+    process.argv = oldProcessArgv;
+  });
+
+  it('Should throw an error when the path is invalid', async () => {
+    const folder = 'D:/';
+    const answers = {
+      path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
+    };
+    const oldProcessArgv = process.argv;
+    process.argv = ['a', 'b'];
+    argumentsPrompt.mockImplementation(() => answers);
+    try {
+      await getImages({}, {}, myLogger);
+    } catch (e) {
+      expect(e.message).toEqual(expect.stringContaining('ER01'));
+    }
     process.argv = oldProcessArgv;
   });
 

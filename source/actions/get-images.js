@@ -11,6 +11,9 @@ import {
   promptConditionMatch,
   argumentsPrompt,
   taskExecutor,
+  validatePath,
+  validateOrientation,
+  validateNamePattern,
 } from '../helpers';
 
 import {
@@ -48,6 +51,10 @@ export default async function (args, options, logger) {
     if (answers.orientation) orientation = answers.orientation;
     if (answers.namePattern) namePattern = answers.namePattern;
   }
+
+  validatePath(pathToSave);
+  validateOrientation(orientation);
+  validateNamePattern(namePattern);
 
   /**
    *  Save user settings

@@ -16,12 +16,6 @@ import {
   showMenu,
 } from './actions';
 
-import {
-  pathValidator,
-  orientationValidator,
-  namePatternValidator,
-} from './helpers';
-
 /**
  *  Define app commands and respectively actions
  *  We are using Caporal.js as cli framework
@@ -42,7 +36,7 @@ app
   .command('get-images', 'Extract lock screen images from windows 10')
   /** @Option path: image saving folder */
   .option('-p, --path', 'Path to save images to',
-    pathValidator,
+    null,
     DEFAULT_SAVE_PATH,
     false)
   .help(`Example:
@@ -54,7 +48,7 @@ app
     + `  '${ORIENTATION_LANDSCAPE}'\n`
     + `  '${ORIENTATION_PORTRAIT}'\n`
     + `  '${ORIENTATION_ALL}'\n`,
-    orientationValidator,
+    null,
     ORIENTATION_ALL, false)
   .help(`Example:
    get-lock-screen get-images -o landscape`)
@@ -65,7 +59,7 @@ app
     + `  '${IMAGE_NAME_FORMAT_ORIGIN}': Keep name that windows give\n`
     + `  '${IMAGE_NAME_FORMAT_HASH}': Use image hash as name\n`
     + `  '${IMAGE_NAME_FORMAT_DATE}': Use current date as name`,
-    namePatternValidator,
+    null,
     IMAGE_NAME_FORMAT_ORIGIN,
     false)
   .help(`Example:

@@ -23,9 +23,9 @@ import getSavePath from './get-save-path';
 
 import taskExecutor from './task-executor';
 
-import pathValidator from './path-validator';
-import orientationValidator from './orientation-validator';
-import namePatternValidator from './name-pattern-validator';
+import validatePath from './validate-path';
+import validateOrientation from './validate-orientation';
+import validateNamePattern from './validate-name-pattern';
 
 export {
   isPortraitImage,
@@ -49,7 +49,7 @@ export {
   setSavePath,
   getSavePath,
   taskExecutor,
-  pathValidator,
-  orientationValidator,
-  namePatternValidator,
+  validatePath,
+  validateOrientation,
+  validateNamePattern,
 };
