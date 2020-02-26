@@ -31,6 +31,7 @@ const mockLogger = logger.createLogger.mockImplementation(() => ({
       warnRecord += data;
     },
   ),
+  verbose: jest.fn(),
 }));
 
 describe('Action - Function random-desktop', () => {

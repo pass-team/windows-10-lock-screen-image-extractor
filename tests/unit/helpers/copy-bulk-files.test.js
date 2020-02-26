@@ -4,10 +4,14 @@ import copyBulkFiles from '../../../source/helpers/copy-bulk-files';
 import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
 
 describe('Helper - Function copy-bulk-files', () => {
+  let files;
   let mockSource = `${process.cwd()}/tests/mock-assets/`;
   const mockDestination = `${process.cwd()}/tests/mock-destination/`;
-  const mockNamePatter = 'origin';
-  let files;
+  const mockNamePattern = 'origin';
+  const mockLogger = {
+    verbose: () => jest.fn(),
+    debug: () => jest.fn(),
+  };
 
   beforeEach(() => {
     /** Mock file meta objects represent mock assets folder
@@ -34,17 +38,17 @@ describe('Helper - Function copy-bulk-files', () => {
 
   it('Should return the number of copied files', () => {
     // Copy first time
-    const copyCount = copyBulkFiles(files, mockSource, mockDestination, mockNamePatter);
+    const copyCount = copyBulkFiles(files, mockSource, mockDestination, mockNamePattern, mockLogger);
     expect(copyCount).toEqual(6);
 
     // Copy second time, duplicated files so return 0
-    const copyCountSecond = copyBulkFiles(files, mockSource, mockDestination, mockNamePatter);
+    const copyCountSecond = copyBulkFiles(files, mockSource, mockDestination, mockNamePattern, mockLogger);
     expect(copyCountSecond).toEqual(0);
   });
 
   it('Should ignores counting files that failed to copy', () => {
     mockSource = '';
-    const copyCount = copyBulkFiles(files, mockSource, mockDestination, mockNamePatter);
+    const copyCount = copyBulkFiles(files, mockSource, mockDestination, mockNamePattern, mockLogger);
     expect(copyCount).toEqual(0);
   });
 });
