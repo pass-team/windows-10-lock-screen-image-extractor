@@ -1,4 +1,3 @@
-/* eslint-disable no-else-return, no-useless-escape */
 import chalk from 'chalk';
 import { ERROR_CODES } from '../constants';
 
@@ -13,9 +12,7 @@ import { ERROR_CODES } from '../constants';
  */
 
 export default (path) => {
-  if (new RegExp(/[A-Z]:[\/\\].+/).test(path)) {
-    return path;
-  } else {
+  if (!new RegExp(/[A-Z]:[/\\].+/).test(path)) {
     throw new Error(chalk.redBright(`${ERROR_CODES.ER01}: Invalid value '${path}' for option --path`
       + '\nType get-lock-screen -h for usage'));
   }
