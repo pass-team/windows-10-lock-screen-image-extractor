@@ -1,9 +1,7 @@
 /* eslint-disable global-require, no-console */
 
-import Debug from 'debug';
 import copyFile from './copy-file';
-
-const debug = Debug('helper:copy-bulk-files');
+import extendedLogger from './extended-logger';
 
 /**
  *  @Helper
@@ -19,7 +17,10 @@ const debug = Debug('helper:copy-bulk-files');
  *    - files are copy to dest folder
  *    - return the number of files copied
  */
-export default function (files, src, dest, pattern) {
+
+export default function (files, src, dest, pattern, logger) {
+  // eslint-disable-next-line no-param-reassign
+  logger = extendedLogger(logger, 'helper:copy-bulk-file');
   return files.reduce((count, file, index) => {
     try {
       /**
@@ -27,7 +28,7 @@ export default function (files, src, dest, pattern) {
        *  Copy single file with index to number file if using the 'date' file name pattern
        */
       copyFile(file, src, dest, pattern, index);
-      debug(`Copy images: ${file.name} to ${dest}`);
+      logger.debug(`Copy images: ${file.name} to ${dest}`);
       return count + 1;
     } catch (e) {
       if (e.code !== 'EEXIST') return count;
