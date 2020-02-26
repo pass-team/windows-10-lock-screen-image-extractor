@@ -26,7 +26,8 @@
     "hasha": "5.2.0",
     "image-size": "0.8.3",
     "ora": "4.0.3",
-    "wallpaper": "4.4.1"
+    "wallpaper": "4.4.1",
+    "winston": "3.2.1"
   },
   "devDependencies": {
     "@babel/cli": "7.8.4",

@@ -1,7 +1,6 @@
 /* eslint-disable global-require, no-console */
 
 import copyFile from './copy-file';
-import extendedLogger from './extended-logger';
 
 /**
  *  @Helper
@@ -20,7 +19,6 @@ import extendedLogger from './extended-logger';
 
 export default function (files, src, dest, pattern, logger) {
   // eslint-disable-next-line no-param-reassign
-  logger = extendedLogger(logger, 'helper:copy-bulk-file');
   return files.reduce((count, file, index) => {
     try {
       /**
@@ -28,7 +26,7 @@ export default function (files, src, dest, pattern, logger) {
        *  Copy single file with index to number file if using the 'date' file name pattern
        */
       copyFile(file, src, dest, pattern, index);
-      logger.debug(`Copy images: ${file.name} to ${dest}`);
+      logger.log('debug', `Copy images: ${file.name} to ${dest}`);
       return count + 1;
     } catch (e) {
       if (e.code !== 'EEXIST') return count;

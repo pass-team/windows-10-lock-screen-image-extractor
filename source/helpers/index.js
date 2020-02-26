@@ -27,7 +27,7 @@ import validatePath from './validate-path';
 import validateOrientation from './validate-orientation';
 import validateNamePattern from './validate-name-pattern';
 
-import extendedLogger from './extended-logger';
+import extendLogger from './extend-logger';
 
 export {
   isPortraitImage,
@@ -54,5 +54,5 @@ export {
   validatePath,
   validateOrientation,
   validateNamePattern,
-  extendedLogger,
+  extendLogger,
 };

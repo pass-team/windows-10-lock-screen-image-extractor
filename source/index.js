@@ -15,6 +15,9 @@ import {
   showMenu,
 } from './actions';
 
+import {
+  extendLogger,
+} from './helpers';
 /**
  *  Define app commands and respectively actions
  *  We are using Caporal.js as cli framework
@@ -25,6 +28,7 @@ import {
 app
   .version('1.0.0')
   .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')
+  .logger(extendLogger())
   /** @Command: default when no command is provided */
   .action(showMenu)
   /** @Command: get-images */
