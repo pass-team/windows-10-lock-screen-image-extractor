@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import Debug from 'debug';
 import {
   getSavePath,
   getFiles,
@@ -12,6 +13,8 @@ import {
 } from '../constants';
 import waitKeyToExit from '../helpers/wait-key-to-exit';
 
+const debug = Debug('actions:random-desktop');
+
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {
   /* Steps to handle the action */
@@ -23,9 +26,9 @@ export default async function (args, options, logger) {
     logger.info('Type get-lock-screen get-images');
     return;
   }
+  debug(`Current image saved folder: ${currentSavePath}`);
   /* 2. Retrieve saved images */
   const savedImages = getFiles(currentSavePath);
-
   /**
    *  Inform if no images found
    *  Otherwise randomly set desktop background
@@ -45,6 +48,8 @@ export default async function (args, options, logger) {
       `Found ${savedImages.length} images. Picking a random wallpaper..`,
       500,
     );
+
+    debug(`Choose image: ${pick} as new desktop wallpaper`);
 
     if (result) {
       logger.info(chalk.green('\nNew desktop background has been set!'));
