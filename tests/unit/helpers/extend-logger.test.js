@@ -41,12 +41,11 @@ describe('Helper - Function extend-debug-logger', () => {
     extendedLogger.warn('Message content warn level');
     extendedLogger.log('debug', 'Message content debug level');
     extendedLogger.log('debug', 'Message content debug level with meta data', { caller: 'action:mock-action' });
-
     const expectedReformatedLogs = [
       'Message content info level\r\n',
       'Message content warn level\r\n',
-      '\u001b[38;2;239;222;205mMessage content debug level',
-      '\u001b[38;2;239;222;205maction:mock-action: Message content debug level with meta data',
+      'Message content debug level +',
+      'action:mock-action: Message content debug level with meta data +',
     ];
     console._stdout.write = oldStdout;
     expect(logs[0]).toEqual(expectedReformatedLogs[0]);
