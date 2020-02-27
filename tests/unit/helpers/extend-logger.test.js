@@ -2,7 +2,7 @@
 import winston from 'winston';
 import extendLogger from '../../../source/helpers/extend-logger';
 
-describe('Helper - Function extend-debug-logger', () => {
+describe('Helper - Function extendLogger', () => {
   it('Should generate log object with values depending on arguments', () => {
     const logger = extendLogger(0);
     const logs = [];
