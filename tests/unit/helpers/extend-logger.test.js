@@ -35,7 +35,7 @@ describe('Helper - Function extend-debug-logger', () => {
     });
     const oldStdout = console._stdout.write;
     console._stdout.write = (data) => {
-      logs = [...logs, data];
+      logs = [...logs, data.toString()];
     };
     extendedLogger.info('Message content info level');
     extendedLogger.warn('Message content warn level');
