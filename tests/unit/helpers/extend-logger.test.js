@@ -50,6 +50,7 @@ describe('Helper - Function extend-debug-logger', () => {
     ];
     console._stdout.write = oldStdout;
     console.log(logs);
+    console.log(expectedReformatedLogs);
     expect(logs[0]).toEqual(expectedReformatedLogs[0]);
     expect(logs[1]).toEqual(expectedReformatedLogs[1]);
     expect(logs[2]).toEqual(expect.stringContaining(expectedReformatedLogs[2]));

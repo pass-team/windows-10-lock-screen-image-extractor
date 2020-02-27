@@ -45,9 +45,9 @@ jobs:
       - name: Install dependencies
         if: steps.check-yarn-cache.outputs.cache-hit != 'true'
         run: yarn install
-      - name: Run linting
-        run: |
-          yarn run lint:scripts
+#      - name: Run linting
+#        run: |
+#          yarn run lint:scripts
       - name: Mock assets for testing
         run: |
           (robocopy ./tests/mock-assets/ %userprofile%\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets\ /v) ^& IF %ERRORLEVEL% LEQ 4 exit /B 0
