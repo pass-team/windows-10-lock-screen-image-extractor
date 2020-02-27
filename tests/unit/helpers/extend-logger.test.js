@@ -4,7 +4,7 @@ import extendLogger from '../../../source/helpers/extend-logger';
 
 describe('Helper - Function extendLogger', () => {
   it('Should generate log object with values depending on arguments', () => {
-    const logger = extendLogger(0);
+    const logger = extendLogger();
     const logs = [];
     const extendedLogger = Object.create(logger, {
       write: {
