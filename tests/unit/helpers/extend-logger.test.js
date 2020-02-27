@@ -45,8 +45,8 @@ describe('Helper - Function extend-debug-logger', () => {
     const expectedReformatedLogs = [
       'Message content info level\r\n',
       'Message content warn level\r\n',
-      '\u001b[38;2;239;222;205mMessage content debug level',
-      '\u001b[38;2;239;222;205maction:mock-action: Message content debug level with meta data',
+      '\u001b[35mMessage content debug level',
+      '\u001b[35maction:mock-action: Message content debug level with meta data',
     ];
     console._stdout.write = oldStdout;
     expect(logs[0]).toEqual(expectedReformatedLogs[0]);
