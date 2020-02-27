@@ -8,5 +8,6 @@
  *      - false: detect additional arguments from user
  */
 export default function (process) {
-  return process.argv.splice(2).length <= 0;
+  const args = process.argv.splice(2);
+  return args.length === 0 || (args.length === 1 && ['-v', '--verbose'].includes(args[0]));
 }

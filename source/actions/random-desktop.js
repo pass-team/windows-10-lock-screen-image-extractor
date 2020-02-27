@@ -1,5 +1,4 @@
 import chalk from 'chalk';
-import Debug from 'debug';
 import {
   getSavePath,
   getFiles,
@@ -13,20 +12,20 @@ import {
 } from '../constants';
 import waitKeyToExit from '../helpers/wait-key-to-exit';
 
-const debug = Debug('actions:random-desktop');
-
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {
+  // eslint-disable-next-line no-param-reassign
+  logger = logger.child({ caller: 'actions:random-desktop' });
   /* Steps to handle the action */
   logger.info(chalk.cyan('\nStart processing'));
   /* 1. Retrieve image saving path, stop if no save path found */
   const currentSavePath = await taskExecutor(getSavePath(), 'Checking saved images..', 400);
   if (!currentSavePath) {
     logger.warn(chalk.redBright(`\n${ERROR_CODES.ER05}: No existing images, try getting the images first`));
-    logger.info('Type get-lock-screen get-images');
+    logger.info('Type get-lock-screen get-images to get images');
     return;
   }
-  debug(`Current image saved folder: ${currentSavePath}`);
+  logger.log('debug', `Current image saved folder: ${currentSavePath}`);
   /* 2. Retrieve saved images */
   const savedImages = getFiles(currentSavePath);
   /**
@@ -49,7 +48,7 @@ export default async function (args, options, logger) {
       500,
     );
 
-    debug(`Choose image: ${pick} as new desktop wallpaper`);
+    logger.log('debug', `Choose image: ${pick} as new desktop wallpaper`);
 
     if (result) {
       logger.info(chalk.green('\nNew desktop background has been set!'));

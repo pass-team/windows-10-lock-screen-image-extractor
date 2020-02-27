@@ -18,7 +18,7 @@ describe('Feature random-desktop', () => {
     nixt()
       .cwd(cwd)
       .run('get-lock-screen random-desktop')
-      .stderr(/.*No existing images*/)
+      .stdout(/.*No existing images*/)
       .end(done);
   });
 

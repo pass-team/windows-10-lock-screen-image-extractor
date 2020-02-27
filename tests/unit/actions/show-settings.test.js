@@ -2,7 +2,6 @@
 import fs from 'fs';
 import chalk from 'chalk';
 import path from 'path';
-import logger from 'caporal/lib/logger';
 import {
   IMAGE_NAME_FORMAT_HASH,
   ORIENTATION_LANDSCAPE,
@@ -10,27 +9,23 @@ import {
 import getImages from '../../../source/actions/get-images';
 import showSettings from '../../../source/actions/show-settings';
 import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
+import extendLogger from '../../../source/helpers/extend-logger';
 
 jest.mock('caporal/lib/logger');
 
 let infoRecord = '';
 let warnRecord = '';
 
-const mockLogger = logger.createLogger.mockImplementation(() => ({
-  info: jest.fn(
-    (data) => {
-      infoRecord += data;
-    },
-  ),
-  warn: jest.fn(
-    (data) => {
-      warnRecord += data;
-    },
-  ),
-}));
+const mockLogger = extendLogger();
+mockLogger.info = (data) => {
+  infoRecord += data;
+};
+mockLogger.warn = (data) => {
+  warnRecord += data;
+};
+mockLogger.log = jest.fn();
 
 describe('Action - Function show-settings', () => {
-  const myLogger = mockLogger();
   const folder = 'D://screen-images';
 
   beforeEach(() => {
@@ -46,7 +41,7 @@ describe('Action - Function show-settings', () => {
   });
 
   it('Should display "No user settings has been recorded yet.." when .userconfig does not exist', async () => {
-    await showSettings({}, {}, myLogger);
+    await showSettings({}, {}, mockLogger);
 
     expect(warnRecord.includes('No user settings has been recorded yet')).toBeTruthy();
   });
@@ -57,8 +52,8 @@ describe('Action - Function show-settings', () => {
       orientation: ORIENTATION_LANDSCAPE,
       namePattern: IMAGE_NAME_FORMAT_HASH,
     };
-    await getImages({}, answers, myLogger);
-    await showSettings({}, {}, myLogger);
+    await getImages({}, answers, mockLogger);
+    await showSettings({}, {}, mockLogger);
 
     expect(infoRecord.includes(`file://${folder}`)).toBeTruthy();
     // Clean up trash files created by test case
@@ -85,9 +80,9 @@ describe('Action - Function show-settings', () => {
       infoRecord += 'Exit';
     });
     // Get images
-    await getImages({}, answers, myLogger);
+    await getImages({}, answers, mockLogger);
     // Run show-settings
-    await showSettings({}, {}, myLogger);
+    await showSettings({}, {}, mockLogger);
     // Expect output from function wait-key-to-exit
     expect(infoRecord.includes(chalk.cyan('\nPress any key to exit..'))).toBeTruthy();
     // Restore mock

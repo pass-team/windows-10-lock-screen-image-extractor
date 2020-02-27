@@ -3,7 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import wallpaper from 'wallpaper';
 import chalk from 'chalk';
-import logger from 'caporal/lib/logger';
 import {
   ERROR_CODES,
   IMAGE_NAME_FORMAT_HASH,
@@ -13,28 +12,21 @@ import {
 import getImages from '../../../source/actions/get-images';
 import randomDesktop from '../../../source/actions/random-desktop';
 import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
-
-jest.mock('caporal/lib/logger');
-
+import extendLogger from '../../../source/helpers/extend-logger';
 
 let infoRecord = '';
 let warnRecord = '';
 
-const mockLogger = logger.createLogger.mockImplementation(() => ({
-  info: jest.fn(
-    (data) => {
-      infoRecord += data;
-    },
-  ),
-  warn: jest.fn(
-    (data) => {
-      warnRecord += data;
-    },
-  ),
-}));
+const mockLogger = extendLogger();
+mockLogger.info = (data) => {
+  infoRecord += data;
+};
+mockLogger.warn = (data) => {
+  warnRecord += data;
+};
+mockLogger.log = jest.fn();
 
 describe('Action - Function random-desktop', () => {
-  const myLogger = mockLogger();
   // Reset logging recorder
   beforeEach(() => {
     infoRecord = '';
@@ -55,8 +47,8 @@ describe('Action - Function random-desktop', () => {
       path: folder,
       orientation: ORIENTATION_LANDSCAPE,
       namePattern: IMAGE_NAME_FORMAT_HASH,
-    }, myLogger);
-    await randomDesktop({}, {}, myLogger);
+    }, mockLogger);
+    await randomDesktop({}, {}, mockLogger);
     const images = fs.readdirSync(folder);
     const wallpaperName = path.basename(await wallpaper.get());
     // Expect images exists images folder
@@ -68,8 +60,8 @@ describe('Action - Function random-desktop', () => {
   it('Should display “No existing images…“ when image folder does not exist', async () => {
     // Mock an empty .userconfig file, which should be containing path to image folder
     fs.writeFileSync(PATH_TO_CONFIG, '');
-    await randomDesktop({}, {}, myLogger);
-    expect(infoRecord).toEqual(`${chalk.cyan('\nStart processing')}Type get-lock-screen get-images`);
+    await randomDesktop({}, {}, mockLogger);
+    expect(infoRecord).toEqual(`${chalk.cyan('\nStart processing')}Type get-lock-screen get-images to get images`);
     expect(warnRecord)
       .toEqual(chalk.redBright(`\n${ERROR_CODES.ER05}: No existing images, try getting the images first`));
   });
@@ -78,7 +70,7 @@ describe('Action - Function random-desktop', () => {
     const folder = `D:/w10-startup-lock-screen-extractor/${Math.floor(Math.random() * Math.floor(10000))}/`;
     // Mock an empty .userconfig file, which should be containing path to image folder
     fs.writeFileSync(PATH_TO_CONFIG, folder);
-    await randomDesktop({}, {}, myLogger);
+    await randomDesktop({}, {}, mockLogger);
     expect(warnRecord)
       .toEqual(chalk.redBright(`\n${ERROR_CODES.ER04}: No existing images, try getting the images first`));
   });
@@ -92,13 +84,13 @@ describe('Action - Function random-desktop', () => {
       path: folder,
       orientation: ORIENTATION_LANDSCAPE,
       namePattern: IMAGE_NAME_FORMAT_HASH,
-    }, myLogger);
+    }, mockLogger);
     // Mock error while retrieving setWallpaper binary
     const old = fs.writeFileSync;
     fs.writeFileSync = jest.fn(() => {
       throw 'Unexpected Error';
     });
-    await randomDesktop({}, {}, myLogger);
+    await randomDesktop({}, {}, mockLogger);
     // Mock an empty .userconfig file, which should be containing path to image folder
     expect(warnRecord).toEqual(chalk.redBright(`\n${ERROR_CODES.ER03}: `
       + 'Error setting new desktop wallpaper!'));
@@ -126,9 +118,9 @@ describe('Action - Function random-desktop', () => {
       path: folder,
       orientation: ORIENTATION_LANDSCAPE,
       namePattern: IMAGE_NAME_FORMAT_HASH,
-    }, myLogger);
+    }, mockLogger);
     // Run random-desktop
-    await randomDesktop({}, {}, myLogger);
+    await randomDesktop({}, {}, mockLogger);
     // Expect output from function wait-key-to-exit
     expect(infoRecord.includes(chalk.cyan('\nPress any key to exit..'))).toBeTruthy();
     // Restore mock
