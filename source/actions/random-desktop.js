@@ -20,7 +20,7 @@ export default async function (args, options, logger) {
   const currentSavePath = await taskExecutor(getSavePath(), 'Checking saved images..', 400);
   if (!currentSavePath) {
     logger.warn(chalk.redBright(`\n${ERROR_CODES.ER05}: No existing images, try getting the images first`));
-    logger.info('Type get-lock-screen get-images');
+    logger.info('Type get-lock-screen get-images to get images');
     return;
   }
   logger.log('debug', `Current image saved folder: ${currentSavePath}`);
