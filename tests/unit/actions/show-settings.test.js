@@ -27,7 +27,7 @@ const mockLogger = logger.createLogger.mockImplementation(() => ({
       warnRecord += data;
     },
   ),
-  verbose: jest.fn(),
+  log: jest.fn(),
 }));
 
 describe('Action - Function show-settings', () => {

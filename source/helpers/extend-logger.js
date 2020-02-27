@@ -1,7 +1,7 @@
 import winston from 'winston';
 
-const extendLogger = () => winston.createLogger({
-  transports: [new winston.transports.Console()],
+const extendLogger = (transport) => winston.createLogger({
+  transports: [transport || new winston.transports.Console()],
   format: winston.format.combine(
     winston.format.ms(),
     winston.format.colorize({ all: true }),

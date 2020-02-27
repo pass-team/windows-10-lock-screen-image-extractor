@@ -9,8 +9,7 @@ describe('Helper - Function copy-bulk-files', () => {
   const mockDestination = `${process.cwd()}/tests/mock-destination/`;
   const mockNamePattern = 'origin';
   const mockLogger = {
-    verbose: () => jest.fn(),
-    debug: () => jest.fn(),
+    log: () => jest.fn(),
   };
 
   beforeEach(() => {
