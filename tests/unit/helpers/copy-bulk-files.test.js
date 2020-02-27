@@ -2,15 +2,15 @@ import hashFile from '../../../source/helpers/hash-file';
 import creatImagesFolder from '../../../source/helpers/create-images-folder';
 import copyBulkFiles from '../../../source/helpers/copy-bulk-files';
 import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
+import extendLogger from '../../../source/helpers/extend-logger';
+
+const mockLogger = extendLogger();
 
 describe('Helper - Function copy-bulk-files', () => {
   let files;
   let mockSource = `${process.cwd()}/tests/mock-assets/`;
   const mockDestination = `${process.cwd()}/tests/mock-destination/`;
   const mockNamePattern = 'origin';
-  const mockLogger = {
-    log: () => jest.fn(),
-  };
 
   beforeEach(() => {
     /** Mock file meta objects represent mock assets folder

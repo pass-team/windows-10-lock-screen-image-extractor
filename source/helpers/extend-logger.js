@@ -6,7 +6,7 @@ const extendLogger = (transport) => winston.createLogger({
   format: winston.format.combine(
     winston.format.ms(),
     winston.format.printf((log) => (log.level.indexOf('debug') !== -1
-      ? chalk.hex('#efdecd')(`${log.caller ? `${log.caller}: ` : ''}${log.message} ${log.ms}`)
+      ? chalk.magenta(`${log.caller ? `${log.caller}: ` : ''}${log.message} ${log.ms}`)
       : log.message)),
   ),
 });

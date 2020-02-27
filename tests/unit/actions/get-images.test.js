@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import fs from 'fs';
-import logger from 'caporal/lib/logger';
 import chalk from 'chalk';
 import path from 'path';
 import {
@@ -12,32 +11,30 @@ import {
   getImages,
 } from '../../../source/actions';
 import hashFile from '../../../source/helpers/hash-file';
+import extendLogger from '../../../source/helpers/extend-logger';
 import argumentsPrompt from '../../../source/helpers/arguments-prompt';
 import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
 
-jest.mock('caporal/lib/logger');
 jest.mock('../../../source/helpers/arguments-prompt');
 jest.mock('../../../source/constants');
 
 let infoRecord = '';
 let warnRecord = '';
 
-const mockLogger = logger.createLogger.mockImplementation(() => ({
-  info: jest.fn(
-    (data) => {
-      infoRecord += data;
-    },
-  ),
-  warn: jest.fn(
-    (data) => {
-      warnRecord += data;
-    },
-  ),
-  log: jest.fn(),
-}));
+const mockLogger = extendLogger();
+mockLogger.info = (data) => {
+  infoRecord += data;
+};
+mockLogger.warn = (data) => {
+  warnRecord += data;
+};
+mockLogger.log = jest.fn();
 
 describe('Action - Function get-images', () => {
-  const myLogger = mockLogger();
+  beforeEach(() => {
+    infoRecord = '';
+    warnRecord = '';
+  });
 
   afterEach(() => {
     if (fs.existsSync(path.join(process.cwd(), '\\.userconfig'))) {
@@ -50,7 +47,7 @@ describe('Action - Function get-images', () => {
     const answers = {
       path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
     };
-    await getImages({}, answers, myLogger);
+    await getImages({}, answers, mockLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     fs.readdirSync(folder).forEach((file, index) => {
       expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
@@ -66,7 +63,7 @@ describe('Action - Function get-images', () => {
     const oldProcessArgv = process.argv;
     process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
-    await getImages({}, {}, myLogger);
+    await getImages({}, {}, mockLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     fs.readdirSync(folder).forEach((file, index) => {
       expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
@@ -84,7 +81,7 @@ describe('Action - Function get-images', () => {
     const oldProcessArgv = process.argv;
     process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
-    await getImages({}, {}, myLogger);
+    await getImages({}, {}, mockLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     fs.readdirSync(folder).forEach((file, index) => {
       expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
@@ -99,8 +96,8 @@ describe('Action - Function get-images', () => {
       path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
     };
     argumentsPrompt.mockImplementation(() => false);
-    await getImages({}, answers, myLogger);
-    await getImages({}, answers, myLogger);
+    await getImages({}, answers, mockLogger);
+    await getImages({}, answers, mockLogger);
     expect(fs.readdirSync(folder).length).toEqual(6);
     deleteFolderRecursive(folder);
   });
@@ -113,7 +110,7 @@ describe('Action - Function get-images', () => {
     const oldProcessArgv = process.argv;
     process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
-    await getImages({}, {}, myLogger);
+    await getImages({}, {}, mockLogger);
     expect(warnRecord.includes('Error while creating images folder!')).toBeTruthy();
 
     process.argv = oldProcessArgv;
@@ -128,7 +125,7 @@ describe('Action - Function get-images', () => {
     process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
     try {
-      await getImages({}, {}, myLogger);
+      await getImages({}, {}, mockLogger);
     } catch (e) {
       expect(e.message).toEqual(expect.stringContaining('ER01'));
     }
@@ -156,7 +153,7 @@ describe('Action - Function get-images', () => {
       infoRecord += 'Exit';
     });
     // Get images
-    await getImages({}, answers, myLogger);
+    await getImages({}, answers, mockLogger);
     // Expect output from function wait-key-to-exit
     expect(infoRecord.includes(chalk.cyan('\nPress any key to exit..'))).toBeTruthy();
     // Restore mock
