@@ -27,6 +27,7 @@ import waitKeyToExit from '../helpers/wait-key-to-exit';
 /* Action that handle extracting lock screen from windows */
 export default async function (args, options, logger) {
   // eslint-disable-next-line no-param-reassign
+  logger = logger.child({ caller: 'actions:get-images' });
   logger.log('debug', `User options provided: ${JSON.stringify(options)}`);
   let pathToSave = trimQuotes(options.path ? options.path : DEFAULT_SAVE_PATH).replace(/\s/g, '_');
   let orientation = trimQuotes(options.orientation ? options.orientation : ORIENTATION_ALL);

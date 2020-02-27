@@ -14,6 +14,8 @@ import waitKeyToExit from '../helpers/wait-key-to-exit';
 
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {
+  // eslint-disable-next-line no-param-reassign
+  logger = logger.child({ caller: 'actions:random-desktop' });
   /* Steps to handle the action */
   logger.info(chalk.cyan('\nStart processing'));
   /* 1. Retrieve image saving path, stop if no save path found */
