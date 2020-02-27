@@ -70,7 +70,7 @@ describe('Action - Function random-desktop', () => {
     // Mock an empty .userconfig file, which should be containing path to image folder
     fs.writeFileSync(PATH_TO_CONFIG, '');
     await randomDesktop({}, {}, myLogger);
-    expect(infoRecord).toEqual(`${chalk.cyan('\nStart processing')}Type get-lock-screen get-images`);
+    expect(infoRecord).toEqual(`${chalk.cyan('\nStart processing')}Type get-lock-screen get-images to get images`);
     expect(warnRecord)
       .toEqual(chalk.redBright(`\n${ERROR_CODES.ER05}: No existing images, try getting the images first`));
   });
