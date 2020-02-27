@@ -49,9 +49,10 @@ describe('Helper - Function extend-debug-logger', () => {
       '\u001b[35maction:mock-action: Message content debug level with meta data',
     ];
     console._stdout.write = oldStdout;
+    console.log(logs)
     expect(logs[0]).toEqual(expectedReformatedLogs[0]);
     expect(logs[1]).toEqual(expectedReformatedLogs[1]);
-    expect(logs[2].indexOf(expectedReformatedLogs[2])).not.toEqual(-1);
-    expect(logs[3].indexOf(expectedReformatedLogs[3])).not.toEqual(-1);
+    expect(logs[2]).toEqual(expect.stringContaining(expectedReformatedLogs[2]));
+    expect(logs[3]).toEqual(expect.stringContaining(expectedReformatedLogs[3]));
   });
 });
