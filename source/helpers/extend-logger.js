@@ -1,7 +1,7 @@
 import winston from 'winston';
 import chalk from 'chalk';
 
-export default (transport = new winston.transports.Console()) => winston.createLogger({
+const extendLogger = (transport = new winston.transports.Console()) => winston.createLogger({
   transports: [transport],
   format: winston.format.combine(
     winston.format.ms(),
@@ -10,3 +10,4 @@ export default (transport = new winston.transports.Console()) => winston.createL
       : log.message)),
   ),
 });
+export default extendLogger;
