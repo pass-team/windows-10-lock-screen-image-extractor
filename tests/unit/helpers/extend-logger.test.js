@@ -35,26 +35,24 @@ describe('Helper - Function extend-debug-logger', () => {
     });
     const oldStdout = console._stdout.write;
     console._stdout.write = (data) => {
-      logs = [...logs, data.toString()];
+      logs = [...logs, data];
     };
     extendedLogger.info('Message content info level');
     extendedLogger.warn('Message content warn level');
     extendedLogger.log('debug', 'Message content debug level');
     extendedLogger.log('debug', 'Message content debug level with meta data', { caller: 'action:mock-action' });
-
     const expectedReformatedLogs = [
       'Message content info level\r\n',
       'Message content warn level\r\n',
-      '\u001b[35mMessage content debug level',
-      '\u001b[35maction:mock-action: Message content debug level with meta data',
+      'Message content debug level +',
+      'action:mock-action: Message content debug level with meta data +',
     ];
     console._stdout.write = oldStdout;
     console.log(logs);
     console.log(logs);
     expect(logs[0]).toEqual(expectedReformatedLogs[0]);
     expect(logs[1]).toEqual(expectedReformatedLogs[1]);
-    expect(logs[2]).toEqual(expect.stringContaining('\u001b[35mMessage content debug level'));
-    expect(logs[3])
-      .toEqual(expect.stringContaining('\u001b[35maction:mock-action: Message content debug level with meta data'));
+    expect(logs[2]).toEqual(expect.stringContaining(expectedReformatedLogs[2]));
+    expect(logs[3]).toEqual(expect.stringContaining(expectedReformatedLogs[3]));
   });
 });
