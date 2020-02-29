@@ -26,8 +26,12 @@ import taskExecutor from './task-executor';
 import validatePath from './validate-path';
 import validateOrientation from './validate-orientation';
 import validateNamePattern from './validate-name-pattern';
+import validateFormat from './validate-format';
 
 import extendLogger from './extend-logger';
+// import TransportJSON from './transport-json';
+
+import parseJsonToArgs from './parse-json-to-args';
 
 export {
   isPortraitImage,
@@ -54,5 +58,8 @@ export {
   validatePath,
   validateOrientation,
   validateNamePattern,
+  validateFormat,
   extendLogger,
+  parseJsonToArgs,
+  // TransportJSON
 };

@@ -10,4 +10,5 @@ const extendLogger = (transport = new winston.transports.Console()) => winston.c
       : log.message)),
   ),
 });
+
 export default extendLogger;

@@ -63,7 +63,7 @@ describe('Action - Function random-desktop', () => {
     await randomDesktop({}, {}, mockLogger);
     expect(infoRecord).toEqual(`${chalk.cyan('\nStart processing')}Type get-lock-screen get-images to get images`);
     expect(warnRecord)
-      .toEqual(chalk.redBright(`\n${ERROR_CODES.ER05}: No existing images, try getting the images first`));
+      .toEqual(chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_004}: No existing images, try getting the images first`));
   });
 
   it('Should display “No existing images…“ when found no image to use', async () => {
@@ -72,7 +72,7 @@ describe('Action - Function random-desktop', () => {
     fs.writeFileSync(PATH_TO_CONFIG, folder);
     await randomDesktop({}, {}, mockLogger);
     expect(warnRecord)
-      .toEqual(chalk.redBright(`\n${ERROR_CODES.ER04}: No existing images, try getting the images first`));
+      .toEqual(chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_003}: No existing images, try getting the images first`));
   });
 
   it('Should display “Unexpected errors…“ when fail to set wallpaper for some reasons', async () => {
@@ -92,7 +92,7 @@ describe('Action - Function random-desktop', () => {
     });
     await randomDesktop({}, {}, mockLogger);
     // Mock an empty .userconfig file, which should be containing path to image folder
-    expect(warnRecord).toEqual(chalk.redBright(`\n${ERROR_CODES.ER03}: `
+    expect(warnRecord).toEqual(chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_002}: `
       + 'Error setting new desktop wallpaper!'));
     fs.writeFileSync = old;
     process.argv = oldProcessArgv;

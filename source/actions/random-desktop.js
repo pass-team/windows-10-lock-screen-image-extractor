@@ -3,7 +3,7 @@ import {
   getSavePath,
   getFiles,
   taskExecutor,
-  filterImages,
+  filterImages, validateFormat,
 } from '../helpers';
 import setWallpaper from '../helpers/set-wallpaper';
 import {
@@ -16,12 +16,18 @@ import waitKeyToExit from '../helpers/wait-key-to-exit';
 export default async function (args, options, logger) {
   // eslint-disable-next-line no-param-reassign
   logger = logger.child({ caller: 'actions:random-desktop' });
+
+  const { format } = options;
+  validateFormat(format);
+
   /* Steps to handle the action */
   logger.info(chalk.cyan('\nStart processing'));
   /* 1. Retrieve image saving path, stop if no save path found */
   const currentSavePath = await taskExecutor(getSavePath(), 'Checking saved images..', 400);
   if (!currentSavePath) {
-    logger.warn(chalk.redBright(`\n${ERROR_CODES.ER05}: No existing images, try getting the images first`));
+    logger.error(
+      chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_003}: No existing images, try getting the images first`),
+    );
     logger.info('Type get-lock-screen get-images to get images');
     return;
   }
@@ -33,7 +39,9 @@ export default async function (args, options, logger) {
    *  Otherwise randomly set desktop background
    */
   if (!savedImages.length) {
-    logger.warn(chalk.redBright(`\n${ERROR_CODES.ER04}: No existing images, try getting the images first`));
+    logger.error(
+      chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_003}: No existing images, try getting the images first`),
+    );
     logger.info('Type get-lock-screen get-images');
   } else {
     /* Only pick landscape images */
@@ -53,7 +61,7 @@ export default async function (args, options, logger) {
     if (result) {
       logger.info(chalk.green('\nNew desktop background has been set!'));
     } else {
-      logger.warn(chalk.redBright(`\n${ERROR_CODES.ER03}: `
+      logger.error(chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_002}: `
         + 'Error setting new desktop wallpaper!'));
       logger.info(chalk.yellow('\nType get-lock-screen random-desktop --help for help'));
     }
