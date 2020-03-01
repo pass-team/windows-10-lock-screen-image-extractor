@@ -28,7 +28,7 @@ export default async function (args, options, logger) {
     logger.error(
       chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_003}: No existing images, try getting the images first`),
     );
-    logger.info('Type get-lock-screen get-images to get images');
+    logger.error(chalk.redBright('Type get-lock-screen get-images to get images'));
     return;
   }
   logger.log('debug', `Current image saved folder: ${currentSavePath}`);
@@ -42,7 +42,7 @@ export default async function (args, options, logger) {
     logger.error(
       chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_003}: No existing images, try getting the images first`),
     );
-    logger.info('Type get-lock-screen get-images');
+    logger.error(chalk.redBright('Type get-lock-screen get-images'));
   } else {
     /* Only pick landscape images */
     const savedLandscapeImages = filterImages(savedImages, { orientation: ORIENTATION_LANDSCAPE });
@@ -63,7 +63,7 @@ export default async function (args, options, logger) {
     } else {
       logger.error(chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_002}: `
         + 'Error setting new desktop wallpaper!'));
-      logger.info(chalk.yellow('\nType get-lock-screen random-desktop --help for help'));
+      logger.error(chalk.redBright('\nType get-lock-screen random-desktop --help for help'));
     }
     if (/^[\\/][a-zA-Z-]+\.exe$/.test(process.title.replace(process.cwd(), ''))) {
       waitKeyToExit();

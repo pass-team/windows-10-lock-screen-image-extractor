@@ -9,17 +9,21 @@ import {
 /**
  *  @Helper
  *  @Input:
- *    - path: Input name-pattern from user
+ *    - namePattern: Input name-pattern from user
  *  @Output:
  *    - return:
  *      - True: name-pattern is valid
  *      - False: name-pattern is invalid
  */
 
-export default (namePattern) => {
+export default (namePattern, logger) => new Promise((resolve) => {
   const allowedValues = [IMAGE_NAME_FORMAT_ORIGIN, IMAGE_NAME_FORMAT_HASH, IMAGE_NAME_FORMAT_DATE];
   if (!allowedValues.includes(namePattern)) {
-    throw new Error(chalk.redBright(`${ERROR_CODES.VALIDATION_ERROR_001}: Invalid value '${namePattern}' for option --name-pattern`
-      + '\nType get-lock-screen -h for usage'));
+    logger.error(
+      chalk.redBright(`${ERROR_CODES.VALIDATION_ERROR_001}: Invalid value '${namePattern}' for option --name-pattern`),
+    );
+    logger.error(chalk.white('Type get-lock-screen -h for usage'));
+    resolve(false);
   }
-};
+  resolve(true);
+});

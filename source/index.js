@@ -1,5 +1,4 @@
 import app from 'caporal';
-import winston from 'winston';
 import {
   DEFAULT_SAVE_PATH,
   IMAGE_NAME_FORMAT_ORIGIN,
@@ -18,6 +17,8 @@ import {
 
 import {
   extendLogger,
+  isConfigAsJson,
+  isOutputAsJson,
   parseJsonToArgs,
 } from './helpers';
 
@@ -29,20 +30,20 @@ import TransportJSON from './helpers/transport-json';
  *  Caporal.js https://github.com/mattallty/Caporal.js
  */
 
-if (!parseJsonToArgs()) {
+// Transfer to using JSON transport when output format is provide: --format, f
+let logger;
+if (isOutputAsJson()) logger = extendLogger(new TransportJSON());
+else logger = extendLogger();
+
+// Parse JSON to argv when accept input as JSON: --config, -f
+if (!parseJsonToArgs(process, logger)) {
   process.exit(0);
-}
-
-let customTransport = new winston.transports.Console();
-
-if (process.argv.includes('json')) {
-  customTransport = new TransportJSON({ level: 'debug' });
 }
 
 app
   .version('1.0.0')
   .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')
-  .logger(extendLogger(customTransport))
+  .logger(logger)
   .option('-f, --format', 'Define display format for output')
   .help(`Example:
    get-lock-screen --f [text|json|filename.json]`)

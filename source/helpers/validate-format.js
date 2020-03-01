@@ -11,9 +11,11 @@ import { ERROR_CODES, OUTPUT_FORMAT_TEXT, OUTPUT_FORMAT_JSON } from '../constant
  *      - throw new Error if the format is invalid
  */
 
-export default (format) => {
+export default (format, logger) => new Promise((resolve) => {
   if (!new RegExp(`${OUTPUT_FORMAT_TEXT}|${OUTPUT_FORMAT_JSON}|.+.json$|false`).test(format)) {
-    throw new Error(chalk.redBright(`${ERROR_CODES.VALIDATION_ERROR_001}: Invalid value '${format}' for option --format`
-      + '\nType get-lock-screen -h for usage'));
+    logger.error(chalk.redBright(`${ERROR_CODES.VALIDATION_ERROR_001}: Invalid value '${format}' for option --format`));
+    logger.error(chalk.white('Type get-lock-screen -h for usage'));
+    resolve(false);
   }
-};
+  resolve(true);
+});

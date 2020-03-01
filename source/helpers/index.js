@@ -29,9 +29,8 @@ import validateNamePattern from './validate-name-pattern';
 import validateFormat from './validate-format';
 
 import extendLogger from './extend-logger';
-// import TransportJSON from './transport-json';
-
 import parseJsonToArgs from './parse-json-to-args';
+import isOutputAsJson from './is-output-as-json';
 
 export {
   isPortraitImage,
@@ -61,5 +60,5 @@ export {
   validateFormat,
   extendLogger,
   parseJsonToArgs,
-  // TransportJSON
+  isOutputAsJson,
 };

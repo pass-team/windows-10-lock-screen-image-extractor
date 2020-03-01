@@ -17,7 +17,7 @@ export default function (args, options, logger) {
   } else {
     logger.error(chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_004}: `
       + 'No user settings has been recorded yet, try getting the images first'));
-    logger.info(chalk.yellow('Run "get-lock-screen -h" for help'));
+    logger.error(chalk.yellow('Run "get-lock-screen -h" for help'));
   }
   if (/^[\\/][a-zA-Z-]+\.exe$/.test(process.title.replace(process.cwd(), ''))) {
     waitKeyToExit();

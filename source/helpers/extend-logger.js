@@ -1,13 +1,26 @@
 import winston from 'winston';
 import chalk from 'chalk';
 
-const extendLogger = (transport = new winston.transports.Console()) => winston.createLogger({
+const extendLogger = (transport = new winston.transports.Console({ level: 'info' })) => winston.createLogger({
   transports: [transport],
+  exceptionHandlers: [transport],
   format: winston.format.combine(
     winston.format.ms(),
-    winston.format.printf((log) => (log.level.indexOf('debug') !== -1
-      ? chalk.magenta(`${log.caller ? `${log.caller}: ` : ''}${log.message} ${log.ms}`)
-      : log.message)),
+    winston.format.printf((log) => {
+      switch (log.level) {
+        case 'info':
+          if (log.isMessage) return chalk.green(log.message);
+          return log.message;
+        case 'warn':
+          return chalk.yellow(log.message);
+        case 'error':
+          return `${log.errorCode ? `${log.errorCode}: ` : ''}${chalk.redBright(log.message)}`;
+        case 'debug':
+          return chalk.magenta(`${log.caller ? `${log.caller}: ` : ''}${log.message} ${log.ms}`);
+        default:
+          return log.message;
+      }
+    }),
   ),
 });
 

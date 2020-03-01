@@ -2,7 +2,6 @@ import Transport from 'winston-transport';
 import stripAnsi from 'strip-ansi';
 
 export default class TransportJSON extends Transport {
-  // eslint-disable-next-line no-useless-constructor
   constructor(opts) {
     super(opts);
   }
@@ -13,27 +12,25 @@ export default class TransportJSON extends Transport {
     message: '',
     logs: [],
     ora: [],
-    verbose: true,
+    verbose: this.level,
     errors: [],
   };
 
   log(log, cb) {
+    console.log(this.state.verbose);
     setImmediate(() => {
       this.emit('logged', log);
     });
+    const sanitizedLog = stripAnsi(log.message.replace('\n', ''));
+
     if (log.level === 'info' || log.level === 'warn') {
-      const sanitizedLog = stripAnsi(log.message);
-      this.state.logs.push(sanitizedLog);
+      if (log.isMessage) this.state.message += sanitizedLog;
+      else this.state.logs.push(sanitizedLog);
     } else if (log.level === 'debug') {
-      const sanitizedLog = stripAnsi(log.message);
       this.state.logs.push(sanitizedLog);
     } else if (log.level === 'error') {
-      const sanitizedLog = stripAnsi(log.message);
       this.state.errors.push(sanitizedLog);
     }
-    console.log(this.state);
-    // const sanitizedLog = stripAnsi(log.message);
-    // this.state.ora.push(sanitizedLog);
     cb();
   }
 }

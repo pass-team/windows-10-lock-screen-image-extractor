@@ -65,10 +65,17 @@ export default async function (args, options, logger) {
   }
 
   // Validate options and throw customized errors
-  validatePath(pathToSave);
-  validateOrientation(orientation);
-  validateNamePattern(namePattern);
-  validateFormat(format);
+  Promise.all([
+    validatePath(pathToSave, logger),
+    validateOrientation(orientation, logger),
+    validateNamePattern(namePattern, logger),
+    validateFormat(format, logger),
+  ]).then((checks) => {
+    if (!checks.every((check) => check)) {
+      process.exit(1);
+    }
+  });
+
 
   /**
    *  Save user settings
@@ -80,9 +87,9 @@ export default async function (args, options, logger) {
   logger.info(chalk.cyan('\nStart processing'));
   /* 1. Create saving folder if hasn't */
   if (!await taskExecutor(createImagesFolder(pathToSave), 'Create images folder', 250, logger)) {
-    logger.error(chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_001}: `
-      + 'Error while creating images folder! The path provided is invalid or being used by other processes'));
-    logger.info('Type get-lock-screen --help for help.');
+    logger.error(`\n${ERROR_CODES.RUNTIME_ERROR_001}: `
+      + 'Error while creating images folder! The path provided is invalid or being used by other processes');
+    logger.error(chalk.whiteBright('Type get-lock-screen --help for help.'));
     return;
   }
   logger.log('debug', `Image folder created successfully at ${pathToSave}`);
@@ -119,11 +126,16 @@ export default async function (args, options, logger) {
       logger,
     );
     /* 8. Announce the result */
-    logger.info(chalk.green(`\nSuccessfully copy ${count} new images!`));
-    logger.info(chalk(`Save folder (Ctrl + click to open): ${chalk.underline.cyan(`file://${pathToSave}`)}`));
+    logger.info(`\nSuccessfully copy ${count} new images!`, { isMessage: true });
+    logger.info(
+      `Save folder (Ctrl + click to open): ${chalk.underline.cyan(`file://${pathToSave}`)}`, { isMessage: true },
+    );
   } else {
-    logger.info(chalk.yellow('\nI found no NEW images :) Better luck next time!'));
+    logger.warn('\nI found no NEW images :) Better luck next time!', { isMessage: true });
   }
+
+  console.log(logger.transports[0].state);
+
   if (/^[\\/][a-zA-Z-]+\.exe$/.test(process.title.replace(process.cwd(), ''))) {
     waitKeyToExit();
   }

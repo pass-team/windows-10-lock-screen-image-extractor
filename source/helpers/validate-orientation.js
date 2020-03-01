@@ -16,10 +16,14 @@ import {
  *      - False: orientation is invalid
  */
 
-export default (orientation) => {
+export default (orientation, logger) => new Promise((resolve) => {
   const allowedValues = [ORIENTATION_LANDSCAPE, ORIENTATION_PORTRAIT, ORIENTATION_ALL];
   if (!allowedValues.includes(orientation)) {
-    throw new Error(chalk.redBright(`${ERROR_CODES.VALIDATION_ERROR_001}: Invalid value '${orientation}' for option --orientation`
-      + '\nType get-lock-screen -h for usage'));
+    logger.error(
+      chalk.redBright(`${ERROR_CODES.VALIDATION_ERROR_001}: Invalid value '${orientation}' for option --orientation`),
+    );
+    logger.error(chalk.white('Type get-lock-screen -h for usage'));
+    resolve(false);
   }
-};
+  resolve(true);
+});
