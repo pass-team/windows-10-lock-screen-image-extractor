@@ -87,7 +87,6 @@ export default async function (args, options, logger) {
         chalk.white('\nType get-lock-screen --help for help.')}`,
       { errorCode: ERROR_CODES.RUNTIME_ERROR_001 },
     );
-    logger.error();
     return printJsonOutput(logger, output);
   }
   logger.log('debug', `Image folder created successfully at ${pathToSave}`);
