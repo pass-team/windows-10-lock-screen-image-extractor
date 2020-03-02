@@ -33,6 +33,9 @@ import extendLogger from './extend-logger';
 import parseJsonToArgs from './parse-json-to-args';
 import isOutputFormatProvided from './is-output-format-provided';
 import reformatLog from './reformat-log';
+import setDebugMode from './set-debug-mode';
+import printJsonOutput from './print-json-output';
+import TransportJSON from './transport-json';
 
 export {
   isPortraitImage,
@@ -65,4 +68,7 @@ export {
   isOutputFormatProvided,
   waitKeyToExit,
   reformatLog,
+  setDebugMode,
+  printJsonOutput,
+  TransportJSON,
 };

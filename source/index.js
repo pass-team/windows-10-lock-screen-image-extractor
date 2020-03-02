@@ -19,11 +19,11 @@ import {
   extendLogger,
   isOutputFormatProvided,
   parseJsonToArgs,
+  setDebugMode,
+  printJsonOutput,
+  TransportJSON,
 } from './helpers';
 
-import TransportJSON from './helpers/transport-json';
-import printJsonOutput from './helpers/print-json-output';
-import setDebugMode from './helpers/set-debug-mode';
 
 // Transfer to using JSON transport when output format is provide: --format, f
 let logger;
