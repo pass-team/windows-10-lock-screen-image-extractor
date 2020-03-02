@@ -1,4 +1,4 @@
-export default function reformatLog(logObject) {
+export default (logObject) => {
   let reformattedObj = {};
   if (logObject.status === 'success') {
     reformattedObj = {
@@ -50,4 +50,4 @@ export default function reformatLog(logObject) {
     }
   }
   return reformattedObj;
-}
+};
