@@ -1,19 +1,13 @@
 import Select from 'enquirer/lib/prompts/select';
-
 import {
   randomDesktop,
   getImages,
   showSettings,
 } from '.';
-
 import { MENU_OPTIONS } from '../constants';
-import { validateFormat } from '../helpers';
 
 /* Action that pack the app into one single Windows executable file */
 export default async function (args, options, logger) {
-  const { format } = options;
-  validateFormat(format);
-
   const menuPrompt = new Select({
     name: 'menu',
     message: 'Welcome to Windows 10 lock screen image extractor.\n You want to',

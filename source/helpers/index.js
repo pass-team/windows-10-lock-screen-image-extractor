@@ -22,15 +22,16 @@ import setSavePath from './set-save-path';
 import getSavePath from './get-save-path';
 
 import taskExecutor from './task-executor';
+import waitKeyToExit from './wait-key-to-exit';
 
 import validatePath from './validate-path';
 import validateOrientation from './validate-orientation';
 import validateNamePattern from './validate-name-pattern';
-import validateFormat from './validate-format';
+import validateOutput from './validate-output';
 
 import extendLogger from './extend-logger';
 import parseJsonToArgs from './parse-json-to-args';
-import isOutputAsJson from './is-output-as-json';
+import isOutputFormatProvided from './is-output-format-provided';
 
 export {
   isPortraitImage,
@@ -57,8 +58,9 @@ export {
   validatePath,
   validateOrientation,
   validateNamePattern,
-  validateFormat,
+  validateOutput,
   extendLogger,
   parseJsonToArgs,
-  isOutputAsJson,
+  isOutputFormatProvided,
+  waitKeyToExit,
 };

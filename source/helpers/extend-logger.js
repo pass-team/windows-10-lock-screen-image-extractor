@@ -14,7 +14,7 @@ const extendLogger = (transport = new winston.transports.Console({ level: 'info'
         case 'warn':
           return chalk.yellow(log.message);
         case 'error':
-          return `${log.errorCode ? `${log.errorCode}: ` : ''}${chalk.redBright(log.message)}`;
+          return `${chalk.redBright(log.errorCode ? `\n${log.errorCode}: ` : '')}${chalk.redBright(log.message)}`;
         case 'debug':
           return chalk.magenta(`${log.caller ? `${log.caller}: ` : ''}${log.message} ${log.ms}`);
         default:

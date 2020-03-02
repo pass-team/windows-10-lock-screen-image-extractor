@@ -1,6 +1,7 @@
 import ora from 'ora';
 import { Writable } from 'stream';
 import stripAnsi from 'strip-ansi';
+import { isOutputFormatProvided } from './index';
 
 const executor = function (task, fakeTime) {
   return new Promise((resolve) => setTimeout(() => resolve(task), fakeTime));
@@ -10,7 +11,7 @@ const writeStreamPipedToLogger = (logger) => new Writable({
   write(chunk, encoding, callback) {
     const message = stripAnsi(chunk.toString());
     if (message.startsWith('-')) {
-      logger.info(message);
+      logger.info(message.replace('-', '').trim());
     }
     callback();
   },
@@ -29,7 +30,7 @@ export default async function (task, message, fakeTime, logger) {
     text: message,
     spinner: 'dots',
     indent: 0,
-    stream: writeStreamPipedToLogger(logger),
+    stream: (isOutputFormatProvided() ? writeStreamPipedToLogger(logger) : process.stderr),
   });
 
   spinner.start();

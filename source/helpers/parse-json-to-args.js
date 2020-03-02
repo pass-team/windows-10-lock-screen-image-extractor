@@ -9,7 +9,7 @@ import {
   validateNamePattern,
   validateOrientation,
   validatePath,
-  validateFormat,
+  validateOutput,
 } from '.';
 
 // Parse object props to arguments array
@@ -28,40 +28,67 @@ const deserialize = (input, logger) => {
     }
     return JSON.parse(input);
   } catch (e) {
-    logger.error(chalk.redBright(`${ERROR_CODES.VALIDATION_ERROR_001}: Invalid JSON content for option --config`));
-    logger.error(chalk.redBright('Type get-lock-screen -h for usage'));
+    logger.error(
+      'Invalid JSON content for option --config'
+      + `${chalk.white('\nType get-lock-screen -h for usage')}`,
+      { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'config' },
+    );
   }
   return null;
 };
 
-export default async (process, logger) => {
+export default (logger) => {
   const isConfigedAsJson = (yargs.argv.config || yargs.argv.c);
   if (isConfigedAsJson) {
     const configObject = deserialize(isConfigedAsJson, logger);
     if (!configObject) return false;
+    // Check allowed inputs
+    const allowedOptions = {
+      'get-images': ['path', 'orientation', 'namePattern', 'output', 'verbose'],
+      'random-desktop': ['verbose', 'output'],
+      'show-settings': ['verbose', 'output'],
+    };
 
-    // Validate extracted options from JSON config cuz this process happens before caporal's initialization
+    // Check allowed command
+    if (!allowedOptions[configObject.command]) {
+      logger.error(
+        `Unknown command '${configObject.command}'.`
+        + `${chalk.white('\nType get-lock-screen -h for usage')}`,
+        { errorCode: ERROR_CODES.VALIDATION_ERROR_003, field: 'command' },
+      );
+      return false;
+    }
+    // Check allowed command options
+    const notAllowedOptions = Object.keys(configObject.options)
+      .filter((option) => !allowedOptions[configObject.command].includes(option));
+    if (notAllowedOptions.length > 0) {
+      notAllowedOptions.forEach((option) => {
+        logger.error(
+          `Unknown option '${option}'.`
+          + `${chalk.white('\nType get-lock-screen -h for usage')}`,
+          { errorCode: ERROR_CODES.VALIDATION_ERROR_002, field: option },
+        );
+      });
+      return false;
+    }
+
+    // Validate options
     const validators = [];
     if (configObject.options?.path) {
       validators.push(validatePath(configObject.options?.path, logger));
     }
-
     if (configObject.options?.orientation) {
       validators.push(validateOrientation(configObject.options?.orientation, logger));
     }
     if (configObject.options?.namePattern) {
       validators.push(validateNamePattern(configObject.options?.namePattern, logger));
     }
-
-    if (configObject.options?.format) {
-      validators.push(validateFormat(configObject.options?.format, logger));
+    if (configObject.options?.output) {
+      validators.push(validateOutput(configObject.options?.output, logger));
     }
-
-    Promise.all(validators).then((checks) => {
-      if (!checks.every((check) => check)) {
-        process.exit(1);
-      }
-    });
+    if (!validators.every((validator) => validator)) {
+      return false;
+    }
 
     // Flatten config object to array for passing as process args
     const args = objectToArguments(configObject);

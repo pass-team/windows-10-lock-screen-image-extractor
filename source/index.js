@@ -17,36 +17,44 @@ import {
 
 import {
   extendLogger,
-  isConfigAsJson,
-  isOutputAsJson,
+  isOutputFormatProvided,
   parseJsonToArgs,
 } from './helpers';
 
 import TransportJSON from './helpers/transport-json';
+import printJsonOutput from './helpers/print-json-output';
+import setDebugMode from './helpers/set-debug-mode';
+
+// Transfer to using JSON transport when output format is provide: --format, f
+let logger;
+if (isOutputFormatProvided()) logger = extendLogger(new TransportJSON());
+else logger = extendLogger();
+
+// Parse JSON to argv when accept input as JSON: --config, -f
+if (!parseJsonToArgs(logger)) {
+  printJsonOutput(logger);
+  process.exit(0);
+}
+
+// Turn on debug mode if flag verbose is detected
+setDebugMode(logger);
+
 /**
  *  Define app commands and respectively actions
  *  We are using Caporal.js as cli framework
  *  Checkout their document to better understand syntax
  *  Caporal.js https://github.com/mattallty/Caporal.js
  */
-
-// Transfer to using JSON transport when output format is provide: --format, f
-let logger;
-if (isOutputAsJson()) logger = extendLogger(new TransportJSON());
-else logger = extendLogger();
-
-// Parse JSON to argv when accept input as JSON: --config, -f
-if (!parseJsonToArgs(process, logger)) {
-  process.exit(0);
-}
-
 app
   .version('1.0.0')
   .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')
   .logger(logger)
-  .option('-f, --format', 'Define display format for output')
+  .option('--config', 'Provide cli options as JSON string or JSON file ')
   .help(`Example:
-   get-lock-screen --f [text|json|filename.json]`)
+   get-lock-screen --config=input.json`)
+  .option('--output', 'Define output format. Viable options: "json" or "filename.json"')
+  .help(`Example:
+   get-lock-screen --output=[text|json|filename.json]`)
   /** @Command: default when no command is provided */
   .action(showMenu)
 
@@ -82,7 +90,7 @@ app
     false)
   .help(`Example:
    get-lock-screen get-images -n hash`)
-  .option('-f, --format', 'Define display format for output')
+  .option('--output', 'Define display format for output')
   .help(`Example:
    get-lock-screen get-images -f [text|json|filename.json]`)
   .action(getImages)
@@ -90,7 +98,7 @@ app
   /** @Command: show-settings */
   .command('show-settings', 'Show your current saving folder')
   .help('Example: get-lock-screen show-settings')
-  .option('-f, --format', 'Define display format for output')
+  .option('--output', 'Define display format for output')
   .help(`Example:
    get-lock-screen show-settings --f [text|json|filename.json]`)
   .action(showSettings)
@@ -98,9 +106,8 @@ app
   /** @Command: random-desktop */
   .command('random-desktop', 'Randomly set a new desktop wallpaper')
   .help('Example: get-lock-screen random-desktop')
-  .option('-f, --format', 'Define display format for output')
+  .option('--output', 'Define display format for output')
   .help(`Example:
    get-lock-screen random-desktop --f [text|json|filename.json]`)
   .action(randomDesktop);
-
 app.parse(process.argv);

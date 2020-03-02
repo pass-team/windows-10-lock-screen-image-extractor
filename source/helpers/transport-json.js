@@ -1,7 +1,9 @@
 import Transport from 'winston-transport';
 import stripAnsi from 'strip-ansi';
+import { ERROR_CODES } from '../constants';
 
 export default class TransportJSON extends Transport {
+  // eslint-disable-next-line no-useless-constructor
   constructor(opts) {
     super(opts);
   }
@@ -11,25 +13,39 @@ export default class TransportJSON extends Transport {
     code: '',
     message: '',
     logs: [],
-    ora: [],
-    verbose: this.level,
+    debugModeLogs: [],
+    debug: false,
     errors: [],
   };
 
   log(log, cb) {
-    console.log(this.state.verbose);
     setImmediate(() => {
       this.emit('logged', log);
     });
-    const sanitizedLog = stripAnsi(log.message.replace('\n', ''));
-
+    const sanitizedLogMessage = stripAnsi(log.message.replace('\n', ' ').trim());
     if (log.level === 'info' || log.level === 'warn') {
-      if (log.isMessage) this.state.message += sanitizedLog;
-      else this.state.logs.push(sanitizedLog);
+      if (log.isMessage) this.state.message += sanitizedLogMessage;
+      else this.state.logs.push(sanitizedLogMessage);
     } else if (log.level === 'debug') {
-      this.state.logs.push(sanitizedLog);
-    } else if (log.level === 'error') {
-      this.state.errors.push(sanitizedLog);
+      this.state.debugModeLogs.push(sanitizedLogMessage);
+    } else if (log.level === 'error' && log.errorCode) {
+      if (!this.state.status !== 'error') {
+        this.state.status = 'error';
+      }
+      if (!this.state.code) this.state.code = log.errorCode;
+      this.state.errors.push({
+        code: log.errorCode,
+        field: log.field ? log.field : null,
+        message: sanitizedLogMessage,
+      });
+    } else {
+      this.state.code = ERROR_CODES.EXCEPTION_001;
+      this.state.status = 'error';
+      this.state.errors.push({
+        code: ERROR_CODES.EXCEPTION_001,
+        field: null,
+        message: sanitizedLogMessage,
+      });
     }
     cb();
   }

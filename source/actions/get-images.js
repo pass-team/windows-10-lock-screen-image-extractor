@@ -13,7 +13,7 @@ import {
   validatePath,
   validateOrientation,
   validateNamePattern,
-  validateFormat,
+  validateOutput,
 } from '../helpers';
 
 import {
@@ -23,7 +23,7 @@ import {
   IMAGE_NAME_FORMAT_ORIGIN,
   ERROR_CODES,
 } from '../constants';
-import waitKeyToExit from '../helpers/wait-key-to-exit';
+import printJsonOutput from '../helpers/print-json-output';
 
 /* Action that handle extracting lock screen from windows */
 export default async function (args, options, logger) {
@@ -45,7 +45,7 @@ export default async function (args, options, logger) {
       ? options.namePattern
       : IMAGE_NAME_FORMAT_ORIGIN,
   );
-  const { format } = options;
+  const { output } = options;
   logger.log('debug', `User options post-processed: ${JSON.stringify({
     path: pathToSave,
     orientation,
@@ -63,34 +63,32 @@ export default async function (args, options, logger) {
     if (answers.orientation) orientation = answers.orientation;
     if (answers.namePattern) namePattern = answers.namePattern;
   }
-
   // Validate options and throw customized errors
-  Promise.all([
+  const checks = [
     validatePath(pathToSave, logger),
     validateOrientation(orientation, logger),
     validateNamePattern(namePattern, logger),
-    validateFormat(format, logger),
-  ]).then((checks) => {
-    if (!checks.every((check) => check)) {
-      process.exit(1);
-    }
-  });
-
-
+  ];
+  if (output) checks.push(validateOutput(output, logger));
+  if (!checks.every((check) => check)) {
+    return printJsonOutput(logger, output);
+  }
   /**
    *  Save user settings
    *  Currently, we only save the images's save path
    */
   setSavePath(pathToSave);
-
   /* Steps to handle the action */
   logger.info(chalk.cyan('\nStart processing'));
   /* 1. Create saving folder if hasn't */
   if (!await taskExecutor(createImagesFolder(pathToSave), 'Create images folder', 250, logger)) {
-    logger.error(`\n${ERROR_CODES.RUNTIME_ERROR_001}: `
-      + 'Error while creating images folder! The path provided is invalid or being used by other processes');
-    logger.error(chalk.whiteBright('Type get-lock-screen --help for help.'));
-    return;
+    logger.error(
+      `Error while creating images folder! The path provided is invalid or being used by other processes.${
+        chalk.white('\nType get-lock-screen --help for help.')}`,
+      { errorCode: ERROR_CODES.RUNTIME_ERROR_001 },
+    );
+    logger.error();
+    return printJsonOutput(logger, output);
   }
   logger.log('debug', `Image folder created successfully at ${pathToSave}`);
   /* 2. Crawl images from windows's image folder */
@@ -126,17 +124,10 @@ export default async function (args, options, logger) {
       logger,
     );
     /* 8. Announce the result */
-    logger.info(`\nSuccessfully copy ${count} new images!`, { isMessage: true });
-    logger.info(
-      `Save folder (Ctrl + click to open): ${chalk.underline.cyan(`file://${pathToSave}`)}`, { isMessage: true },
-    );
+    logger.info(`\nSuccessfully copy ${count} new images!`
+      + `\nSave folder (Ctrl + click to open): ${chalk.underline.cyan(`file://${pathToSave}`)}`, { isMessage: true });
   } else {
     logger.warn('\nI found no NEW images :) Better luck next time!', { isMessage: true });
   }
-
-  console.log(logger.transports[0].state);
-
-  if (/^[\\/][a-zA-Z-]+\.exe$/.test(process.title.replace(process.cwd(), ''))) {
-    waitKeyToExit();
-  }
+  return printJsonOutput(logger, output);
 }
