@@ -16,8 +16,8 @@ import {
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {
   // eslint-disable-next-line no-param-reassign
-  logger = logger.child({caller: 'actions:random-desktop'});
-  const {output} = options;
+  logger = logger.child({ caller: 'actions:random-desktop' });
+  const { output } = options;
   if (output && !validateOutput(output, logger)) {
     return printJsonOutput(logger);
   }
@@ -30,7 +30,7 @@ export default async function (args, options, logger) {
     logger.error(
       'No existing images, try getting the images first.'
       + `${chalk.white('\nType get-lock-screen get-images to get images')}`,
-      {errorCode: ERROR_CODES.RUNTIME_ERROR_003},
+      { errorCode: ERROR_CODES.RUNTIME_ERROR_003 },
     );
     return printJsonOutput(logger);
   }
@@ -45,12 +45,12 @@ export default async function (args, options, logger) {
     logger.error(
       'No existing images, try getting the images first.'
       + `${chalk.white('\nType get-lock-screen get-images')}`,
-      {errorCode: ERROR_CODES.RUNTIME_ERROR_003},
+      { errorCode: ERROR_CODES.RUNTIME_ERROR_003 },
     );
     return printJsonOutput(logger);
   }
   /* Only pick landscape images */
-  const savedLandscapeImages = filterImages(savedImages, {orientation: ORIENTATION_LANDSCAPE});
+  const savedLandscapeImages = filterImages(savedImages, { orientation: ORIENTATION_LANDSCAPE });
   const pick = `${currentSavePath.toString()}`
     + `/${savedLandscapeImages[Math.floor(Math.random() * savedLandscapeImages.length)].name}`;
 
@@ -70,7 +70,7 @@ export default async function (args, options, logger) {
     logger.error(
       `Error setting new desktop wallpaper!${
         chalk.white('\nType get-lock-screen random-desktop --help for help')}`,
-      {errorCode: ERROR_CODES.RUNTIME_ERROR_002},
+      { errorCode: ERROR_CODES.RUNTIME_ERROR_002 },
     );
   }
   return printJsonOutput(logger);
