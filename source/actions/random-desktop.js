@@ -18,7 +18,7 @@ export default async function (args, options, logger) {
   // eslint-disable-next-line no-param-reassign
   logger = logger.child({caller: 'actions:random-desktop'});
   const {output} = options;
-  if (!validateOutput(output, logger)) {
+  if (output && !validateOutput(output, logger)) {
     return printJsonOutput(logger);
   }
 

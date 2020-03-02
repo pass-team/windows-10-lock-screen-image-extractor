@@ -8,7 +8,7 @@ import printJsonOutput from '../helpers/print-json-output';
 /* Action that retrieve user's configurations and display */
 export default function (args, options, logger) {
   const { output } = options;
-  if (!validateOutput(output, logger)) {
+  if (output && !validateOutput(output, logger)) {
     return printJsonOutput(logger);
   }
   const currentSavePath = getSavePath();
