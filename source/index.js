@@ -25,12 +25,12 @@ import {
 } from './helpers';
 
 
-// Transfer to using JSON transport when output format is provide: --format, f
+// Transfer to using JSON transport when output format is provide: --output
 let logger;
 if (isOutputFormatProvided()) logger = extendLogger(new TransportJSON());
 else logger = extendLogger();
 
-// Parse JSON to argv when accept input as JSON: --config, -f
+// Parse JSON to argv when accept input as JSON: --config
 if (!parseJsonToArgs(logger)) {
   printJsonOutput(logger);
   process.exit(0);

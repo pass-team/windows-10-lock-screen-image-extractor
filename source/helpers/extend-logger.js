@@ -1,7 +1,7 @@
 import winston from 'winston';
 import chalk from 'chalk';
 
-const extendLogger = (transport = new winston.transports.Console({ level: 'info' })) => winston.createLogger({
+const extendLogger = (transport = new winston.transports.Console()) => winston.createLogger({
   transports: [transport],
   exceptionHandlers: [transport],
   format: winston.format.combine(
