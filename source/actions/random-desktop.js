@@ -22,7 +22,7 @@ export default async function (args, options, logger) {
     : OUTPUT_FORMAT_TEXT);
 
   if (!validateFormat(format, logger)) {
-    return printJsonOutput(logger, format);
+    return printJsonOutput(logger);
   }
 
   /* Steps to handle the action */
@@ -35,7 +35,7 @@ export default async function (args, options, logger) {
       + `${chalk.white('\nType get-lock-screen get-images to get images')}`,
       { errorCode: ERROR_CODES.RUNTIME_ERROR_003 },
     );
-    return printJsonOutput(logger, format);
+    return printJsonOutput(logger);
   }
   logger.log('debug', `Current image saved folder: ${currentSavePath}`);
   /* 2. Retrieve saved images */
@@ -50,7 +50,7 @@ export default async function (args, options, logger) {
       + `${chalk.white('\nType get-lock-screen get-images')}`,
       { errorCode: ERROR_CODES.RUNTIME_ERROR_003 },
     );
-    return printJsonOutput(logger, format);
+    return printJsonOutput(logger);
   }
   /* Only pick landscape images */
   const savedLandscapeImages = filterImages(savedImages, { orientation: ORIENTATION_LANDSCAPE });
@@ -68,7 +68,7 @@ export default async function (args, options, logger) {
   logger.log('debug', `Choose image: ${pick} as new desktop wallpaper`);
 
   if (result) {
-    logger.info('\nNew desktop background has been set!');
+    logger.info('\nNew desktop background has been set!', { isMessage: true });
   } else {
     logger.error(
       `Error setting new desktop wallpaper!${
@@ -76,5 +76,5 @@ export default async function (args, options, logger) {
       { errorCode: ERROR_CODES.RUNTIME_ERROR_002 },
     );
   }
-  return printJsonOutput(logger, format);
+  return printJsonOutput(logger);
 }

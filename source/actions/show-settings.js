@@ -13,18 +13,20 @@ export default function (args, options, logger) {
     ? options.format
     : OUTPUT_FORMAT_TEXT);
   if (format && !validateFormat(format, logger)) {
-    return printJsonOutput(logger, format);
+    return printJsonOutput(logger);
   }
   const currentSavePath = getSavePath();
   if (currentSavePath) {
-    logger.info('\nImage saved folder(Ctrl + click to open):');
-    logger.info(chalk.cyan(`file://${currentSavePath}`));
-    return printJsonOutput(logger, format);
+    logger.info(
+      `\nImage saved folder(Ctrl + click to open): ${chalk.cyan(`file://${currentSavePath}`)}`,
+      { isMessage: true },
+    );
+    return printJsonOutput(logger);
   }
   logger.error(
     'No user settings has been recorded yet, try getting the images first.'
     + `${chalk.white('\nType "get-lock-screen -h" for help')}`,
     { errorCode: ERROR_CODES.RUNTIME_ERROR_004 },
   );
-  return printJsonOutput(logger, format);
+  return printJsonOutput(logger);
 }

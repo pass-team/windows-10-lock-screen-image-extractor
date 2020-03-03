@@ -73,7 +73,7 @@ export default async function (args, options, logger) {
   ];
   if (format) checks.push(validateFormat(format, logger));
   if (!checks.every((check) => check)) {
-    return printJsonOutput(logger, format);
+    return printJsonOutput(logger);
   }
   /**
    *  Save user settings
@@ -89,7 +89,7 @@ export default async function (args, options, logger) {
         chalk.white('\nType get-lock-screen --help for help.')}`,
       { errorCode: ERROR_CODES.RUNTIME_ERROR_001 },
     );
-    return printJsonOutput(logger, format);
+    return printJsonOutput(logger);
   }
   logger.log('debug', `Image folder created successfully at ${pathToSave}`);
   /* 2. Crawl images from windows's image folder */
@@ -130,5 +130,5 @@ export default async function (args, options, logger) {
   } else {
     logger.warn('\nI found no NEW images :) Better luck next time!', { isMessage: true });
   }
-  return printJsonOutput(logger, format);
+  return printJsonOutput(logger);
 }

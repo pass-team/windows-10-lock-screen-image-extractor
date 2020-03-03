@@ -34,7 +34,7 @@ import parseConfigFile from './parse-config-file';
 
 import extendLogger from './extend-logger';
 import parseJsonToArgs from './parse-json-to-args';
-import isFormatProvided from './is-output-format-provided';
+import isFormatJson from './is-format-json';
 import reformatLog from './reformat-log';
 import setDebugMode from './set-debug-mode';
 import printJsonOutput from './print-json-output';
@@ -70,7 +70,7 @@ export {
   parseConfigFile,
   extendLogger,
   parseJsonToArgs,
-  isFormatProvided,
+  isFormatJson,
   waitKeyToExit,
   reformatLog,
   setDebugMode,

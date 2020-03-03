@@ -17,25 +17,37 @@ import {
 
 import {
   extendLogger,
-  isFormatProvided,
+  isFormatJson,
   parseJsonToArgs,
   setDebugMode,
   printJsonOutput,
   TransportJSON,
 } from './helpers';
 
-// Transfer to using JSON transport when output format is provide: --output
-let logger;
-if (isFormatProvided()) logger = extendLogger(new TransportJSON());
-else logger = extendLogger();
+/**
+ *  Parse JSON content if provided to setup appropriate logger
+ */
 
+// Transfer to using JSON transport when output format is provide: --format
+let logger;
+// Save format option to global because process.argv is not constant during runtime,
+// which may cause inconsistent logging format
+process.formatJson = isFormatJson();
+if (process.formatJson) logger = extendLogger(new TransportJSON());
+else logger = extendLogger();
 // Parse JSON to argv when accept input as JSON: --config
 if (!parseJsonToArgs(logger)) {
+  // Log for parsing process
   printJsonOutput(logger);
   process.exit(0);
+} else {
+  // Reinitialize new logger after accepting new process args from JSON
+  process.formatJson = isFormatJson();
+  if (process.formatJson) logger = extendLogger(new TransportJSON());
+  else logger = extendLogger();
 }
 
-// Turn on debug mode if flag verbose is detected
+// Turn on debug mode for logger if flag verbose is detected
 setDebugMode(logger);
 
 /**
@@ -92,7 +104,7 @@ app
     false)
   .help(`Example:
    get-lock-screen get-images -n hash`)
-  .option('--output', 'Define display format for output')
+  .option('--format', 'Define display format for output')
   .help(`Example:
    get-lock-screen get-images -f [text|json|filename.json]`)
   .action(getImages)
@@ -100,16 +112,16 @@ app
   /** @Command: show-settings */
   .command('show-settings', 'Show your current saving folder')
   .help('Example: get-lock-screen show-settings')
-  .option('--output', 'Define display format for output')
+  .option('--format', 'Define display format for output')
   .help(`Example:
-   get-lock-screen show-settings --f [text|json|filename.json]`)
+   get-lock-screen show-settings --format [text|json]`)
   .action(showSettings)
 
   /** @Command: random-desktop */
   .command('random-desktop', 'Randomly set a new desktop wallpaper')
   .help('Example: get-lock-screen random-desktop')
-  .option('--output', 'Define display format for output')
+  .option('--format', 'Define display format for output')
   .help(`Example:
-   get-lock-screen random-desktop --f [text|json|filename.json]`)
+   get-lock-screen random-desktop --format [text|json|filename.json]`)
   .action(randomDesktop);
 app.parse(process.argv);

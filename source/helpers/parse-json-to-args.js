@@ -1,4 +1,4 @@
-import yargs from 'yargs';
+import minimist from 'minimist';
 import casex from 'casex';
 import chalk from 'chalk';
 import {
@@ -11,6 +11,8 @@ import {
   validateFormat, parseConfig, parseConfigFile,
 } from '.';
 
+const processArgs = minimist(process.argv.slice(2));
+
 // Parse object props to arguments array
 const objectToArguments = function (object) {
   const init = [object.command];
@@ -20,12 +22,12 @@ const objectToArguments = function (object) {
 };
 
 export default (logger) => {
-  const config = yargs.argv.config || yargs.argv.configFile;
+  const config = processArgs.config || processArgs['config-file'];
   if (config) {
     // Try validate as JSON string first then as file, if both return null => return false
     let configObject = null;
-    if (yargs.argv.config) configObject = parseConfig(config, logger);
-    if (yargs.argv.configFile) configObject = parseConfigFile(config, logger);
+    if (processArgs.config) configObject = parseConfig(config, logger);
+    if (processArgs['config-file']) configObject = parseConfigFile(config, logger);
     if (!configObject) return false;
 
     // Check allowed inputs
@@ -62,7 +64,6 @@ export default (logger) => {
     }
 
     // Validate options
-    console.log(configObject.options);
     const validators = [];
     if (configObject.options?.path) {
       validators.push(validatePath(configObject.options?.path, logger));
