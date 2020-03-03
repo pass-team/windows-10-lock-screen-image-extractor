@@ -48,7 +48,7 @@ app
   .version('1.0.0')
   .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')
   .logger(logger)
-  .option('--config,', 'Provide cli options as JSON string')
+  .option('--config', 'Provide cli options as JSON string')
   .help(`Example:
    get-lock-screen --config="{"command":"get-images"}"`)
   .option('--config-file', 'Provide cli options as JSON file')

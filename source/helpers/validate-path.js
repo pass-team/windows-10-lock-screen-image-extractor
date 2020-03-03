@@ -12,13 +12,11 @@ import { ERROR_CODES } from '../constants';
  */
 
 export default (path, logger) => {
-  if (!new RegExp(/[A-Z]:[/\\].+/).test(path)) {
-    logger.error(
-      `Invalid value '${path}' for option --path ${
-        chalk.white('\nType get-lock-screen -h for usage')}`,
-      { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'path' },
-    );
-    return false;
-  }
-  return true;
+  if (typeof path === 'string' && path && new RegExp(/[A-Z]:[/\\].+/).test(path)) return true;
+  logger.error(
+    `Invalid value '${path}' for option --path ${
+      chalk.white('\nType get-lock-screen -h for usage')}`,
+    { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'path' },
+  );
+  return false;
 };

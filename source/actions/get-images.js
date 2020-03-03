@@ -45,10 +45,9 @@ export default async function (args, options, logger) {
       ? options.namePattern
       : IMAGE_NAME_FORMAT_ORIGIN,
   );
-  let format = typeof options.format === 'string'
+  const format = trimQuotes(typeof options.format === 'string'
     ? options.format
-    : OUTPUT_FORMAT_TEXT;
-  const { format } = options;
+    : OUTPUT_FORMAT_TEXT);
   logger.log('debug', `User options post-processed: ${JSON.stringify({
     path: pathToSave,
     orientation,

@@ -20,11 +20,7 @@ const objectToArguments = function (object) {
 };
 
 export default (logger) => {
-  console.log(yargs.argv.config);
-  console.log(yargs.argv.configFile);
   const config = yargs.argv.config || yargs.argv.configFile;
-  console.log(config);
-
   if (config) {
     // Try validate as JSON string first then as file, if both return null => return false
     let configObject = null;
@@ -66,6 +62,7 @@ export default (logger) => {
     }
 
     // Validate options
+    console.log(configObject.options);
     const validators = [];
     if (configObject.options?.path) {
       validators.push(validatePath(configObject.options?.path, logger));

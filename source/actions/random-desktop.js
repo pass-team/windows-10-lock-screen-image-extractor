@@ -5,21 +5,24 @@ import {
   taskExecutor,
   filterImages,
   validateFormat,
-  printJsonOutput,
+  printJsonOutput, trimQuotes,
 } from '../helpers';
 import setWallpaper from '../helpers/set-wallpaper';
 import {
   ORIENTATION_LANDSCAPE,
-  ERROR_CODES,
+  ERROR_CODES, OUTPUT_FORMAT_TEXT,
 } from '../constants';
 
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {
   // eslint-disable-next-line no-param-reassign
   logger = logger.child({ caller: 'actions:random-desktop' });
-  const { output } = options;
-  if (output && !validateFormat(output, logger)) {
-    return printJsonOutput(logger);
+  const format = trimQuotes(typeof options.format === 'string'
+    ? options.format
+    : OUTPUT_FORMAT_TEXT);
+
+  if (!validateFormat(format, logger)) {
+    return printJsonOutput(logger, format);
   }
 
   /* Steps to handle the action */
@@ -32,7 +35,7 @@ export default async function (args, options, logger) {
       + `${chalk.white('\nType get-lock-screen get-images to get images')}`,
       { errorCode: ERROR_CODES.RUNTIME_ERROR_003 },
     );
-    return printJsonOutput(logger);
+    return printJsonOutput(logger, format);
   }
   logger.log('debug', `Current image saved folder: ${currentSavePath}`);
   /* 2. Retrieve saved images */
@@ -47,7 +50,7 @@ export default async function (args, options, logger) {
       + `${chalk.white('\nType get-lock-screen get-images')}`,
       { errorCode: ERROR_CODES.RUNTIME_ERROR_003 },
     );
-    return printJsonOutput(logger);
+    return printJsonOutput(logger, format);
   }
   /* Only pick landscape images */
   const savedLandscapeImages = filterImages(savedImages, { orientation: ORIENTATION_LANDSCAPE });
@@ -73,5 +76,5 @@ export default async function (args, options, logger) {
       { errorCode: ERROR_CODES.RUNTIME_ERROR_002 },
     );
   }
-  return printJsonOutput(logger);
+  return printJsonOutput(logger, format);
 }
