@@ -47,7 +47,7 @@ export default async function (args, options, logger) {
   if (!savedImages.length) {
     logger.error(
       'No existing images, try getting the images first.'
-      + `${chalk.white('\nType get-lock-screen get-images')}`,
+      + `${chalk.white('\nType get-lock-screen get-images to get images')}`,
       { errorCode: ERROR_CODES.RUNTIME_ERROR_003 },
     );
     return printJsonOutput(logger);

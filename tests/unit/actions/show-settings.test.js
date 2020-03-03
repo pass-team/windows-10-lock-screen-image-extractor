@@ -2,7 +2,9 @@
 import fs from 'fs';
 import chalk from 'chalk';
 import path from 'path';
+import stripAnsi from 'strip-ansi';
 import {
+  ERROR_CODES,
   IMAGE_NAME_FORMAT_HASH,
   ORIENTATION_LANDSCAPE,
 } from '../../../source/constants';
@@ -13,15 +15,21 @@ import extendLogger from '../../../source/helpers/extend-logger';
 
 jest.mock('caporal/lib/logger');
 
-let infoRecord = '';
-let warnRecord = '';
+let infoRecord = [];
+let errorRecord = [];
 
 const mockLogger = extendLogger();
-mockLogger.info = (data) => {
-  infoRecord += data;
+mockLogger.info = (data, meta) => {
+  infoRecord.push({
+    data,
+    meta,
+  });
 };
-mockLogger.warn = (data) => {
-  warnRecord += data;
+mockLogger.error = (data, meta) => {
+  errorRecord.push({
+    data,
+    meta,
+  });
 };
 mockLogger.log = jest.fn();
 
@@ -29,8 +37,8 @@ describe('Action - Function show-settings', () => {
   const folder = 'D://screen-images';
 
   beforeEach(() => {
-    infoRecord = '';
-    warnRecord = '';
+    infoRecord = [];
+    errorRecord = [];
   });
   // Run test inside build folder
   // Remove user settings to avoid side effect on other test cases
@@ -42,8 +50,15 @@ describe('Action - Function show-settings', () => {
 
   it('Should display "No user settings has been recorded yet.." when .userconfig does not exist', async () => {
     await showSettings({}, {}, mockLogger);
-
-    expect(warnRecord.includes('No user settings has been recorded yet')).toBeTruthy();
+    expect(
+      errorRecord.some((record) => {
+        console.log(record);
+        return stripAnsi(record.data)
+          === 'No user settings has been recorded yet, try getting the images first.'
+          + '\nType "get-lock-screen -h" for help'
+          && record.meta?.errorCode === ERROR_CODES.RUNTIME_ERROR_004;
+      }),
+    ).toBeTruthy();
   });
 
   it('Should print out path to images', async () => {
@@ -55,7 +70,14 @@ describe('Action - Function show-settings', () => {
     await getImages({}, answers, mockLogger);
     await showSettings({}, {}, mockLogger);
 
-    expect(infoRecord.includes(`file://${folder}`)).toBeTruthy();
+    expect(
+      infoRecord.some((record) => {
+        console.log(record);
+        return stripAnsi(record.data)
+          .includes(`\nImage saved folder(Ctrl + click to open): file://${folder}`)
+          && record.meta?.isMessage === true;
+      }),
+    ).toBeTruthy();
     // Clean up trash files created by test case
     deleteFolderRecursive(folder);
   });
@@ -73,18 +95,24 @@ describe('Action - Function show-settings', () => {
     process.argv = [...oldProcessArgv, '', ''];
     const oldConsoleLog = console.log;
     console.log = jest.fn((data) => {
-      infoRecord += data;
+      infoRecord.push(data);
     });
     const oldProcessExit = process.exit;
     process.exit = jest.fn(() => {
-      infoRecord += 'Exit';
+      infoRecord.push('Exit');
     });
     // Get images
     await getImages({}, answers, mockLogger);
     // Run show-settings
     await showSettings({}, {}, mockLogger);
     // Expect output from function wait-key-to-exit
-    expect(infoRecord.includes(chalk.cyan('\nPress any key to exit..'))).toBeTruthy();
+    expect(
+      infoRecord.some((record) => {
+        console.log(record);
+        return stripAnsi(record) === '\nPress any key to exit..';
+      }),
+    ).toBeTruthy();
+    // expect(infoRecord.includes(chalk.cyan('\nPress any key to exit..'))).toBeTruthy();
     // Restore mock
     console.log = oldConsoleLog;
     process.argv = oldProcessArgv;

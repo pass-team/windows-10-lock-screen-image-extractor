@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import wallpaper from 'wallpaper';
 import chalk from 'chalk';
+import stripAnsi from 'strip-ansi';
 import {
   ERROR_CODES,
   IMAGE_NAME_FORMAT_HASH,
@@ -14,23 +15,37 @@ import randomDesktop from '../../../source/actions/random-desktop';
 import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
 import extendLogger from '../../../source/helpers/extend-logger';
 
-let infoRecord = '';
-let warnRecord = '';
+let infoRecord = [];
+let warnRecord = [];
+let errorRecord = [];
 
 const mockLogger = extendLogger();
-mockLogger.info = (data) => {
-  infoRecord += data;
+mockLogger.info = (data, meta) => {
+  infoRecord.push({
+    data,
+    meta,
+  });
 };
-mockLogger.warn = (data) => {
-  warnRecord += data;
+mockLogger.warn = (data, meta) => {
+  warnRecord.push({
+    data,
+    meta,
+  });
+};
+mockLogger.error = (data, meta) => {
+  errorRecord.push({
+    data,
+    meta,
+  });
 };
 mockLogger.log = jest.fn();
 
 describe('Action - Function random-desktop', () => {
   // Reset logging recorder
   beforeEach(() => {
-    infoRecord = '';
-    warnRecord = '';
+    infoRecord = [];
+    warnRecord = [];
+    errorRecord = [];
   });
   // Run test inside build folder
   // Remove user settings to avoid side effect on other test cases
@@ -54,16 +69,21 @@ describe('Action - Function random-desktop', () => {
     // Expect images exists images folder
     // And it display success message
     expect(images.includes(wallpaperName)).toBeTruthy();
-    expect(infoRecord.includes('New desktop background has been set')).toBeTruthy();
+    expect(
+      infoRecord.some((record) => stripAnsi(record.data) === '\nNew desktop background has been set!'
+        && record.meta?.isMessage === true),
+    ).toBeTruthy();
   });
 
   it('Should display “No existing images…“ when image folder does not exist', async () => {
     // Mock an empty .userconfig file, which should be containing path to image folder
     fs.writeFileSync(PATH_TO_CONFIG, '');
     await randomDesktop({}, {}, mockLogger);
-    expect(infoRecord).toEqual(`${chalk.cyan('\nStart processing')}Type get-lock-screen get-images to get images`);
-    expect(warnRecord)
-      .toEqual(chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_004}: No existing images, try getting the images first`));
+    expect(
+      errorRecord.some((record) => stripAnsi(record.data) === 'No existing images, try getting the images first.'
+        + '\nType get-lock-screen get-images to get images'
+        && record.meta?.errorCode === ERROR_CODES.RUNTIME_ERROR_003),
+    ).toEqual(true);
   });
 
   it('Should display “No existing images…“ when found no image to use', async () => {
@@ -71,8 +91,11 @@ describe('Action - Function random-desktop', () => {
     // Mock an empty .userconfig file, which should be containing path to image folder
     fs.writeFileSync(PATH_TO_CONFIG, folder);
     await randomDesktop({}, {}, mockLogger);
-    expect(warnRecord)
-      .toEqual(chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_003}: No existing images, try getting the images first`));
+    expect(
+      errorRecord.some((record) => stripAnsi(record.data) === 'No existing images, try getting the images first.'
+        + '\nType get-lock-screen get-images to get images'
+        && record.meta?.errorCode === ERROR_CODES.RUNTIME_ERROR_003),
+    ).toEqual(true);
   });
 
   it('Should display “Unexpected errors…“ when fail to set wallpaper for some reasons', async () => {
@@ -92,8 +115,11 @@ describe('Action - Function random-desktop', () => {
     });
     await randomDesktop({}, {}, mockLogger);
     // Mock an empty .userconfig file, which should be containing path to image folder
-    expect(warnRecord).toEqual(chalk.redBright(`\n${ERROR_CODES.RUNTIME_ERROR_002}: `
-      + 'Error setting new desktop wallpaper!'));
+    expect(
+      errorRecord.some((record) => stripAnsi(record.data) === 'Error setting new desktop wallpaper!'
+        + '\nType get-lock-screen random-desktop --help for help'
+        && record.meta?.errorCode === ERROR_CODES.RUNTIME_ERROR_002),
+    ).toEqual(true);
     fs.writeFileSync = old;
     process.argv = oldProcessArgv;
   });
@@ -107,11 +133,11 @@ describe('Action - Function random-desktop', () => {
     process.argv = [...oldProcessArgv, '', ''];
     const oldConsoleLog = console.log;
     console.log = jest.fn((data) => {
-      infoRecord += data;
+      infoRecord.push(data);
     });
     const oldProcessExit = process.exit;
     process.exit = jest.fn(() => {
-      infoRecord += 'Exit';
+      infoRecord.push(infoRecord);
     });
     // Get images
     await getImages({}, {
