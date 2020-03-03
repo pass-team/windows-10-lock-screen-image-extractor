@@ -1,7 +1,7 @@
 import ora from 'ora';
 import { Writable } from 'stream';
 import stripAnsi from 'strip-ansi';
-import { isOutputFormatProvided } from './index';
+import { isFormatProvided } from './index';
 
 const executor = function (task, fakeTime) {
   return new Promise((resolve) => setTimeout(() => resolve(task), fakeTime));
@@ -30,7 +30,7 @@ export default async function (task, message, fakeTime, logger) {
     text: message,
     spinner: 'dots',
     indent: 0,
-    stream: (isOutputFormatProvided() ? writeStreamPipedToLogger(logger) : process.stderr),
+    stream: (isFormatProvided() ? writeStreamPipedToLogger(logger) : process.stderr),
   });
 
   spinner.start();

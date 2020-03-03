@@ -13,7 +13,7 @@ import {
   validatePath,
   validateOrientation,
   validateNamePattern,
-  validateOutput,
+  validateFormat,
 } from '../helpers';
 
 import {
@@ -21,7 +21,7 @@ import {
   PATH_TO_IMAGE,
   ORIENTATION_ALL,
   IMAGE_NAME_FORMAT_ORIGIN,
-  ERROR_CODES,
+  ERROR_CODES, OUTPUT_FORMAT_TEXT,
 } from '../constants';
 import printJsonOutput from '../helpers/print-json-output';
 
@@ -45,7 +45,10 @@ export default async function (args, options, logger) {
       ? options.namePattern
       : IMAGE_NAME_FORMAT_ORIGIN,
   );
-  const { output } = options;
+  let format = typeof options.format === 'string'
+    ? options.format
+    : OUTPUT_FORMAT_TEXT;
+  const { format } = options;
   logger.log('debug', `User options post-processed: ${JSON.stringify({
     path: pathToSave,
     orientation,
@@ -69,9 +72,9 @@ export default async function (args, options, logger) {
     validateOrientation(orientation, logger),
     validateNamePattern(namePattern, logger),
   ];
-  if (output) checks.push(validateOutput(output, logger));
+  if (format) checks.push(validateFormat(format, logger));
   if (!checks.every((check) => check)) {
-    return printJsonOutput(logger, output);
+    return printJsonOutput(logger, format);
   }
   /**
    *  Save user settings
@@ -87,7 +90,7 @@ export default async function (args, options, logger) {
         chalk.white('\nType get-lock-screen --help for help.')}`,
       { errorCode: ERROR_CODES.RUNTIME_ERROR_001 },
     );
-    return printJsonOutput(logger, output);
+    return printJsonOutput(logger, format);
   }
   logger.log('debug', `Image folder created successfully at ${pathToSave}`);
   /* 2. Crawl images from windows's image folder */
@@ -128,5 +131,5 @@ export default async function (args, options, logger) {
   } else {
     logger.warn('\nI found no NEW images :) Better luck next time!', { isMessage: true });
   }
-  return printJsonOutput(logger, output);
+  return printJsonOutput(logger, format);
 }

@@ -27,11 +27,14 @@ import waitKeyToExit from './wait-key-to-exit';
 import validatePath from './validate-path';
 import validateOrientation from './validate-orientation';
 import validateNamePattern from './validate-name-pattern';
-import validateOutput from './validate-output';
+import validateFormat from './validate-format';
+
+import parseConfig from './parse-config';
+import parseConfigFile from './parse-config-file';
 
 import extendLogger from './extend-logger';
 import parseJsonToArgs from './parse-json-to-args';
-import isOutputFormatProvided from './is-output-format-provided';
+import isFormatProvided from './is-output-format-provided';
 import reformatLog from './reformat-log';
 import setDebugMode from './set-debug-mode';
 import printJsonOutput from './print-json-output';
@@ -62,10 +65,12 @@ export {
   validatePath,
   validateOrientation,
   validateNamePattern,
-  validateOutput,
+  validateFormat,
+  parseConfig,
+  parseConfigFile,
   extendLogger,
   parseJsonToArgs,
-  isOutputFormatProvided,
+  isFormatProvided,
   waitKeyToExit,
   reformatLog,
   setDebugMode,

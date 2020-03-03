@@ -1,4 +1,3 @@
-import jsonfile from 'jsonfile';
 import yargs from 'yargs';
 import casex from 'casex';
 import chalk from 'chalk';
@@ -9,7 +8,7 @@ import {
   validateNamePattern,
   validateOrientation,
   validatePath,
-  validateOutput,
+  validateFormat, parseConfig, parseConfigFile,
 } from '.';
 
 // Parse object props to arguments array
@@ -20,36 +19,27 @@ const objectToArguments = function (object) {
     .reduce((acc, key) => acc.concat([`--${casex(key, 'ca-se')}=${object.options[key]}`]), init) : init;
 };
 
-// Deserialize input (file or JSON string) to object, return null if content format is invalid
-const deserialize = (input, logger) => {
-  try {
-    if (input.match(/.json$/, 'i')) {
-      return jsonfile.readFileSync(input);
-    }
-    return JSON.parse(input);
-  } catch (e) {
-    logger.error(
-      'Invalid JSON content for option --config'
-      + `${chalk.white('\nType get-lock-screen -h for usage')}`,
-      { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'config' },
-    );
-  }
-  return null;
-};
-
 export default (logger) => {
-  const isConfigedAsJson = (yargs.argv.config || yargs.argv.c);
-  if (isConfigedAsJson) {
-    const configObject = deserialize(isConfigedAsJson, logger);
+  console.log(yargs.argv.config);
+  console.log(yargs.argv.configFile);
+  const config = yargs.argv.config || yargs.argv.configFile;
+  console.log(config);
+
+  if (config) {
+    // Try validate as JSON string first then as file, if both return null => return false
+    let configObject = null;
+    if (yargs.argv.config) configObject = parseConfig(config, logger);
+    if (yargs.argv.configFile) configObject = parseConfigFile(config, logger);
     if (!configObject) return false;
+
     // Check allowed inputs
     const allowedOptions = {
-      'get-images': ['path', 'orientation', 'namePattern', 'output', 'verbose'],
-      'random-desktop': ['verbose', 'output'],
-      'show-settings': ['verbose', 'output'],
+      'get-images': ['path', 'orientation', 'namePattern', 'format', 'verbose'],
+      'random-desktop': ['verbose', 'format'],
+      'show-settings': ['verbose', 'format'],
     };
 
-    // Check allowed command
+    // Check if command is allowed, return false if not
     if (!allowedOptions[configObject.command]) {
       logger.error(
         `Unknown command '${configObject.command}'.`
@@ -58,9 +48,12 @@ export default (logger) => {
       );
       return false;
     }
+
     // Check allowed command options
-    const notAllowedOptions = Object.keys(configObject.options)
-      .filter((option) => !allowedOptions[configObject.command].includes(option));
+    // Get not allowed options for that command
+    const notAllowedOptions = configObject.options ? Object.keys(configObject.options)
+      .filter((option) => !allowedOptions[configObject.command].includes(option)) : [];
+    // If any print out error for each false option and return false
     if (notAllowedOptions.length > 0) {
       notAllowedOptions.forEach((option) => {
         logger.error(
@@ -83,12 +76,10 @@ export default (logger) => {
     if (configObject.options?.namePattern) {
       validators.push(validateNamePattern(configObject.options?.namePattern, logger));
     }
-    if (configObject.options?.output) {
-      validators.push(validateOutput(configObject.options?.output, logger));
+    if (configObject.options?.format) {
+      validators.push(validateFormat(configObject.options?.format, logger));
     }
-    if (!validators.every((validator) => validator)) {
-      return false;
-    }
+    if (!validators.every((validator) => validator)) return false;
 
     // Flatten config object to array for passing as process args
     const args = objectToArguments(configObject);

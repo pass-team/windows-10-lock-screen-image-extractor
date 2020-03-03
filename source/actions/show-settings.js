@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import {
-  getSavePath, validateOutput,
+  getSavePath, validateFormat,
 } from '../helpers';
 import { ERROR_CODES } from '../constants';
 import printJsonOutput from '../helpers/print-json-output';
@@ -8,7 +8,7 @@ import printJsonOutput from '../helpers/print-json-output';
 /* Action that retrieve user's configurations and display */
 export default function (args, options, logger) {
   const { output } = options;
-  if (output && !validateOutput(output, logger)) {
+  if (output && !validateFormat(output, logger)) {
     return printJsonOutput(logger);
   }
   const currentSavePath = getSavePath();

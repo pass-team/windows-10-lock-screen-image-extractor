@@ -47,6 +47,7 @@ const ERROR_CODES = {
 };
 
 const OUTPUT_FORMAT_JSON = 'json';
+const OUTPUT_FORMAT_TEXT = 'text';
 
 export {
   PATH_TO_IMAGE,
@@ -66,4 +67,5 @@ export {
   MENU_OPTIONS,
   ERROR_CODES,
   OUTPUT_FORMAT_JSON,
+  OUTPUT_FORMAT_TEXT,
 };

@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { ERROR_CODES, OUTPUT_FORMAT_JSON } from '../constants';
+import {ERROR_CODES, OUTPUT_FORMAT_JSON, OUTPUT_FORMAT_TEXT} from '../constants';
 
 /**
  *  @Helper
@@ -11,12 +11,12 @@ import { ERROR_CODES, OUTPUT_FORMAT_JSON } from '../constants';
  *      - throw new Error if the format is invalid
  */
 
-export default (output, logger) => {
-  if (!(output === OUTPUT_FORMAT_JSON || output.endsWith('.json'))) {
+export default (format, logger) => {
+  if (!format === OUTPUT_FORMAT_JSON || !format === OUTPUT_FORMAT_TEXT) {
     logger.error(
-      `Invalid value '${output}' for option --output.`
+      `Invalid value '${format}' for option --format.`
       + `${chalk.white('\nType get-lock-screen -h for usage')}`,
-      { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'output' },
+      { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'format' },
     );
     return false;
   }

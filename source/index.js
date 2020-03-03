@@ -17,17 +17,16 @@ import {
 
 import {
   extendLogger,
-  isOutputFormatProvided,
+  isFormatProvided,
   parseJsonToArgs,
   setDebugMode,
   printJsonOutput,
   TransportJSON,
 } from './helpers';
 
-
 // Transfer to using JSON transport when output format is provide: --output
 let logger;
-if (isOutputFormatProvided()) logger = extendLogger(new TransportJSON());
+if (isFormatProvided()) logger = extendLogger(new TransportJSON());
 else logger = extendLogger();
 
 // Parse JSON to argv when accept input as JSON: --config
@@ -49,12 +48,15 @@ app
   .version('1.0.0')
   .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')
   .logger(logger)
-  .option('--config', 'Provide cli options as JSON string or JSON file ')
+  .option('--config,', 'Provide cli options as JSON string')
   .help(`Example:
-   get-lock-screen --config=input.json`)
-  .option('--output', 'Define output format. Viable options: "json" or "filename.json"')
+   get-lock-screen --config="{"command":"get-images"}"`)
+  .option('--config-file', 'Provide cli options as JSON file')
   .help(`Example:
-   get-lock-screen --output=[text|json|filename.json]`)
+   get-lock-screen --config-file=input.json`)
+  .option('--format', 'Define output format. Viable options: "json" or "filename.json"')
+  .help(`Example:
+   get-lock-screen --format=[text|json]`)
   /** @Command: default when no command is provided */
   .action(showMenu)
 

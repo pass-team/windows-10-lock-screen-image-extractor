@@ -1,3 +1,3 @@
 import yargs from 'yargs';
 
-export default () => yargs.argv.output && typeof yargs.argv.output === 'string';
+export default () => yargs.argv.format && typeof yargs.argv.format === 'string';

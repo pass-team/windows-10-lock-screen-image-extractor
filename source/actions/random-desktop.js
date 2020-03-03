@@ -4,7 +4,7 @@ import {
   getFiles,
   taskExecutor,
   filterImages,
-  validateOutput,
+  validateFormat,
   printJsonOutput,
 } from '../helpers';
 import setWallpaper from '../helpers/set-wallpaper';
@@ -18,7 +18,7 @@ export default async function (args, options, logger) {
   // eslint-disable-next-line no-param-reassign
   logger = logger.child({ caller: 'actions:random-desktop' });
   const { output } = options;
-  if (output && !validateOutput(output, logger)) {
+  if (output && !validateFormat(output, logger)) {
     return printJsonOutput(logger);
   }
 
