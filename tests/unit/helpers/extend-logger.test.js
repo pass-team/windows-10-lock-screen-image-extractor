@@ -44,7 +44,7 @@ describe('Helper - Function extendLogger', () => {
     extendedLogger.warn('Message content warn level');
     extendedLogger.log('debug', 'Message content debug level');
     extendedLogger.log('debug', 'Message content debug level with meta data',
-      { caller: 'action:mock-action' });
+      { callerFunction: 'action:mock-action' });
     extendedLogger.log('error', 'Message content error level no errorCode');
     extendedLogger.log('error', 'Message content error level with errorCode',
       { errorCode: ERROR_CODES.VALIDATION_ERROR_001 });
@@ -56,7 +56,7 @@ describe('Helper - Function extendLogger', () => {
       'Message content debug level +',
       'action:mock-action: Message content debug level with meta data +',
       'Message content error level no errorCode',
-      `\n${ERROR_CODES.VALIDATION_ERROR_001}: Message content error level with errorCode`,
+      `${ERROR_CODES.VALIDATION_ERROR_001}: Message content error level with errorCode`,
       'Message content verbose level',
     ];
     console._stdout.write = oldStdout;

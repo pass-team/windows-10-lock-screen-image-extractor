@@ -17,7 +17,7 @@ import {
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {
   // eslint-disable-next-line no-param-reassign
-  logger = logger.child({ caller: 'actions:random-desktop' });
+  logger = logger.child({ callerFunction: 'actions:random-desktop' });
   const format = trimQuotes(typeof options.format === 'string'
     ? options.format
     : OUTPUT_FORMAT_TEXT);

@@ -28,7 +28,7 @@ import printJsonOutput from '../helpers/print-json-output';
 /* Action that handle extracting lock screen from windows */
 export default async function (args, options, logger) {
   // eslint-disable-next-line no-param-reassign
-  logger = logger.child({ caller: 'actions:get-images' });
+  logger = logger.child({ callerFunction: 'actions:get-images' });
   logger.log('debug', `User options provided: ${JSON.stringify(options)}`);
   let pathToSave = trimQuotes(
     typeof options.path === 'string'

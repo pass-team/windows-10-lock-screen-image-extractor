@@ -10,22 +10,22 @@ import { ERROR_CODES } from '../constants';
  *  @Output:
  *    - return:
  *      - config: If the config is valid
- *      - throw new Error if the config is invalid
+ *      - print Error if the configFile  is invalid
  */
 
 export default (configFile, logger) => {
   try {
     if (fs.existsSync(configFile)) return jsonfile.readFileSync(configFile);
     logger.error(
-      `Invalid value '${configFile}' for option --config ${
+      `Invalid value '${configFile}' for option --config-file. ${
         chalk.white('\nType get-lock-screen -h for usage')}`,
-      { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'config' },
+      { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'config-file' },
     );
   } catch (e) {
     logger.error(
-      'Invalid JSON content for option --config'
+      'Invalid JSON content for option --config-file. '
       + `${chalk.white('\nType get-lock-screen -h for usage')}`,
-      { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'config' },
+      { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'config-file' },
     );
   }
   return null;

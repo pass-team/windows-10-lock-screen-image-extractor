@@ -19,7 +19,7 @@ import copyFile from './copy-file';
 
 export default function (files, src, dest, pattern, logger) {
   // eslint-disable-next-line no-param-reassign
-  logger = logger.child({ caller: 'helper:copy-bulk-files' });
+  logger = logger.child({ callerFunction: 'helper:copy-bulk-files' });
   return files.reduce((count, file, index) => {
     try {
       /**

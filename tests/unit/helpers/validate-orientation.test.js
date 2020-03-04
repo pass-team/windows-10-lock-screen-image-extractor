@@ -4,7 +4,7 @@ import extendLogger from '../../../source/helpers/extend-logger';
 import { ERROR_CODES } from '../../../source/constants';
 
 const mockLogger = extendLogger();
-const errorRecord = [];
+let errorRecord = [];
 mockLogger.error = (data, meta) => {
   errorRecord.push({
     data,
@@ -13,6 +13,11 @@ mockLogger.error = (data, meta) => {
 };
 
 describe('Helper - Function validateOrientation', () => {
+  // Reset logging recorder
+  beforeEach(() => {
+    errorRecord = [];
+  });
+
   it('Should print error if input orientation is invalid', () => {
     const orientationSamples = [
       'all',
@@ -26,6 +31,7 @@ describe('Helper - Function validateOrientation', () => {
     expect(stripAnsi(errorRecord[0].data)).toEqual(`Invalid value '${orientationSamples[1]}' for option --orientation`
       + '\nType get-lock-screen -h for usage');
     expect(errorRecord[0].meta?.errorCode).toEqual(ERROR_CODES.VALIDATION_ERROR_001);
+    expect(errorRecord[0].meta?.field).toEqual('orientation');
 
     expect(checks[1]).toBeFalsy();
     expect(checks[2]).toBeTruthy();

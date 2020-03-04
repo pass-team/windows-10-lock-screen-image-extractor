@@ -27,7 +27,7 @@ export default class TransportJSON extends Transport {
       if (log.isMessage) this.state.message += sanitizedLogMessage;
       else this.state.logs.push(sanitizedLogMessage);
     } else if (log.level === 'debug') {
-      this.state.debugModeLogs.push(sanitizedLogMessage);
+      this.state.debugModeLogs.push(`${log.callerFunction}: ${sanitizedLogMessage} ${log.ms}`);
     } else if (log.level === 'error' && log.errorCode) {
       if (!this.state.status !== 'error') {
         this.state.status = 'error';

@@ -23,5 +23,6 @@ describe('Helper - Function task-executor', () => {
 
     expect(infoRecord[0].data).toEqual('Piped log 1');
     expect(infoRecord[1].data).toEqual('- Piped log 2');
+    delete process.formatJson;
   });
 });

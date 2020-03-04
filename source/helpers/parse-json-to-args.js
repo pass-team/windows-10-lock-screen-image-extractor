@@ -11,8 +11,6 @@ import {
   validateFormat, parseConfig, parseConfigFile,
 } from '.';
 
-const processArgs = minimist(process.argv.slice(2));
-
 // Parse object props to arguments array
 const objectToArguments = function (object) {
   const init = [object.command];
@@ -22,6 +20,7 @@ const objectToArguments = function (object) {
 };
 
 export default (logger) => {
+  const processArgs = minimist(process.argv.slice(2));
   const config = processArgs.config || processArgs['config-file'];
   if (config) {
     // Try validate as JSON string first then as file, if both return null => return false

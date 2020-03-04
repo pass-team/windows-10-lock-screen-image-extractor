@@ -33,7 +33,7 @@ let logger;
 // Save format option to global because process.argv is not constant during runtime,
 // which may cause inconsistent logging format
 process.formatJson = isFormatJson();
-if (process.formatJson) logger = extendLogger(new TransportJSON());
+if (process.formatJson) logger = extendLogger(new TransportJSON({ level: 'debug' }));
 else logger = extendLogger();
 // Parse JSON to argv when accept input as JSON: --config
 if (!parseJsonToArgs(logger)) {
@@ -43,7 +43,7 @@ if (!parseJsonToArgs(logger)) {
 } else {
   // Reinitialize new logger after accepting new process args from JSON
   process.formatJson = isFormatJson();
-  if (process.formatJson) logger = extendLogger(new TransportJSON());
+  if (process.formatJson) logger = extendLogger(new TransportJSON({ level: 'debug' }));
   else logger = extendLogger();
 }
 

@@ -1,0 +1,9 @@
+{
+  "command": "get-images",
+  "options": {
+    "path": "D:/zcvbdty",
+    "namePattern": "hash",
+    "orientation": "landscape",
+    "format": "json",
+  }
+}

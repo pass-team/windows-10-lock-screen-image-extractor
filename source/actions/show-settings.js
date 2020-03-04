@@ -8,7 +8,7 @@ import printJsonOutput from '../helpers/print-json-output';
 /* Action that retrieve user's configurations and display */
 export default function (args, options, logger) {
   // eslint-disable-next-line no-param-reassign
-  logger = logger.child({ caller: 'actions:show-settings' });
+  logger = logger.child({ callerFunction: 'actions:show-settings' });
   const format = trimQuotes(typeof options.format === 'string'
     ? options.format
     : OUTPUT_FORMAT_TEXT);

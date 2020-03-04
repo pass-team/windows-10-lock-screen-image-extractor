@@ -4,7 +4,7 @@ import extendLogger from '../../../source/helpers/extend-logger';
 import { ERROR_CODES } from '../../../source/constants';
 
 const mockLogger = extendLogger();
-const errorRecord = [];
+let errorRecord = [];
 mockLogger.error = (data, meta) => {
   errorRecord.push({
     data,
@@ -13,6 +13,11 @@ mockLogger.error = (data, meta) => {
 };
 
 describe('Helper - Function validateFormat', () => {
+  // Reset logging recorder
+  beforeEach(() => {
+    errorRecord = [];
+  });
+
   it('Should print error if format provided is invalid', () => {
     const formatSamples = [
       'json',
