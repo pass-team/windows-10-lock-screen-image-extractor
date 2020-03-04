@@ -5,7 +5,8 @@ import {
   taskExecutor,
   filterImages,
   validateFormat,
-  printJsonOutput, trimQuotes,
+  printJsonOutput,
+  trimQuotes,
 } from '../helpers';
 import setWallpaper from '../helpers/set-wallpaper';
 import {

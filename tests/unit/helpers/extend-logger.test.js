@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import winston from 'winston';
+import stripAnsi from 'strip-ansi';
 import extendLogger from '../../../source/helpers/extend-logger';
+import { ERROR_CODES } from '../../../source/constants';
 
 describe('Helper - Function extendLogger', () => {
   it('Should generate log object with values depending on arguments', () => {
@@ -27,7 +29,7 @@ describe('Helper - Function extendLogger', () => {
 
   it('Should properly reformat and colorize the message', () => {
     const logger = extendLogger(new winston.transports.Console({ level: 'debug' }));
-    let logs = '';
+    let logs = [];
     const extendedLogger = Object.create(logger, {
       transport: [
         new winston.transports.Console({ level: 'debug' }),
@@ -38,19 +40,29 @@ describe('Helper - Function extendLogger', () => {
       logs = [...logs, data];
     };
     extendedLogger.info('Message content info level');
+    extendedLogger.info('Message content info level with meta', { isMessage: true });
     extendedLogger.warn('Message content warn level');
     extendedLogger.log('debug', 'Message content debug level');
-    extendedLogger.log('debug', 'Message content debug level with meta data', { caller: 'action:mock-action' });
+    extendedLogger.log('debug', 'Message content debug level with meta data',
+      { caller: 'action:mock-action' });
+    extendedLogger.log('error', 'Message content error level no errorCode');
+    extendedLogger.log('error', 'Message content error level with errorCode',
+      { errorCode: ERROR_CODES.VALIDATION_ERROR_001 });
+    extendedLogger.log('verbose', 'Message content verbose level');
     const expectedReformatedLogs = [
-      'Message content info level\r\n',
-      'Message content warn level\r\n',
+      'Message content info level',
+      'Message content info level',
+      'Message content warn level',
       'Message content debug level +',
       'action:mock-action: Message content debug level with meta data +',
+      'Message content error level no errorCode',
+      `\n${ERROR_CODES.VALIDATION_ERROR_001}: Message content error level with errorCode`,
+      'Message content verbose level',
     ];
     console._stdout.write = oldStdout;
-    expect(logs[0]).toEqual(expectedReformatedLogs[0]);
-    expect(logs[1]).toEqual(expectedReformatedLogs[1]);
-    expect(logs[2]).toEqual(expect.stringContaining(expectedReformatedLogs[2]));
-    expect(logs[3]).toEqual(expect.stringContaining(expectedReformatedLogs[3]));
+
+    logs.forEach((log, index) => {
+      expect(stripAnsi(logs[index])).toEqual(expect.stringContaining(expectedReformatedLogs[index]));
+    });
   });
 });
