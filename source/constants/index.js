@@ -46,6 +46,14 @@ const ERROR_CODES = {
   EXCEPTION_001: 'EXCEPTION_001',
 };
 
+/* Log Levels */
+const LOG_LEVELS = {
+  INFO: 'info',
+  WARN: 'warn',
+  ERROR: 'error',
+  DEBUG: 'debug',
+};
+
 const OUTPUT_FORMAT_JSON = 'json';
 const OUTPUT_FORMAT_TEXT = 'text';
 
@@ -68,4 +76,5 @@ export {
   ERROR_CODES,
   OUTPUT_FORMAT_JSON,
   OUTPUT_FORMAT_TEXT,
+  LOG_LEVELS,
 };

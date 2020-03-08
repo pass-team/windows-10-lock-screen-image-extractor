@@ -15,8 +15,9 @@ export default (config, logger) => {
     return JSON.parse(config);
   } catch (e) {
     logger.error(
-      'Invalid JSON content for option --config. '
-      + `${chalk.white('\nType get-lock-screen -h for usage')}`,
+      `Invalid JSON content for option --config. ${
+        e.message
+      }${chalk.white('\nType get-lock-screen -h for usage')}`,
       { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'config' },
     );
   }
