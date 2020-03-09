@@ -54,6 +54,9 @@ const LOG_LEVELS = {
   DEBUG: 'debug',
 };
 
+/* Allowed commands */
+
+
 const OUTPUT_FORMAT_JSON = 'json';
 const OUTPUT_FORMAT_TEXT = 'text';
 

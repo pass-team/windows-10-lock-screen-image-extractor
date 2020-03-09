@@ -23,7 +23,7 @@ export default (configFile, logger) => {
     );
   } catch (e) {
     logger.error(
-      'Invalid JSON content for option --config-file. '
+      `Invalid JSON content for option --config-file.\n${e.message}`
       + `${chalk.white('\nType get-lock-screen -h for usage')}`,
       { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'config-file' },
     );
