@@ -21,8 +21,8 @@ const objectToArguments = function (object) {
     .reduce((acc, key) => acc.concat([`--${casex(key, 'ca-se')}=${object.options[key]}`]), init) : init;
 };
 
-const checkAllowedCommand = (configObject, logger) => {
-  if (!ALLOWED_OPTIONS[configObject.command]) return true;
+const isCommandAllowed = (configObject, logger) => {
+  if (ALLOWED_OPTIONS[configObject.command]) return true;
   logger.error(
     `Unknown command '${configObject.command}'.`
     + `${chalk.white('\nType get-lock-screen -h for usage')}`,
@@ -31,16 +31,7 @@ const checkAllowedCommand = (configObject, logger) => {
   return false;
 };
 
-const validateOptions = (configObject, logger) => {
-  const validators = [];
-  if (configObject.options?.path) validators.push(validatePath(configObject.path, logger));
-  if (configObject.options?.orientation) validators.push(validateOrientation(configObject.orientation, logger));
-  if (configObject.options?.namePattern) validators.push(validateNamePattern(configObject.namePattern, logger));
-  if (configObject.options?.format) validators.push(validateFormat(configObject.format, logger));
-  return validators.every((validator) => validator);
-};
-
-const checkAllowedOptions = (configObject, logger) => {
+const areOptionsAllowed = (configObject, logger) => {
   const notAllowedOptions = configObject.options ? Object.keys(configObject.options)
     .filter((option) => !ALLOWED_OPTIONS[configObject.command].includes(option)) : [];
   // If any print out error for each false option and return false
@@ -53,6 +44,15 @@ const checkAllowedOptions = (configObject, logger) => {
     );
   });
   return false;
+};
+
+const validateOptions = (configObject, logger) => {
+  const validators = [];
+  if (configObject.options?.path) validators.push(validatePath(configObject.options.path, logger));
+  if (configObject.options?.orientation) validators.push(validateOrientation(configObject.options.orientation, logger));
+  if (configObject.options?.namePattern) validators.push(validateNamePattern(configObject.options.namePattern, logger));
+  if (configObject.options?.format) validators.push(validateFormat(configObject.options.format, logger));
+  return validators.every((validator) => validator);
 };
 
 const overrideProcessArgs = (configObject) => {
@@ -69,11 +69,11 @@ export default (logger) => {
     if (processArgs.config) configObject = parseConfig(config, logger);
     if (processArgs['config-file']) configObject = parseConfigFile(config, logger);
     if (!configObject) return false;
-    // Check for allowed commands and options
-    if (!checkAllowedCommand(configObject, logger)) return false;
-    if (!checkAllowedOptions(configObject, logger)) return false;
-    // Validate options
+    // Validate commands and options
+    if (!isCommandAllowed(configObject, logger)) return false;
+    if (!areOptionsAllowed(configObject, logger)) return false;
     if (!validateOptions(configObject, logger)) return false;
+
     // Flatten config object to array for passing as process args
     overrideProcessArgs(configObject);
   }

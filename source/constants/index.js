@@ -55,6 +55,11 @@ const LOG_LEVELS = {
 };
 
 /* Allowed commands */
+const ALLOWED_OPTIONS = {
+  'get-images': ['path', 'orientation', 'namePattern', 'format', 'verbose'],
+  'random-desktop': ['verbose', 'format'],
+  'show-settings': ['verbose', 'format'],
+};
 
 
 const OUTPUT_FORMAT_JSON = 'json';
@@ -80,4 +85,5 @@ export {
   OUTPUT_FORMAT_JSON,
   OUTPUT_FORMAT_TEXT,
   LOG_LEVELS,
+  ALLOWED_OPTIONS,
 };
