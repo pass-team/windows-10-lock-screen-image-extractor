@@ -10,9 +10,9 @@ export default class TransportJSON extends Transport {
 
   state = {
     status: 'success',
-    code: '',
     message: '',
     logs: [],
+    code: '',
     debugModeLogs: [],
     debug: false,
     errors: [],
@@ -25,8 +25,11 @@ export default class TransportJSON extends Transport {
     const sanitizedLogMessage = stripAnsi(log.message.replace('\n', ' ').trim());
     switch (true) {
       case log.level === 'info' || log.level === 'warn':
-        if (log.isMessage) this.state.message += sanitizedLogMessage;
-        else this.state.logs.push(sanitizedLogMessage);
+        if (log.isMessage) {
+          this.state.message += sanitizedLogMessage;
+        } else {
+          this.state.logs.push(sanitizedLogMessage);
+        }
         break;
       case (log.level === 'debug'):
         this.state.debugModeLogs.push(`${log.callerFunction}: ${sanitizedLogMessage} ${log.ms}`);
@@ -49,30 +52,6 @@ export default class TransportJSON extends Transport {
           message: sanitizedLogMessage,
         });
     }
-    // if (log.level === 'info' || log.level === 'warn') {
-    //   if (log.isMessage) this.state.message += sanitizedLogMessage;
-    //   else this.state.logs.push(sanitizedLogMessage);
-    // } else if (log.level === 'debug') {
-    //   this.state.debugModeLogs.push(`${log.callerFunction}: ${sanitizedLogMessage} ${log.ms}`);
-    // } else if (log.level === 'error' && log.errorCode) {
-    //   if (!this.state.status !== 'error') {
-    //     this.state.status = 'error';
-    //   }
-    //   if (!this.state.code) this.state.code = log.errorCode;
-    //   this.state.errors.push({
-    //     code: log.errorCode,
-    //     field: log.field ? log.field : null,
-    //     message: sanitizedLogMessage,
-    //   });
-    // } else {
-    //   this.state.code = ERROR_CODES.EXCEPTION_001;
-    //   this.state.status = 'error';
-    //   this.state.errors.push({
-    //     code: ERROR_CODES.EXCEPTION_001,
-    //     field: null,
-    //     message: sanitizedLogMessage,
-    //   });
-    // }
     cb();
   }
 }

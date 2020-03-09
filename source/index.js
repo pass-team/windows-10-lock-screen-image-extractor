@@ -18,7 +18,7 @@ import {
 import {
   extendLogger,
   isFormatJson,
-  parseJsonToArgs,
+  parseJsonToArguments,
   setDebugMode,
   printJsonOutput,
   TransportJSON,
@@ -36,7 +36,7 @@ process.formatJson = isFormatJson();
 if (process.formatJson) logger = extendLogger(new TransportJSON({ level: 'debug' }));
 else logger = extendLogger();
 // Parse JSON to argv when accept input as JSON: --config
-if (!parseJsonToArgs(logger)) {
+if (!parseJsonToArguments(logger)) {
   // Log for parsing process
   printJsonOutput(logger);
   process.exit(0);

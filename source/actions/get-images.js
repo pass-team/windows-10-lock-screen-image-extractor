@@ -61,9 +61,15 @@ export default async function (args, options, logger) {
    */
   if (promptConditionMatch(process)) {
     const answers = await argumentsPrompt();
-    if (answers.path) pathToSave = answers.path;
-    if (answers.orientation) orientation = answers.orientation;
-    if (answers.namePattern) namePattern = answers.namePattern;
+    if (answers.path) {
+      pathToSave = answers.path;
+    }
+    if (answers.orientation) {
+      orientation = answers.orientation;
+    }
+    if (answers.namePattern) {
+      namePattern = answers.namePattern;
+    }
   }
   // Validate options and throw customized errors
   const checks = [
@@ -71,7 +77,9 @@ export default async function (args, options, logger) {
     validateOrientation(orientation, logger),
     validateNamePattern(namePattern, logger),
   ];
-  if (format) checks.push(validateFormat(format, logger));
+  if (format) {
+    checks.push(validateFormat(format, logger));
+  }
   if (!checks.every((check) => check)) {
     return printJsonOutput(logger);
   }

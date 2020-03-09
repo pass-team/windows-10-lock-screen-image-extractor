@@ -30,7 +30,9 @@ export default function (files, src, dest, pattern, logger) {
       logger.log('debug', `Copy images: ${file.name} to ${dest}`);
       return count + 1;
     } catch (e) {
-      if (e.code !== 'EEXIST') return count;
+      if (e.code !== 'EEXIST') {
+        return count;
+      }
     }
     return count;
   }, 0);

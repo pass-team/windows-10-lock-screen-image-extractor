@@ -15,7 +15,9 @@ import { ERROR_CODES } from '../constants';
 
 export default (configFile, logger) => {
   try {
-    if (fs.existsSync(configFile)) return jsonfile.readFileSync(configFile);
+    if (fs.existsSync(configFile)) {
+      return jsonfile.readFileSync(configFile);
+    }
     logger.error(
       `Invalid value '${configFile}' for option --config-file. ${
         chalk.white('\nType get-lock-screen -h for usage')}`,

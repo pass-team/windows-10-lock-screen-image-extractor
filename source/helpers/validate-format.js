@@ -17,7 +17,9 @@ import {
 
 export default (format, logger) => {
   const allowedValues = [OUTPUT_FORMAT_JSON, OUTPUT_FORMAT_TEXT];
-  if (typeof format === 'string' && format && allowedValues.includes(format)) return true;
+  if (typeof format === 'string' && format && allowedValues.includes(format)) {
+    return true;
+  }
   logger.error(
     `Invalid value '${format}' for option --format.`
       + `${chalk.white('\nType get-lock-screen -h for usage')}`,

@@ -12,7 +12,9 @@ import { ERROR_CODES } from '../constants';
  */
 
 export default (path, logger) => {
-  if (typeof path === 'string' && path && new RegExp(/[A-Z]:[/\\].+/).test(path)) return true;
+  if (typeof path === 'string' && path && new RegExp(/[A-Z]:[/\\].+/).test(path)) {
+    return true;
+  }
   logger.error(
     `Invalid value '${path}' for option --path ${
       chalk.white('\nType get-lock-screen -h for usage')}`,

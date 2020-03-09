@@ -10,7 +10,9 @@ const extendLogger = (transport = new winston.transports.Console()) => winston.c
     winston.format.printf((log) => {
       switch (log.level) {
         case LOG_LEVELS.INFO:
-          if (log.isMessage) return chalk.green(log.message);
+          if (log.isMessage) {
+            return chalk.green(log.message);
+          }
           return log.message;
         case LOG_LEVELS.WARN:
           return chalk.yellow(log.message);
