@@ -21,6 +21,7 @@ describe('Helper - Function reformatLog', () => {
     const testOutput = reformatLog(mockLogger.transports[0].state);
     const expectedLog = {
       status: 'success',
+      code: '',
       message: 'Info message 1',
       logs: ['Debug message 1', 'Debug message 1'],
       verbose: true,
@@ -48,6 +49,7 @@ describe('Helper - Function reformatLog', () => {
       { callerFunction: 'action:some-action' });
     expect(reformatLog(mockLogger.transports[0].state)).toEqual({
       status: 'success',
+      code: '',
       message: 'Info message 1',
       logs: ['Warn message 1'],
     });

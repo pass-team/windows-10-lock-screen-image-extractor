@@ -1,6 +1,6 @@
 import minimist from 'minimist';
 import stripAnsi from 'strip-ansi';
-import parseJsonToArgs from '../../../source/helpers/parse-json-to-args';
+import parseJsonToArgs from '../../../source/helpers/parse-json-to-arguments';
 import extendLogger from '../../../source/helpers/extend-logger';
 import parseConfigFile from '../../../source/helpers/parse-config-file';
 import { ERROR_CODES } from '../../../source/constants';
@@ -34,7 +34,7 @@ mockLogger.log = jest.fn();
 jest.mock('minimist');
 jest.mock('../../../source/helpers/parse-config-file');
 
-describe('Helper - Function parseJsonToArgs', () => {
+describe('Helper - Function parseJsonToArguments', () => {
   // Reset logging recorder
   beforeEach(() => {
     infoRecord = [];

@@ -33,6 +33,7 @@ describe('Helper - Function printJsonOutput', () => {
     printJsonOutput(mockLogger);
     const expectLog = {
       status: 'success',
+      code: '',
       message: 'Info message 1',
       logs: ['action:some-action: Debug message 1', 'action:some-other: Debug message 1'],
       verbose: true,
@@ -55,6 +56,7 @@ describe('Helper - Function printJsonOutput', () => {
     printJsonOutput(mockLogger);
     expect(logRecord[1]).toEqual({
       status: 'success',
+      code: '',
       message: 'Info message 1',
       logs: ['Warn message 1'],
     });

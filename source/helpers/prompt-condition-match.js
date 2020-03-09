@@ -9,5 +9,9 @@
  */
 export default function (process) {
   const processArguments = process.argv.splice(2);
-  return processArguments.length === 0 || (processArguments.length === 1 && ['-v', '--verbose'].includes(processArguments[0]));
+  return (
+    processArguments.length === 0
+    || (processArguments.length === 1
+      && ['-v', '--verbose'].includes(processArguments[0]))
+  );
 }
