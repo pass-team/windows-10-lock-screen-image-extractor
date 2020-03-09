@@ -1,7 +1,9 @@
 import minimist from 'minimist';
 import casex from 'casex';
 import chalk from 'chalk';
+import { log } from 'winston';
 import {
+  ALLOWED_OPTIONS,
   ERROR_CODES,
 } from '../constants';
 import {
@@ -19,6 +21,45 @@ const objectToArguments = function (object) {
     .reduce((acc, key) => acc.concat([`--${casex(key, 'ca-se')}=${object.options[key]}`]), init) : init;
 };
 
+const checkAllowedCommand = (configObject, logger) => {
+  if (!ALLOWED_OPTIONS[configObject.command]) return true;
+  logger.error(
+    `Unknown command '${configObject.command}'.`
+    + `${chalk.white('\nType get-lock-screen -h for usage')}`,
+    { errorCode: ERROR_CODES.VALIDATION_ERROR_003, field: 'command' },
+  );
+  return false;
+};
+
+const validateOptions = (configObject, logger) => {
+  const validators = [];
+  if (configObject.options?.path) validators.push(validatePath(configObject.path, logger));
+  if (configObject.options?.orientation) validators.push(validateOrientation(configObject.orientation, logger));
+  if (configObject.options?.namePattern) validators.push(validateNamePattern(configObject.namePattern, logger));
+  if (configObject.options?.format) validators.push(validateFormat(configObject.format, logger));
+  return validators.every((validator) => validator);
+};
+
+const checkAllowedOptions = (configObject, logger) => {
+  const notAllowedOptions = configObject.options ? Object.keys(configObject.options)
+    .filter((option) => !ALLOWED_OPTIONS[configObject.command].includes(option)) : [];
+  // If any print out error for each false option and return false
+  if (notAllowedOptions.length === 0) return true;
+  notAllowedOptions.forEach((option) => {
+    logger.error(
+      `Unknown option '${option}'.`
+      + `${chalk.white('\nType get-lock-screen -h for usage')}`,
+      { errorCode: ERROR_CODES.VALIDATION_ERROR_002, field: option },
+    );
+  });
+  return false;
+};
+
+const overrideProcessArgs = (configObject) => {
+  const args = objectToArguments(configObject);
+  process.argv = process.argv.slice(0, 2).concat(args);
+};
+
 export default (logger) => {
   const processArgs = minimist(process.argv.slice(2));
   const config = processArgs.config || processArgs['config-file'];
@@ -28,59 +69,13 @@ export default (logger) => {
     if (processArgs.config) configObject = parseConfig(config, logger);
     if (processArgs['config-file']) configObject = parseConfigFile(config, logger);
     if (!configObject) return false;
-
-    // Check allowed inputs
-    const allowedOptions = {
-      'get-images': ['path', 'orientation', 'namePattern', 'format', 'verbose'],
-      'random-desktop': ['verbose', 'format'],
-      'show-settings': ['verbose', 'format'],
-    };
-
-    // Check if command is allowed, return false if not
-    if (!allowedOptions[configObject.command]) {
-      logger.error(
-        `Unknown command '${configObject.command}'.`
-        + `${chalk.white('\nType get-lock-screen -h for usage')}`,
-        { errorCode: ERROR_CODES.VALIDATION_ERROR_003, field: 'command' },
-      );
-      return false;
-    }
-
-    // Check allowed command options
-    // Get not allowed options for that command
-    const notAllowedOptions = configObject.options ? Object.keys(configObject.options)
-      .filter((option) => !allowedOptions[configObject.command].includes(option)) : [];
-    // If any print out error for each false option and return false
-    if (notAllowedOptions.length > 0) {
-      notAllowedOptions.forEach((option) => {
-        logger.error(
-          `Unknown option '${option}'.`
-          + `${chalk.white('\nType get-lock-screen -h for usage')}`,
-          { errorCode: ERROR_CODES.VALIDATION_ERROR_002, field: option },
-        );
-      });
-      return false;
-    }
-
+    // Check for allowed commands and options
+    if (!checkAllowedCommand(configObject, logger)) return false;
+    if (!checkAllowedOptions(configObject, logger)) return false;
     // Validate options
-    const validators = [];
-    if (configObject.options?.path) {
-      validators.push(validatePath(configObject.options?.path, logger));
-    }
-    if (configObject.options?.orientation) {
-      validators.push(validateOrientation(configObject.options?.orientation, logger));
-    }
-    if (configObject.options?.namePattern) {
-      validators.push(validateNamePattern(configObject.options?.namePattern, logger));
-    }
-    if (configObject.options?.format) {
-      validators.push(validateFormat(configObject.options?.format, logger));
-    }
-    if (!validators.every((validator) => validator)) return false;
-
+    if (!validateOptions(configObject, logger)) return false;
     // Flatten config object to array for passing as process args
-    const args = objectToArguments(configObject);
-    process.argv = process.argv.slice(0, 2).concat(args);
+    overrideProcessArgs(configObject);
   }
   return true;
 };
