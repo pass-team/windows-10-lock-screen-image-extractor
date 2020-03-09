@@ -65,8 +65,7 @@ describe('Helper - Function parseConfigFile', () => {
     const configFile = `${process.cwd()}/tests/mock-data/mock-invalid-input.json`;
     expect(parseConfigFile(configFile, mockLogger)).toBeNull();
     expect(stripAnsi(errorRecord[0].data))
-      .toEqual('Invalid JSON content for option --config-file. '
-        + '\nType get-lock-screen -h for usage');
+      .toEqual(expect.stringContaining('Invalid JSON content for option --config-file.'));
     expect(errorRecord[0].meta?.errorCode).toEqual(ERROR_CODES.VALIDATION_ERROR_001);
     expect(errorRecord[0].meta?.field).toEqual('config-file');
   });

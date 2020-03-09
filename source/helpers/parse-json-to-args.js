@@ -1,7 +1,6 @@
 import minimist from 'minimist';
 import casex from 'casex';
 import chalk from 'chalk';
-import { log } from 'winston';
 import {
   ALLOWED_OPTIONS,
   ERROR_CODES,
