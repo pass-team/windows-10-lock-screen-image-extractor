@@ -39,7 +39,7 @@ export default class TransportJSON extends Transport {
         this.state.code = log.errorCode;
         this.state.errors.push({
           code: log.errorCode,
-          field: log.field ? log.field : null,
+          field: log.field || null,
           message: sanitizedLogMessage,
         });
         break;
