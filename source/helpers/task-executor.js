@@ -1,9 +1,20 @@
 import ora from 'ora';
+import { Writable } from 'stream';
+import stripAnsi from 'strip-ansi';
 
 const executor = function (task, fakeTime) {
   return new Promise((resolve) => setTimeout(() => resolve(task), fakeTime));
 };
 
+const writeStreamPipedToLogger = (logger) => new Writable({
+  write(chunk, encoding, callback) {
+    const message = stripAnsi(chunk.toString());
+    if (message.startsWith('-')) {
+      logger.info(message.replace('-', '').trim());
+    }
+    callback();
+  },
+});
 /**
  *  @Helper
  *  @Input:
@@ -13,11 +24,12 @@ const executor = function (task, fakeTime) {
  *  @Output:
  *    - return: task's output
  */
-export default async function (task, message, fakeTime) {
+export default async function (task, message, fakeTime, logger) {
   const spinner = ora({
     text: message,
     spinner: 'dots',
     indent: 0,
+    stream: (process.formatJson ? writeStreamPipedToLogger(logger) : process.stderr),
   });
 
   spinner.start();

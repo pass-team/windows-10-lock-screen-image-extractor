@@ -11,9 +11,14 @@ import { ERROR_CODES } from '../constants';
  *      - throw new Error if the path is invalid
  */
 
-export default (path) => {
-  if (!new RegExp(/[A-Z]:[/\\].+/).test(path)) {
-    throw new Error(chalk.redBright(`${ERROR_CODES.ER01}: Invalid value '${path}' for option --path`
-      + '\nType get-lock-screen -h for usage'));
+export default (path, logger) => {
+  if (typeof path === 'string' && path && new RegExp(/[A-Z]:[/\\].+/).test(path)) {
+    return true;
   }
+  logger.error(
+    `Invalid value '${path}' for option --path ${
+      chalk.white('\nType get-lock-screen -h for usage')}`,
+    { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'path' },
+  );
+  return false;
 };

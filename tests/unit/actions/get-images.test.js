@@ -2,6 +2,7 @@
 import fs from 'fs';
 import chalk from 'chalk';
 import path from 'path';
+import stripAnsi from 'strip-ansi';
 import {
   IMAGE_NAME_FORMAT_HASH,
   ORIENTATION_ALL,
@@ -19,21 +20,21 @@ jest.mock('../../../source/helpers/arguments-prompt');
 jest.mock('../../../source/constants');
 
 let infoRecord = '';
-let warnRecord = '';
+let errorRecord = '';
 
 const mockLogger = extendLogger();
 mockLogger.info = (data) => {
   infoRecord += data;
 };
-mockLogger.warn = (data) => {
-  warnRecord += data;
+mockLogger.error = (data) => {
+  errorRecord += data;
 };
 mockLogger.log = jest.fn();
 
 describe('Action - Function get-images', () => {
   beforeEach(() => {
     infoRecord = '';
-    warnRecord = '';
+    errorRecord = '';
   });
 
   afterEach(() => {
@@ -111,8 +112,10 @@ describe('Action - Function get-images', () => {
     process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
     await getImages({}, {}, mockLogger);
-    expect(warnRecord.includes('Error while creating images folder!')).toBeTruthy();
-
+    expect(
+      stripAnsi(errorRecord)
+        .includes('Error while creating images folder! The path provided is invalid or being used by other processes.'),
+    ).toBeTruthy();
     process.argv = oldProcessArgv;
   });
 

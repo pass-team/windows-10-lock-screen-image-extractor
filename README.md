@@ -47,15 +47,27 @@ Passing one or multiple arguments to change the command’s behavior
 ### 3. Show image saved folder
 Run command: `get-lock-screen show-settings`
 
+### Global settings
+Global settings can be applied to all commands
+
+| Argument | Required     | Default | Description | Example |
+| :------- | :----------: | :------ | :---------- | :-------|
+| --output | No | null | Format cli logs as JSON or save them to JSON file.<br>Possible values:<br>- **json**: format as a JSON string<br>- **[filename].json**: Save log to a JSON file with [filename] | get-lock-screen get-image --output=json |
+| --config | No | null | Accepts cli params in JSON format or JSON file<br>Possible values:<br>- **[JSON string]**: a JSON object that describe options<br>- **[filename].json**: a JSON file that describe options | get-lock-screen get-image --output=json |
+| --verbose | No | null | Turn on debug mode to see a more detailed version of logs | get-lock-screen get-image --verbose |
+
 ## Errors Diagnosis
 | Error code | Error message  | Diagnosis | Action |
-| :--------: | :------------: | :-------- | :----- |
-| ER01 | Invalid value ... for option ... | The argument you provide is in wrong format | Run `get-lock-sceen --help` to know the right syntax |
-| ER02 | Error while creating images folder | The path provided is invalid or being used by other processes | Terminate that process then try again. If it still doesn't work. Raise an issue in our [Github Issue](https://github.com/pass-team/windows-10-lock-screen-image-extractor/issues) |
-| ER03 | Error setting new desktop wallpaper! | The exe file must have been broken in the build process | Check current version of your app. Then visit our release page and download another version |
-| ER04 | No existing images, try getting the images first | Randomize desktop feature only work if you already has an image folder that created by the app | Run `get-lock-screen get-images` to create/recreate the folder |
-| ER05 | No user settings has been recorded yet... | User settings are saved to `.userconfig` file after getting images, this file may be lost or you are running the app for the first time | Run `get-lock-screen get-images` to create/recreate the missing file |
-    
+| :--------: | :------------- | :-------- | :----- |
+| VALIDATION_ERROR_001 | Invalid value ... for option ... | The argument you provide is in wrong format | Run `get-lock-sceen --help` to know the right syntax |
+| VALIDATION_ERROR_002 | Unknown option ... | The option you provide is not supported | Run `get-lock-sceen --help` to know the viable options |
+| VALIDATION_ERROR_003 | Unknown command ... | The command you provide is not supported  | Run `get-lock-sceen --help` to know the viable commands |
+| RUNTIME_ERROR_001 | Error while creating images folder | The path provided is invalid or being used by other processes | Terminate that process then try again. If it still doesn't work. Raise an issue in our [Github Issue](https://github.com/pass-team/windows-10-lock-screen-image-extractor/issues) |
+| RUNTIME_ERROR_002 | Error setting new desktop wallpaper! | The exe file must have been broken in the build process | Check current version of your app. Then visit our release page and download another version |
+| RUNTIME_ERROR_003 | No existing images, try getting the images first | Randomize desktop feature only work if you already has an image folder that created by the app | Run `get-lock-screen get-images` to create/recreate the folder |
+| RUNTIME_ERROR_004 | No user settings has been recorded yet... | User settings are saved to `.userconfig` file after getting images, this file may be lost or you are running the app for the first time | Run `get-lock-screen get-images` to create/recreate the missing file |
+| EXCEPTION_001 | Can't be anything, no particular pattern | This is caused by an error that we missed during development  | Make sure you are having no syntax errors in your command or try another version<br>Then Raise an issue in our [Github Issue](https://github.com/pass-team/windows-10-lock-screen-image-extractor/issues)  |
+
 ## Support
 If you have any problems running the apps, feel free to [open an issue](https://github.com/pass-team/windows-10-lock-screen-image-extractor/issues/new). We will tackle it right away.
 

@@ -12,7 +12,9 @@ export default function (path) {
   try {
     fs.mkdirSync(path, { recursive: true });
   } catch (e) {
-    if (e.code !== 'EEXIST') return false;
+    if (e.code !== 'EEXIST') {
+      return false;
+    }
   }
   return true;
 }

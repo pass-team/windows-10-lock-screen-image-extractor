@@ -1,22 +1,32 @@
 import chalk from 'chalk';
 import {
-  getSavePath,
+  getSavePath, trimQuotes, validateFormat,
 } from '../helpers';
-import waitKeyToExit from '../helpers/wait-key-to-exit';
-import { ERROR_CODES } from '../constants';
+import { ERROR_CODES, OUTPUT_FORMAT_TEXT } from '../constants';
+import printJsonOutput from '../helpers/print-json-output';
 
 /* Action that retrieve user's configurations and display */
 export default function (args, options, logger) {
+  // eslint-disable-next-line no-param-reassign
+  logger = logger.child({ callerFunction: 'actions:show-settings' });
+  const format = trimQuotes(typeof options.format === 'string'
+    ? options.format
+    : OUTPUT_FORMAT_TEXT);
+  if (format && !validateFormat(format, logger)) {
+    return printJsonOutput(logger);
+  }
   const currentSavePath = getSavePath();
   if (currentSavePath) {
-    logger.info('\nImage saved folder(Ctrl + click to open):');
-    logger.info(chalk.cyan(`file://${currentSavePath}`));
-  } else {
-    logger.warn(chalk.redBright(`\n${ERROR_CODES.ER05}: `
-      + 'No user settings has been recorded yet, try getting the images first'));
-    logger.info(chalk.yellow('Run "get-lock-screen -h" for help'));
+    logger.info(
+      `\nImage saved folder(Ctrl + click to open): ${chalk.cyan(`file://${currentSavePath}`)}`,
+      { isMessage: true },
+    );
+    return printJsonOutput(logger);
   }
-  if (/^[\\/][a-zA-Z-]+\.exe$/.test(process.title.replace(process.cwd(), ''))) {
-    waitKeyToExit();
-  }
+  logger.error(
+    'No user settings has been recorded yet, try getting the images first.'
+    + `${chalk.white('\nType "get-lock-screen -h" for help')}`,
+    { errorCode: ERROR_CODES.RUNTIME_ERROR_004 },
+  );
+  return printJsonOutput(logger);
 }

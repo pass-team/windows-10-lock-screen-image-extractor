@@ -45,7 +45,6 @@ export default async function () {
   if (confirmation === 'No') {
     return {};
   }
-
   /**
    *  Then, ask configuration questions
    */

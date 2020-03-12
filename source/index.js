@@ -17,20 +17,61 @@ import {
 
 import {
   extendLogger,
+  isFormatJson,
+  parseJsonToArguments,
+  setDebugMode,
+  printJsonOutput,
+  TransportJSON,
 } from './helpers';
+
+/**
+ *  Parse JSON content if provided to setup appropriate logger
+ */
+
+// Transfer to using JSON transport when output format is provide: --format
+let logger;
+// Save format option to global because process.argv is not constant during runtime,
+// which may cause inconsistent logging format
+process.formatJson = isFormatJson();
+if (process.formatJson) logger = extendLogger(new TransportJSON({ level: 'debug' }));
+else logger = extendLogger();
+// Parse JSON to argv when accept input as JSON: --config
+if (!parseJsonToArguments(logger)) {
+  // Log for parsing process
+  printJsonOutput(logger);
+  process.exit(0);
+} else {
+  // Reinitialize new logger after accepting new process args from JSON
+  process.formatJson = isFormatJson();
+  if (process.formatJson) logger = extendLogger(new TransportJSON({ level: 'debug' }));
+  else logger = extendLogger();
+}
+
+// Turn on debug mode for logger if flag verbose is detected
+setDebugMode(logger);
+
 /**
  *  Define app commands and respectively actions
  *  We are using Caporal.js as cli framework
  *  Checkout their document to better understand syntax
  *  Caporal.js https://github.com/mattallty/Caporal.js
  */
-
 app
   .version('1.0.0')
   .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')
-  .logger(extendLogger())
+  .logger(logger)
+  .option('--config', 'Provide cli options as JSON string')
+  .help(`Example:
+   get-lock-screen --config="{"command":"get-images"}"`)
+  .option('--config-file', 'Provide cli options as JSON file')
+  .help(`Example:
+   get-lock-screen --config-file=input.json`)
+  .option('--format', 'Define output format. Viable options: "json" or "filename.json"')
+  .help(`Example:
+   get-lock-screen --format=[text|json]`)
   /** @Command: default when no command is provided */
   .action(showMenu)
+
   /** @Command: get-images */
   .command('get-images', 'Extract lock screen images from windows 10')
   /** @Option path: image saving folder */
@@ -63,15 +104,24 @@ app
     false)
   .help(`Example:
    get-lock-screen get-images -n hash`)
+  .option('--format', 'Define display format for output')
+  .help(`Example:
+   get-lock-screen get-images -f [text|json|filename.json]`)
   .action(getImages)
 
   /** @Command: show-settings */
   .command('show-settings', 'Show your current saving folder')
   .help('Example: get-lock-screen show-settings')
+  .option('--format', 'Define display format for output')
+  .help(`Example:
+   get-lock-screen show-settings --format [text|json]`)
   .action(showSettings)
 
   /** @Command: random-desktop */
   .command('random-desktop', 'Randomly set a new desktop wallpaper')
   .help('Example: get-lock-screen random-desktop')
+  .option('--format', 'Define display format for output')
+  .help(`Example:
+   get-lock-screen random-desktop --format [text|json|filename.json]`)
   .action(randomDesktop);
 app.parse(process.argv);

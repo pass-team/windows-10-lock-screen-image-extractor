@@ -1,11 +1,9 @@
 import Select from 'enquirer/lib/prompts/select';
-
 import {
   randomDesktop,
   getImages,
   showSettings,
 } from '.';
-
 import { MENU_OPTIONS } from '../constants';
 
 /* Action that pack the app into one single Windows executable file */

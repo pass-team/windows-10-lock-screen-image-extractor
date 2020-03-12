@@ -19,7 +19,7 @@ import copyFile from './copy-file';
 
 export default function (files, src, dest, pattern, logger) {
   // eslint-disable-next-line no-param-reassign
-  logger = logger.child({ caller: 'helper:copy-bulk-files' });
+  logger = logger.child({ callerFunction: 'helper:copy-bulk-files' });
   return files.reduce((count, file, index) => {
     try {
       /**
@@ -30,7 +30,9 @@ export default function (files, src, dest, pattern, logger) {
       logger.log('debug', `Copy images: ${file.name} to ${dest}`);
       return count + 1;
     } catch (e) {
-      if (e.code !== 'EEXIST') return count;
+      if (e.code !== 'EEXIST') {
+        return count;
+      }
     }
     return count;
   }, 0);

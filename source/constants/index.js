@@ -36,12 +36,34 @@ const MENU_OPTIONS = Object.freeze({
 
 /* Error codes */
 const ERROR_CODES = {
-  ER01: 'ER01',
-  ER02: 'ER02',
-  ER03: 'ER03',
-  ER04: 'ER04',
-  ER05: 'ER05',
+  VALIDATION_ERROR_001: 'VALIDATION_ERROR_001',
+  VALIDATION_ERROR_002: 'VALIDATION_ERROR_002',
+  VALIDATION_ERROR_003: 'VALIDATION_ERROR_003',
+  RUNTIME_ERROR_001: 'RUNTIME_ERROR_001',
+  RUNTIME_ERROR_002: 'RUNTIME_ERROR_002',
+  RUNTIME_ERROR_003: 'RUNTIME_ERROR_003',
+  RUNTIME_ERROR_004: 'RUNTIME_ERROR_004',
+  EXCEPTION_001: 'EXCEPTION_001',
 };
+
+/* Log Levels */
+const LOG_LEVELS = {
+  INFO: 'info',
+  WARN: 'warn',
+  ERROR: 'error',
+  DEBUG: 'debug',
+};
+
+/* Allowed commands */
+const ALLOWED_OPTIONS = {
+  'get-images': ['path', 'orientation', 'namePattern', 'format', 'verbose'],
+  'random-desktop': ['verbose', 'format'],
+  'show-settings': ['verbose', 'format'],
+};
+
+
+const OUTPUT_FORMAT_JSON = 'json';
+const OUTPUT_FORMAT_TEXT = 'text';
 
 export {
   PATH_TO_IMAGE,
@@ -60,4 +82,8 @@ export {
   IMAGE_NAME_FORMAT_DATE,
   MENU_OPTIONS,
   ERROR_CODES,
+  OUTPUT_FORMAT_JSON,
+  OUTPUT_FORMAT_TEXT,
+  LOG_LEVELS,
+  ALLOWED_OPTIONS,
 };
