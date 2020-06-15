@@ -7,7 +7,6 @@ import { setDebugMode } from '../../../source/helpers';
 let mockLogger = extendLogger(new TransportJSON({ level: 'debug' }));
 mockLogger.transports[0].state.debug = true;
 
-
 describe('Helper - Function reformatLog', () => {
   it('Should print out JSON log in the right format in debug mode', () => {
     process.formatJson = 'json';
@@ -149,7 +148,6 @@ describe('Helper - Function reformatLog', () => {
     });
     delete process.formatJson;
   });
-
 
   it('Should print out JSON log in the right format when Runtime error happens - debug mode', () => {
     process.formatJson = 'json';
