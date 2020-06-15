@@ -61,7 +61,6 @@ const ALLOWED_OPTIONS = {
   'show-settings': ['verbose', 'format'],
 };
 
-
 const OUTPUT_FORMAT_JSON = 'json';
 const OUTPUT_FORMAT_TEXT = 'text';
 

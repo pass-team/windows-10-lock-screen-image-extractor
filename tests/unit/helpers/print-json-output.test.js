@@ -61,7 +61,6 @@ describe('Helper - Function printJsonOutput', () => {
       logs: ['Warn message 1'],
     });
 
-
     // 3. Test Validation error
     mockLogger = extendLogger(new TransportJSON());
     mockLogger.error(
@@ -111,7 +110,6 @@ describe('Helper - Function printJsonOutput', () => {
       message: 'Error while creating images folder! The path provided is invalid or being used by other processes.',
       logs: [],
     });
-
 
     // 5. Test Exception
     mockLogger = extendLogger(new TransportJSON());
