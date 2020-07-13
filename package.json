@@ -45,7 +45,7 @@
     "del-cli": "3.0.1",
     "eslint": "7.4.0",
     "eslint-config-airbnb-base": "14.2.0",
-    "eslint-plugin-import": "2.21.2",
+    "eslint-plugin-import": "2.22.0",
     "jest": "26.1.0",
     "nixt": "0.5.1",
     "pkg": "4.4.8"
