@@ -73,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: build-file
-          path: build/get-lock-screen.exe
+          path: build/get-lock-screen.zip
       - name: Run integration tests
         run: yarn run test:integration
         shell: cmd

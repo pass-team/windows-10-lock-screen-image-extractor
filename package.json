@@ -11,7 +11,7 @@
     "test:unit": "npx jest --config='config/jest/unit/jest.js' --runInBand",
     "test:unit:coverage": "npx jest --config='config/jest/unit/jest.js' --runInBand --coverage && codacy-coverage < ./coverage/lcov.info --debug",
     "dev": "npx webpack -w --mode development",
-    "build:win": "yarn run build:prod && npx pkg ./build/bin/get-lock-screen-image.js --targets node12-win-x64 --output=build/get-lock-screen.exe --config ./package.json",
+    "build:win": "yarn run build:prod && npx pkg ./build/get-lock-screen-image.js --targets node10-win-x64 --output=build/get-lock-screen.exe --config ./package.json",
     "build:win:zip": "yarn run build:win && node ./config/archiver/archiver.js",
     "build:dev": "npx webpack --mode development",
     "build:prod": "npx webpack --mode production",

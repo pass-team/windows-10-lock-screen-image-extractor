@@ -7,14 +7,19 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
-const targetPath = path.resolve(__dirname, 'build/bin');
+const targetPath = path.resolve(__dirname, 'build');
 
 const config = {
   entry: './bin/get-lock-screen-image.js',
-  target: 'node',
   output: {
     path: targetPath,
     filename: 'get-lock-screen-image.js',
+  },
+  target: 'node',
+  node: {
+    global: true,
+    __filename: true,
+    __dirname: true,
   },
   module: {
     rules: [
