@@ -10,9 +10,11 @@
     "test": "npx jest --config='config/jest/jest.js'",
     "test:unit": "npx jest --config='config/jest/unit/jest.js' --runInBand",
     "test:unit:coverage": "npx jest --config='config/jest/unit/jest.js' --runInBand --coverage && codacy-coverage < ./coverage/lcov.info --debug",
-    "dev": "npx chokidar \"./source\" \"./bin\" -c \"yarn run build:es5\"",
-    "build:es5": "npx del-cli build && npx babel ./ --only ./source,./bin --extensions .js  --out-dir build --no-copy-ignored",
-    "build:win": "yarn run build:es5 --minified --no-comments && npx pkg ./build/bin/get-lock-screen-image.js --targets node10-win-x64 --output=build/get-lock-screen.exe --config ./package.json",
+    "dev": "npx webpack -w --mode development",
+    "build:win": "yarn run build:prod && npx pkg ./build/get-lock-screen-image.js --targets node10-win-x64 --output=build/get-lock-screen.exe --config ./package.json",
+    "build:win:zip": "yarn run build:win && node ./config/archiver/archiver.js",
+    "build:dev": "npx webpack --mode development",
+    "build:prod": "npx webpack --mode production",
     "test:integration": "npx jest --config='config/jest/integration/jest.js' --runInBand"
   },
   "bin": {
@@ -38,16 +40,23 @@
     "@babel/core": "7.10.4",
     "@babel/plugin-proposal-class-properties": "7.10.4",
     "@babel/preset-env": "7.10.4",
+    "archiver": "4.0.2",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.1.0",
+    "babel-loader": "8.1.0",
     "chokidar-cli": "2.1.0",
+    "clean-webpack-plugin": "3.0.0",
     "codacy-coverage": "3.4.0",
-    "del-cli": "3.0.1",
     "eslint": "7.4.0",
     "eslint-config-airbnb-base": "14.2.0",
     "eslint-plugin-import": "2.22.0",
     "jest": "26.1.0",
+    "lodash-webpack-plugin": "0.11.5",
     "nixt": "0.5.1",
-    "pkg": "4.4.9"
+    "pkg": "4.4.9",
+    "shebang-loader": "0.0.1",
+    "terser-webpack-plugin": "3.0.6",
+    "webpack": "4.43.0",
+    "webpack-cli": "3.3.12"
   }
 }

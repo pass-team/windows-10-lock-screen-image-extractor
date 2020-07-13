@@ -1,0 +1,61 @@
+const env = process.env.WEBPACK_MODE;
+const PRODUCTION = 'production';
+
+const webpack = require('webpack');
+const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
+const targetPath = path.resolve(__dirname, 'build');
+
+const config = {
+  entry: './bin/get-lock-screen-image.js',
+  output: {
+    path: targetPath,
+    filename: 'get-lock-screen-image.js',
+  },
+  target: 'node',
+  node: {
+    global: true,
+    __filename: true,
+    __dirname: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: 'babel-loader',
+        exclude: /node_modules/,
+      },
+      {
+        loader: 'shebang-loader',
+      },
+    ],
+  },
+  optimization: (env === PRODUCTION ? {
+    minimize: true,
+    minimizer: [new TerserPlugin(
+      {
+        terserOptions: {
+          output: {
+            comments: false,
+          },
+        },
+        test: /\.js(\?.*)?$/i,
+        extractComments: false,
+      },
+    )],
+    splitChunks: {
+      chunks: 'async',
+      minChunks: 1,
+    },
+  } : {}),
+  plugins: [
+    new CleanWebpackPlugin(),
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
+    }),
+  ],
+};
+
+module.exports = config;
