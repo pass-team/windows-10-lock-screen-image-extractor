@@ -4,13 +4,16 @@ const PRODUCTION = 'production';
 const webpack = require('webpack');
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+
+const targetPath = path.resolve(__dirname, 'build/bin');
 
 const config = {
   entry: './bin/get-lock-screen-image.js',
   target: 'node',
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: targetPath,
     filename: 'get-lock-screen-image.js',
   },
   module: {
@@ -47,6 +50,14 @@ const config = {
     new CleanWebpackPlugin(),
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'node_modules/wallpaper/source/win-wallpaper.exe',
+          to: '../node_modules/wallpaper/source/win-wallpaper.exe',
+        },
+      ],
     }),
   ],
 };
