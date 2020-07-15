@@ -8,10 +8,10 @@
   "extends": [
     "airbnb-base",
     "eslint:recommended",
-    "plugin:node/recommended",
-    "plugin:jest/recommended",
-    "plugin:jest-formatting/recommended",
-    "plugin:sonarjs/recommended"
+    "plugin:node/recommended"
+//    "plugin:jest/recommended",
+//    "plugin:jest-formatting/recommended",
+//    "plugin:sonarjs/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -33,7 +33,8 @@
     "quotes": [2, "single", { "avoidEscape": true }],
     "func-names": 0,
     "import/no-cycle": 0,
-    "import/no-extraneous-dependencies": 0,
-    "node/no-unsupported-features/es-syntax": 0
+    "node/no-unsupported-features/es-syntax": 0,
+    "no-process-exit": 0,
+    "node/no-unpublished-import": 0
   }
 }
