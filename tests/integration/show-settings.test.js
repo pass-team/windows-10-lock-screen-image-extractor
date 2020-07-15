@@ -14,7 +14,7 @@ describe('Feature show-settings', () => {
     }
   });
 
-  it('Should display path to saving folder', (done) => {
+  it('Should display path to saving folder', () => {
     const folderName = 'D:/w10-startup-lock-screen-extractor-get-image-folder/'
       + `${Math.floor(Math.random() * Math.floor(10000))}/`;
     nixt()
@@ -22,7 +22,7 @@ describe('Feature show-settings', () => {
       .exec(`get-lock-screen get-images -p=${folderName}`)
       .run('get-lock-screen show-settings')
       .stdout(/.*Image saved folder.*/)
-      .end(done);
+      .end();
     // Clean up trash files created by test case
     deleteFolderRecursive('D:/w10-startup-lock-screen-extractor-get-image-folder/');
   });

@@ -141,7 +141,7 @@ describe('Helper - Function parseJsonToArguments', () => {
       '--verbose=true',
     ];
     spreadArgs.forEach((arg) => {
-      expect(process.argv.includes(arg));
+      expect(process.argv.includes(arg)).toBeTruthy();
     });
     // Should print out these error or each failed validators
     process.argv = oldProcessArgv;
@@ -161,7 +161,7 @@ describe('Helper - Function parseJsonToArguments', () => {
       'get-images',
     ];
     spreadArgs.forEach((arg) => {
-      expect(process.argv.includes(arg));
+      expect(process.argv.includes(arg)).toBeTruthy();
     });
     // Should print out these error or each failed validators
     process.argv = oldProcessArgv;

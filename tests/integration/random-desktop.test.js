@@ -15,15 +15,15 @@ describe('Feature random-desktop', () => {
     }
   });
 
-  it('Should show "No existing images..." on first run', (done) => {
+  it('Should show "No existing images..." on first run', () => {
     nixt()
       .cwd(cwd)
       .run('get-lock-screen random-desktop')
       .stdout(/.*No existing images*/)
-      .end(done);
+      .end();
   });
 
-  it('Should change desktop wallpaper', (done) => {
+  it('Should change desktop wallpaper', () => {
     const folderName = 'D:\\w10-startup-lock-screen-extractor-get-image-folder\\'
     + `${Math.floor(Math.random() * Math.floor(10000))}\\`;
     nixt()
@@ -35,7 +35,6 @@ describe('Feature random-desktop', () => {
         const images = fs.readdirSync(folderName);
         const wallpaperName = path.basename(await wallpaper.get());
         expect(images.includes(wallpaperName)).toBe(true);
-        done();
       });
     // Clean up trash files created by test case
     deleteFolderRecursive('D:\\w10-startup-lock-screen-extractor-get-image-folder\\');

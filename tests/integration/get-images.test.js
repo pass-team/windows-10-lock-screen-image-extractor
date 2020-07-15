@@ -14,26 +14,22 @@ describe('Feature get-images', () => {
     }
   });
 
-  afterEach(() => {
-    fs.unlinkSync(path.join(cwd, '\\.userconfig'));
-  });
-
-  it('Should get images with default settings', (done) => {
+  it('Should get images with default settings', () => {
     nixt()
       .cwd(cwd)
       .run('get-lock-screen get-images')
       .stdout(/.*Successfully copy*/)
-      .end(done);
+      .end();
   });
 
-  it('Should get images with additional arguments', (done) => {
+  it('Should get images with additional arguments', () => {
     const folderName = 'D:/w10-startup-lock-screen-extractor-get-image-folder/'
       + `${Math.floor(Math.random() * Math.floor(10000))}/`;
     nixt()
       .cwd(cwd)
       .run(`get-lock-screen.exe get-images -p=${folderName} -n=hash -o=landscape`)
       .stdout(/.*Successfully copy*/)
-      .end(done);
+      .end();
     // Clean up trash files created by test case
     deleteFolderRecursive('D:/w10-startup-lock-screen-extractor-get-image-folder/');
   });

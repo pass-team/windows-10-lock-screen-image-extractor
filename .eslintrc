@@ -8,9 +8,9 @@
   "extends": [
     "airbnb-base",
     "eslint:recommended",
-    "plugin:node/recommended"
-//    "plugin:jest/recommended",
-//    "plugin:jest-formatting/recommended",
+    "plugin:node/recommended",
+    "plugin:jest/recommended",
+    "plugin:jest-formatting/recommended",
 //    "plugin:sonarjs/recommended"
   ],
   "globals": {
@@ -35,6 +35,7 @@
     "import/no-cycle": 0,
     "node/no-unsupported-features/es-syntax": 0,
     "no-process-exit": 0,
-    "node/no-unpublished-import": 0
+    "node/no-unpublished-import": 0,
+    "jest/no-try-expect": 0
   }
 }
