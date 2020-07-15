@@ -20,6 +20,7 @@ describe('Action - Function show-menu', () => {
     await showMenu({}, {}, logger);
     expect(getImages).toHaveBeenCalled();
   });
+
   it('Should call action get-images when choose "1. Get lock screen images"', async () => {
     Select.mockImplementation(() => ({
       run: jest.fn().mockResolvedValue(MENU_OPTIONS.GET_LOCK_SCREEN),

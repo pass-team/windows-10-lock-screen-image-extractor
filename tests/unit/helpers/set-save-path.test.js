@@ -13,6 +13,7 @@ describe('Helper - Function set-save-path', () => {
       fs.unlinkSync(PATH_TO_CONFIG);
     }
   });
+
   it('Should write save path to .userconfig file', () => {
     setSavePath(path);
     const currentSavePath = fs.readFileSync(PATH_TO_CONFIG).toString();

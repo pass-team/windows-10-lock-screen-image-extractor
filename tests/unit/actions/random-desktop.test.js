@@ -47,6 +47,7 @@ describe('Action - Function random-desktop', () => {
     warnRecord = [];
     errorRecord = [];
   });
+
   // Run test inside build folder
   // Remove user settings to avoid side effect on other test cases
   afterEach(() => {

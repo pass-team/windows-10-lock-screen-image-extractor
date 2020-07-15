@@ -7,6 +7,7 @@ import deleteFolderRecursive from '../mock-data/delete-folder-recursive';
 describe('Feature random-desktop', () => {
   // Run test inside build folder
   const cwd = path.join(process.cwd(), '/build');
+
   // Remove user settings to avoid side effect on other test cases
   afterEach(() => {
     if (fs.existsSync(path.join(cwd, '\\.userconfig'))) {

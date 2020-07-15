@@ -28,6 +28,7 @@ mockLogger.error = (data, meta) => {
 };
 
 mockLogger.log = jest.fn();
+
 describe('Helper - Function parseConfig', () => {
   // Reset logging recorder
   beforeEach(() => {

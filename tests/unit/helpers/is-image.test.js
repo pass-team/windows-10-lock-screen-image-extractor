@@ -10,6 +10,7 @@ describe('Helper - Function is-image', () => {
 
     expect(isImage({ type: IMAGE_TYPE_PNG })).toEqual(true);
   });
+
   it('Should return false if the file is not an image', () => {
     expect(isImage({ type: 'svg' })).toEqual(false);
   });

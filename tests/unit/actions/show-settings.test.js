@@ -39,6 +39,7 @@ describe('Action - Function show-settings', () => {
     infoRecord = [];
     errorRecord = [];
   });
+
   // Run test inside build folder
   // Remove user settings to avoid side effect on other test cases
   afterEach(() => {
