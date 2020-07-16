@@ -13,16 +13,16 @@ describe('Helper - Function reformatLog', () => {
 
     // 1. Logger debug mode
     setDebugMode(mockLogger);
-    mockLogger.info('Info message 1', { isMessage: true });
-    mockLogger.info('Info message 2 that should not be printed in debug mode');
-    mockLogger.log('debug', 'Debug message 1', { callerFunction: 'action:some-action' });
-    mockLogger.log('debug', 'Debug message 1', { callerFunction: 'action:some-other' });
+    mockLogger.info('Info message 1 - test case 1', { isMessage: true });
+    mockLogger.info('Info message 2 - test case 1 that should not be printed in debug mode');
+    mockLogger.log('debug', 'Debug message 1 - test case 1', { callerFunction: 'action:action-1' });
+    mockLogger.log('debug', 'Debug message 2 - test case 1', { callerFunction: 'action:action-2' });
     const testOutput = reformatLog(mockLogger.transports[0].state);
     const expectedLog = {
       status: 'success',
       code: '',
-      message: 'Info message 1',
-      logs: ['Debug message 1', 'Debug message 1'],
+      message: 'Info message 1 - test case 1',
+      logs: ['Debug message 1 - test case 1', 'Debug message 2 - test case 1'],
       verbose: true,
     };
 
@@ -45,7 +45,7 @@ describe('Helper - Function reformatLog', () => {
     mockLogger.warn('Warn message 1');
     mockLogger.log('debug',
       'Debug message that should not be printed in normal mode',
-      { callerFunction: 'action:some-action' });
+      { callerFunction: 'action:action-3' });
     expect(reformatLog(mockLogger.transports[0].state)).toEqual({
       status: 'success',
       code: '',
@@ -61,15 +61,15 @@ describe('Helper - Function reformatLog', () => {
     // 3.1 Logger Validation error
     mockLogger = extendLogger(new TransportJSON());
     mockLogger.error(
-      'Invalid value \'D:/\' for option --path ',
+      'Invalid value \'xcvxcv\' for option --path',
       { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'path' },
     );
     mockLogger.error(
-      'Invalid value \'zxc\' for option --orientation ',
+      'Invalid value \'123\' for option --orientation ',
       { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'orientation' },
     );
     mockLogger.error(
-      'Invalid value \'xcvxcv\' for option --name-pattern ',
+      'Invalid value \'456\' for option --name-pattern ',
       { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'namePattern' },
     );
     mockLogger.error(
@@ -81,9 +81,9 @@ describe('Helper - Function reformatLog', () => {
       code: 'VALIDATION_ERROR_001',
       message: 'The given data was invalid.',
       errors: [
-        { path: "Invalid value 'D:/' for option --path" },
-        { orientation: "Invalid value 'zxc' for option --orientation" },
-        { namePattern: "Invalid value 'xcvxcv' for option --name-pattern" },
+        { path: "Invalid value 'xcvxcv' for option --path" },
+        { orientation: "Invalid value '123' for option --orientation" },
+        { namePattern: "Invalid value '456' for option --name-pattern" },
         { format: "Invalid value 'dummy' for option --format" },
       ],
       logs: [],
@@ -97,7 +97,7 @@ describe('Helper - Function reformatLog', () => {
     // 3.2 Logger Validation error in debug mode
     mockLogger = extendLogger(new TransportJSON({ level: 'debug' }));
     setDebugMode(mockLogger);
-    mockLogger.log('debug', 'Debug message 1', { callerFunction: 'action:some-action' });
+    mockLogger.log('debug', 'Debug message 1 - test case 3', { callerFunction: 'action:action-4' });
     mockLogger.error(
       'Invalid value \'D:/\' for option --path ',
       { errorCode: ERROR_CODES.VALIDATION_ERROR_001, field: 'path' },
@@ -116,7 +116,7 @@ describe('Helper - Function reformatLog', () => {
         { path: "Invalid value 'D:/' for option --path" },
         { orientation: "Invalid value 'zxc' for option --orientation" },
       ],
-      logs: ['action:some-action: Debug message 1'],
+      logs: ['action:action-4: Debug message 1 - test case 3'],
       verbose: true,
     };
 
@@ -133,7 +133,7 @@ describe('Helper - Function reformatLog', () => {
     // 4.1 Logger Runtime error
     mockLogger = extendLogger(new TransportJSON());
     mockLogger.error(
-      'Error while creating images folder! The path provided is invalid or being used by other processes.',
+      'Error while creating images folder! The path provided is invalid - test case 4.',
       { errorCode: ERROR_CODES.RUNTIME_ERROR_001 },
     );
     mockLogger.error(
@@ -143,7 +143,7 @@ describe('Helper - Function reformatLog', () => {
     expect(reformatLog(mockLogger.transports[0].state)).toEqual({
       status: 'error',
       code: 'RUNTIME_ERROR_001',
-      message: 'Error while creating images folder! The path provided is invalid or being used by other processes.',
+      message: 'Error while creating images folder! The path provided is invalid - test case 4.',
       logs: [],
     });
     delete process.formatJson;
@@ -154,7 +154,7 @@ describe('Helper - Function reformatLog', () => {
     // 4.2 Logger Runtime error debug mode
     mockLogger = extendLogger(new TransportJSON({ level: 'debug' }));
     setDebugMode(mockLogger);
-    mockLogger.log('debug', 'Debug message 1', { callerFunction: 'action:some-action' });
+    mockLogger.log('debug', 'Debug message 1', { callerFunction: 'action:action-5' });
     mockLogger.error(
       'Error while creating images folder! The path provided is invalid or being used by other processes.',
       { errorCode: ERROR_CODES.RUNTIME_ERROR_001 },
@@ -168,7 +168,7 @@ describe('Helper - Function reformatLog', () => {
       status: 'error',
       code: 'RUNTIME_ERROR_001',
       message: 'Error while creating images folder! The path provided is invalid or being used by other processes.',
-      logs: ['action:some-action: Debug message 1'],
+      logs: ['action:action-5: Debug message 1'],
       verbose: true,
     };
     expect({ ...testOutput, logs: [], verbose: '' }).toEqual({ ...expectedLog, logs: [], verbose: '' });
@@ -183,7 +183,7 @@ describe('Helper - Function reformatLog', () => {
     // 5.1 Logger Exception
     mockLogger = extendLogger(new TransportJSON());
     mockLogger.error(
-      'Unhandled exception 1 with no errorCode',
+      'Unhandled exception 1 with no errorCode - test case 7',
     );
     mockLogger.error(
       'Unhandled exception 2 that should not be printed (Exception will stop execution immediately',
@@ -191,7 +191,7 @@ describe('Helper - Function reformatLog', () => {
     expect(reformatLog(mockLogger.transports[0].state)).toEqual({
       status: 'error',
       code: 'EXCEPTION_001',
-      message: 'Unhandled exception 1 with no errorCode',
+      message: 'Unhandled exception 1 with no errorCode - test case 7',
       logs: [],
     });
     delete process.formatJson;
@@ -203,7 +203,7 @@ describe('Helper - Function reformatLog', () => {
     // 5.2 Logger Exception debug mode
     mockLogger = extendLogger(new TransportJSON({ level: 'debug' }));
     setDebugMode(mockLogger);
-    mockLogger.log('debug', 'Debug message 1', { callerFunction: 'action:some-action' });
+    mockLogger.log('debug', 'Debug message 1', { callerFunction: 'action:action-6' });
     mockLogger.error(
       'Unhandled exception 1 with no errorCode',
     );
@@ -215,7 +215,7 @@ describe('Helper - Function reformatLog', () => {
       status: 'error',
       code: 'EXCEPTION_001',
       message: 'Unhandled exception 1 with no errorCode',
-      logs: ['action:some-action: Debug message 1'],
+      logs: ['action:action-6: Debug message 1'],
       verbose: true,
     };
 

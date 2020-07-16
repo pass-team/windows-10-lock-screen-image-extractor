@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import minimist from 'minimist';
 import stripAnsi from 'strip-ansi';
 import parseJsonToArgs from '../../../source/helpers/parse-json-to-arguments';
@@ -5,23 +6,9 @@ import extendLogger from '../../../source/helpers/extend-logger';
 import parseConfigFile from '../../../source/helpers/parse-config-file';
 import { ERROR_CODES } from '../../../source/constants';
 
-let infoRecord = [];
-let warnRecord = [];
 let errorRecord = [];
 
 const mockLogger = extendLogger();
-mockLogger.info = (data, meta) => {
-  infoRecord.push({
-    data,
-    meta,
-  });
-};
-mockLogger.warn = (data, meta) => {
-  warnRecord.push({
-    data,
-    meta,
-  });
-};
 mockLogger.error = (data, meta) => {
   errorRecord.push({
     data,
@@ -37,8 +24,6 @@ jest.mock('../../../source/helpers/parse-config-file');
 describe('Helper - Function parseJsonToArguments', () => {
   // Reset logging recorder
   beforeEach(() => {
-    infoRecord = [];
-    warnRecord = [];
     errorRecord = [];
   });
 

@@ -21,6 +21,7 @@ jest.mock('../../../source/constants');
 
 let infoRecord = '';
 let errorRecord = '';
+const customFolder = 'D://screen-images';
 
 const mockLogger = extendLogger();
 mockLogger.info = (data) => {
@@ -44,16 +45,15 @@ describe('Action - Function get-images', () => {
   });
 
   it('Should be able to get images that satisfy user’s answer', async () => {
-    const folder = 'D://screen-images';
     const answers = {
-      path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
+      path: customFolder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
     };
     await getImages({}, answers, mockLogger);
-    expect(fs.readdirSync(folder).length).toEqual(6);
-    fs.readdirSync(folder).forEach((file, index) => {
-      expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
+    expect(fs.readdirSync(customFolder).length).toEqual(6);
+    fs.readdirSync(customFolder).forEach((file, index) => {
+      expect(file).toEqual(`${hashFile(`${customFolder}/${fs.readdirSync(customFolder)[index]}`)}.jpg`);
     });
-    deleteFolderRecursive(folder);
+    deleteFolderRecursive(customFolder);
   });
 
   it('Should be able to get images with default arguments', async () => {
@@ -75,32 +75,30 @@ describe('Action - Function get-images', () => {
   });
 
   it('Should be able to get images with provided cli arguments', async () => {
-    const folder = 'D://screen-images';
     const answers = {
-      path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
+      path: customFolder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
     };
     const oldProcessArgv = process.argv;
     process.argv = ['a', 'b'];
     argumentsPrompt.mockImplementation(() => answers);
     await getImages({}, {}, mockLogger);
-    expect(fs.readdirSync(folder).length).toEqual(6);
-    fs.readdirSync(folder).forEach((file, index) => {
-      expect(file).toEqual(`${hashFile(`${folder}/${fs.readdirSync(folder)[index]}`)}.jpg`);
+    expect(fs.readdirSync(customFolder).length).toEqual(6);
+    fs.readdirSync(customFolder).forEach((file, index) => {
+      expect(file).toEqual(`${hashFile(`${customFolder}/${fs.readdirSync(customFolder)[index]}`)}.jpg`);
     });
     process.argv = oldProcessArgv;
-    deleteFolderRecursive(folder);
+    deleteFolderRecursive(customFolder);
   });
 
   it('Should avoid saving duplicate images', async () => {
-    const folder = 'D://screen-images';
     const answers = {
-      path: folder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
+      path: customFolder, orientation: ORIENTATION_ALL, namePattern: IMAGE_NAME_FORMAT_HASH,
     };
     argumentsPrompt.mockImplementation(() => false);
     await getImages({}, answers, mockLogger);
     await getImages({}, answers, mockLogger);
-    expect(fs.readdirSync(folder).length).toEqual(6);
-    deleteFolderRecursive(folder);
+    expect(fs.readdirSync(customFolder).length).toEqual(6);
+    deleteFolderRecursive(customFolder);
   });
 
   it('Should print "Error while creating images folder" when fail to create saved folder', async () => {

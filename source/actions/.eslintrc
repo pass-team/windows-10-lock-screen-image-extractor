@@ -1,0 +1,5 @@
+{
+  "rules": {
+    "sonarjs/cognitive-complexity": 0
+  }
+}

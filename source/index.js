@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import app from 'caporal';
 import {
   DEFAULT_SAVE_PATH,
@@ -56,17 +57,19 @@ setDebugMode(logger);
  *  Checkout their document to better understand syntax
  *  Caporal.js https://github.com/mattallty/Caporal.js
  */
+const formatOptionHelpMessage = 'Define display format for output';
+
 app
   .version('1.0.0')
   .description('Extract gorgeous Windows 10 lock screens images and save to the folder of you choose')
   .logger(logger)
   .option('--config', 'Provide cli options as JSON string')
   .help(`Example:
-   get-lock-screen --config="{"command":"get-images"}"`)
+   get-lock-screen --config='{'command':'get-images'}'`)
   .option('--config-file', 'Provide cli options as JSON file')
   .help(`Example:
    get-lock-screen --config-file=input.json`)
-  .option('--format', 'Define output format. Viable options: "json" or "filename.json"')
+  .option('--format', "Define output format. Viable options: 'json' or 'filename.json'")
   .help(`Example:
    get-lock-screen --format=[text|json]`)
   /** @Command: default when no command is provided */
@@ -104,7 +107,7 @@ app
     false)
   .help(`Example:
    get-lock-screen get-images -n hash`)
-  .option('--format', 'Define display format for output')
+  .option('--format', formatOptionHelpMessage)
   .help(`Example:
    get-lock-screen get-images -f [text|json|filename.json]`)
   .action(getImages)
@@ -112,7 +115,7 @@ app
   /** @Command: show-settings */
   .command('show-settings', 'Show your current saving folder')
   .help('Example: get-lock-screen show-settings')
-  .option('--format', 'Define display format for output')
+  .option('--format', formatOptionHelpMessage)
   .help(`Example:
    get-lock-screen show-settings --format [text|json]`)
   .action(showSettings)
@@ -120,7 +123,7 @@ app
   /** @Command: random-desktop */
   .command('random-desktop', 'Randomly set a new desktop wallpaper')
   .help('Example: get-lock-screen random-desktop')
-  .option('--format', 'Define display format for output')
+  .option('--format', formatOptionHelpMessage)
   .help(`Example:
    get-lock-screen random-desktop --format [text|json|filename.json]`)
   .action(randomDesktop);
