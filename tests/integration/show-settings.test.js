@@ -15,7 +15,7 @@ describe('Feature show-settings', () => {
   });
 
   it('Should display path to saving folder', () => {
-    const folderName = 'D:/w10-startup-lock-screen-extractor-get-image-folder/'
+    const folderName = 'D:/w10-startup-lock-screen-extractor-show-settings-test-folder/'
       + `${Math.floor(Math.random() * Math.floor(10000))}/`;
     return new Promise((done) => {
       nixt()

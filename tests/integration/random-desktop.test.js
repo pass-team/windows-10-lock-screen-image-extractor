@@ -24,7 +24,7 @@ describe('Feature random-desktop', () => {
   }));
 
   it('Should change desktop wallpaper', () => {
-    const folderName = 'D:\\w10-startup-lock-screen-extractor-get-image-folder\\'
+    const folderName = 'D:\\w10-startup-lock-screen-extractor-random-desktop-test-folder\\'
       + `${Math.floor(Math.random() * Math.floor(10000))}\\`;
     nixt()
       .cwd(cwd)

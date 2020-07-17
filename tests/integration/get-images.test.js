@@ -23,7 +23,7 @@ describe('Feature get-images', () => {
   }));
 
   it('Should get images with additional arguments', () => {
-    const folderName = 'D:/w10-startup-lock-screen-extractor-get-image-folder/'
+    const folderName = 'D:/w10-startup-lock-screen-extractor-get-image-test-folder/'
       + `${Math.floor(Math.random() * Math.floor(10000))}/`;
     return new Promise((done) => {
       nixt()
