@@ -66,9 +66,9 @@ jobs:
 #        run: |
 #          npm install -g surge && surge coverage/lcov-report/ code-coverage.surge.sh --token=${{ secrets.SURGE_TOKEN }}
 #        shell: cmd
-#      - name: Build exe file
-#        run: yarn run build:win
-#        shell: cmd
+      - name: Build exe file
+        run: yarn run build:win
+        shell: cmd
 #      - name: Export build file
 #        uses: actions/upload-artifact@v1
 #        with:
