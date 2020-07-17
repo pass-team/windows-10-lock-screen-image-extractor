@@ -14,23 +14,24 @@ describe('Feature get-images', () => {
     }
   });
 
-  it('Should get images with default settings', () => {
+  it('Should get images with default settings', async () => new Promise((done) => {
     nixt()
       .cwd(cwd)
       .run('get-lock-screen get-images')
       .stdout(/.*Successfully copy*/)
-      .end();
-  });
+      .end(done);
+  }));
 
   it('Should get images with additional arguments', () => {
     const folderName = 'D:/w10-startup-lock-screen-extractor-get-image-folder/'
       + `${Math.floor(Math.random() * Math.floor(10000))}/`;
-    nixt()
-      .cwd(cwd)
-      .run(`get-lock-screen.exe get-images -p=${folderName} -n=hash -o=landscape`)
-      .stdout(/.*Successfully copy*/)
-      .end();
-    // Clean up trash files created by test case
-    deleteFolderRecursive('D:/w10-startup-lock-screen-extractor-get-image-folder/');
+    return new Promise((done) => {
+      nixt()
+        .cwd(cwd)
+        .run(`get-lock-screen.exe get-images -p=${folderName} -n=hash -o=landscape`)
+        .stdout(/.*Successfully copy*/)
+        .end(done); // Clean up trash files created by test case
+      deleteFolderRecursive('D:/w10-startup-lock-screen-extractor-get-image-folder/');
+    });
   });
 });

@@ -15,17 +15,17 @@ describe('Feature random-desktop', () => {
     }
   });
 
-  it('Should show "No existing images..." on first run', () => {
+  it('Should show "No existing images..." on first run', () => new Promise((done) => {
     nixt()
       .cwd(cwd)
       .run('get-lock-screen random-desktop')
       .stdout(/.*No existing images*/)
-      .end();
-  });
+      .end(done);
+  }));
 
   it('Should change desktop wallpaper', () => {
     const folderName = 'D:\\w10-startup-lock-screen-extractor-get-image-folder\\'
-    + `${Math.floor(Math.random() * Math.floor(10000))}\\`;
+      + `${Math.floor(Math.random() * Math.floor(10000))}\\`;
     nixt()
       .cwd(cwd)
       .exec(`get-lock-screen get-images -p ${folderName}`)
