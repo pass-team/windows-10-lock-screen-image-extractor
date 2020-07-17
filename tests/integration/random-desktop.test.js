@@ -33,9 +33,7 @@ describe('Feature random-desktop', () => {
       .stdout(/.*New desktop background.*/)
       .end(async () => {
         const images = fs.readdirSync(folderName);
-        console.log(images);
         const wallpaperName = path.basename(await wallpaper.get());
-        console.log(wallpaperName);
         expect(images.includes(wallpaperName)).toBe(true);
         done();
       });

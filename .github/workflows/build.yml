@@ -52,28 +52,28 @@ jobs:
         run: |
           (robocopy ./tests/mock-assets/ %userprofile%\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets\ /v) ^& IF %ERRORLEVEL% LEQ 4 exit /B 0
         shell: cmd
-#      - name: Run unit tests with coverage
-#        run: |
-#          yarn run test:unit:coverage --token=${{secrets.CODACY_PROJECT_API_TOKEN}}
-#        shell: cmd
-#      - name: Export code coverage
-#        uses: actions/upload-artifact@v1
-#        with:
-#          name: code-coverage
-#          path: coverage
-#      - name: Deploying code coverage to Surge
-#        if: github.ref == 'refs/heads/develop'
-#        run: |
-#          npm install -g surge && surge coverage/lcov-report/ code-coverage.surge.sh --token=${{ secrets.SURGE_TOKEN }}
-#        shell: cmd
+      - name: Run unit tests with coverage
+        run: |
+          yarn run test:unit:coverage --token=${{secrets.CODACY_PROJECT_API_TOKEN}}
+        shell: cmd
+      - name: Export code coverage
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage
+          path: coverage
+      - name: Deploying code coverage to Surge
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          npm install -g surge && surge coverage/lcov-report/ code-coverage.surge.sh --token=${{ secrets.SURGE_TOKEN }}
+        shell: cmd
       - name: Build exe file
         run: yarn run build:win
         shell: cmd
-#      - name: Export build file
-#        uses: actions/upload-artifact@v1
-#        with:
-#          name: build-file
-#          path: build/get-lock-screen.exe
+      - name: Export build file
+        uses: actions/upload-artifact@v1
+        with:
+          name: build-file
+          path: build/get-lock-screen.exe
       - name: Run integration tests
         run: yarn run test:integration
         shell: cmd
