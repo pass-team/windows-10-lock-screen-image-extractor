@@ -23,7 +23,7 @@ describe('Feature random-desktop', () => {
       .end(done);
   }));
 
-  it('Should change desktop wallpaper', () => {
+  it('Should change desktop wallpaper', () => new Promise((done) => {
     const folderName = 'D:\\w10-startup-lock-screen-extractor-random-desktop-test-folder\\'
       + `${Math.floor(Math.random() * Math.floor(10000))}\\`;
     nixt()
@@ -33,10 +33,13 @@ describe('Feature random-desktop', () => {
       .stdout(/.*New desktop background.*/)
       .end(async () => {
         const images = fs.readdirSync(folderName);
+        console.log(images);
         const wallpaperName = path.basename(await wallpaper.get());
+        console.log(wallpaperName);
         expect(images.includes(wallpaperName)).toBe(true);
+        done();
       });
     // Clean up trash files created by test case
     deleteFolderRecursive('D:\\w10-startup-lock-screen-extractor-get-image-folder\\');
-  });
+  }));
 });
