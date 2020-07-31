@@ -39,7 +39,7 @@ describe('Helper - Function extendLogger', () => {
     console._stdout.write = (data) => {
       logs = [...logs, data];
     };
-    extendedLogger.info('Message content info level');
+    extendedLogger.info('Message content info level 1');
     extendedLogger.info('Message content info level with meta', { isMessage: true });
     extendedLogger.warn('Message content warn level');
     extendedLogger.log('debug', 'Message content debug level');
@@ -50,7 +50,7 @@ describe('Helper - Function extendLogger', () => {
       { errorCode: ERROR_CODES.VALIDATION_ERROR_001 });
     extendedLogger.log('verbose', 'Message content verbose level');
     const expectedReformatedLogs = [
-      'Message content info level',
+      'Message content info level 1',
       'Message content info level',
       'Message content warn level',
       'Message content debug level +',

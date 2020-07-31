@@ -12,6 +12,7 @@ describe('Helper - Function is-valid-size-image', () => {
       height: 1366,
     })).toEqual(true);
   });
+
   it('Should return false if image has an invalid resolution', () => {
     expect(isValidSizeImage({
       width: 1000,

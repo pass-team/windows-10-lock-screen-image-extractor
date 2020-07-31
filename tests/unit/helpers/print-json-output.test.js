@@ -26,15 +26,15 @@ describe('Helper - Function printJsonOutput', () => {
 
     // 1. Test debug mode
     setDebugMode(mockLogger);
-    mockLogger.info('Info message 1', { isMessage: true });
-    mockLogger.info('Info message 2 that should not be printed in debug mode');
+    mockLogger.info('Info message 1 - test case 1', { isMessage: true });
+    mockLogger.info('Info message 2 - test case 1 that should not be printed in debug mode');
     mockLogger.log('debug', 'Debug message 1', { callerFunction: 'action:some-action' });
     mockLogger.log('debug', 'Debug message 1', { callerFunction: 'action:some-other' });
     printJsonOutput(mockLogger);
     const expectLog = {
       status: 'success',
       code: '',
-      message: 'Info message 1',
+      message: 'Info message 1 - test case 1',
       logs: ['action:some-action: Debug message 1', 'action:some-other: Debug message 1'],
       verbose: true,
     };

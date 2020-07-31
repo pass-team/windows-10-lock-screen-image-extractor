@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "duyphaphach <duy@passcareer.io>",
   "license": "MIT",
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "scripts": {
     "lint:scripts": "npx eslint .",
     "lint:scripts:fix": "npx eslint . --fix",
@@ -13,7 +16,7 @@
     "dev": "npx chokidar \"./source\" \"./bin\" -c \"yarn run build:es5\"",
     "build:es5": "npx del-cli build && npx babel ./ --only ./source,./bin --extensions .js  --out-dir build --no-copy-ignored",
     "build:win": "yarn run build:es5 --minified --no-comments && npx pkg ./build/bin/get-lock-screen-image.js --targets node10-win-x64 --output=build/get-lock-screen.exe --config ./package.json",
-    "test:integration": "npx jest --config='config/jest/integration/jest.js' --runInBand"
+    "test:integration": "npx jest --config='config/jest/integration/jest.js' --runInBand --detectOpenHandles"
   },
   "bin": {
     "get-lock-screen": "bin/get-lock-screen-image.js"
@@ -31,7 +34,8 @@
     "ora": "4.0.4",
     "strip-ansi": "6.0.0",
     "wallpaper": "4.4.1",
-    "winston": "3.3.3"
+    "winston": "3.3.3",
+    "winston-transport": "4.4.0"
   },
   "devDependencies": {
     "@babel/cli": "7.10.4",
@@ -45,7 +49,12 @@
     "del-cli": "3.0.1",
     "eslint": "7.4.0",
     "eslint-config-airbnb-base": "14.2.0",
+    "eslint-config-node": "4.1.0",
     "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-jest": "23.18.0",
+    "eslint-plugin-jest-formatting": "2.0.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-sonarjs": "0.5.0",
     "jest": "26.1.0",
     "nixt": "0.5.1",
     "pkg": "4.4.9"

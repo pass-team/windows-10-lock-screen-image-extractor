@@ -6,6 +6,7 @@ import deleteFolderRecursive from '../mock-data/delete-folder-recursive';
 describe('Feature show-settings', () => {
   // Run test inside build folder
   const cwd = path.join(process.cwd(), '\\build');
+
   // Remove user settings to avoid side effect on other test cases
   afterEach(() => {
     if (fs.existsSync(path.join(cwd, '\\.userconfig'))) {
@@ -13,16 +14,17 @@ describe('Feature show-settings', () => {
     }
   });
 
-  it('Should display path to saving folder', (done) => {
-    const folderName = 'D:/w10-startup-lock-screen-extractor-get-image-folder/'
+  it('Should display path to saving folder', () => {
+    const folderName = 'D:/w10-startup-lock-screen-extractor-show-settings-test-folder/'
       + `${Math.floor(Math.random() * Math.floor(10000))}/`;
-    nixt()
-      .cwd(cwd)
-      .exec(`get-lock-screen get-images -p=${folderName}`)
-      .run('get-lock-screen show-settings')
-      .stdout(/.*Image saved folder.*/)
-      .end(done);
-    // Clean up trash files created by test case
-    deleteFolderRecursive('D:/w10-startup-lock-screen-extractor-get-image-folder/');
+    return new Promise((done) => {
+      nixt()
+        .cwd(cwd)
+        .exec(`get-lock-screen get-images -p=${folderName}`)
+        .run('get-lock-screen show-settings')
+        .stdout(/.*Image saved folder.*/)
+        .end(done); // Clean up trash files created by test case
+      deleteFolderRecursive('D:/w10-startup-lock-screen-extractor-get-image-folder/');
+    });
   });
 });

@@ -2,14 +2,17 @@ import promptConditionMatch from '../../../source/helpers/prompt-condition-match
 
 describe('Helper - Function prompt-condition-match', () => {
   const oldProcessArgv = process.argv;
+
   afterEach(() => {
     process.argv = oldProcessArgv;
   });
+
   it('Should return true when the process has no argument', () => {
     process.argv = ['a', 'b'];
 
     expect(promptConditionMatch(process)).toBeTruthy();
   });
+
   it('Should return false when the process has more than one arguments', () => {
     process.argv = ['a', 'b', 'c'];
 
@@ -18,30 +21,32 @@ describe('Helper - Function prompt-condition-match', () => {
 
   it('Should return true when the process has only one argument: verbose', () => {
     process.argv = ['a', 'b', '-v'];
+    const command = 'get-images';
+
     expect(promptConditionMatch(process)).toBeTruthy();
 
     process.argv = ['a', 'b', '--verbose'];
     expect(promptConditionMatch(process)).toBeTruthy();
 
-    process.argv = ['a', 'b', 'get-images', '--verbose'];
+    process.argv = ['a', 'b', command, '--verbose'];
     expect(promptConditionMatch(process)).toBeFalsy();
 
-    process.argv = ['a', 'b', 'get-images', '-p', 'D:/', '--verbose'];
+    process.argv = ['a', 'b', command, '-p', 'D:/', '--verbose'];
     expect(promptConditionMatch(process)).toBeFalsy();
 
-    process.argv = ['a', 'b', '--verbose', 'get-images', '-p', 'D:/'];
+    process.argv = ['a', 'b', '--verbose', command, '-p', 'D:/'];
     expect(promptConditionMatch(process)).toBeFalsy();
 
     process.argv = ['a', 'b', '-v'];
     expect(promptConditionMatch(process)).toBeTruthy();
 
-    process.argv = ['a', 'b', 'get-images', '-v'];
+    process.argv = ['a', 'b', command, '-v'];
     expect(promptConditionMatch(process)).toBeFalsy();
 
-    process.argv = ['a', 'b', 'get-images', '-p', 'D:/', '-v'];
+    process.argv = ['a', 'b', command, '-p', 'D:/', '-v'];
     expect(promptConditionMatch(process)).toBeFalsy();
 
-    process.argv = ['a', 'b', '-v', 'get-images', '-p', 'D:/'];
+    process.argv = ['a', 'b', '-v', command, '-p', 'D:/'];
     expect(promptConditionMatch(process)).toBeFalsy();
   });
 });
