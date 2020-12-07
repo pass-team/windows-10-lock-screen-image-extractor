@@ -23,7 +23,7 @@
     "casex": "3.0.0",
     "chalk": "4.1.0",
     "enquirer": "2.3.6",
-    "find-up": "4.1.0",
+    "find-up": "5.0.0",
     "hasha": "5.2.0",
     "image-size": "0.9.3",
     "jsonfile": "6.0.1",
