@@ -6501,10 +6501,10 @@ walker@^1.0.7, walker@~1.0.5:
   dependencies:
     makeerror "1.0.x"
 
-wallpaper@4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/wallpaper/-/wallpaper-4.4.1.tgz#45d8c3236e0937a742a3ce5b27fc239b73bb8859"
-  integrity sha512-eHB4VgIwGmL0NAfghxKO4UY0YZbJyvyC3HKE6LOWtjvlMiT8/ywgVOWXd2+4E7pGPWrRY92scTw+e6bgoq66zQ==
+wallpaper@4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/wallpaper/-/wallpaper-4.4.2.tgz#054996ced407a7333e2dae619426455c35419779"
+  integrity sha512-u6Od6NU5UJ5zMalcV4RNKaG9DarZDdKEOMap556NhOal1vE7T7DrAJVXyLqqXDlINTTUqWbdRL/zs2VgCdRjjg==
 
 wcwidth@^1.0.1:
   version "1.0.1"
