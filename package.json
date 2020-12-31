@@ -28,7 +28,7 @@
     "image-size": "0.9.3",
     "jsonfile": "6.1.0",
     "minimist": "1.2.5",
-    "ora": "5.1.0",
+    "ora": "5.2.0",
     "strip-ansi": "6.0.0",
     "wallpaper": "4.4.2",
     "winston": "3.3.3"
