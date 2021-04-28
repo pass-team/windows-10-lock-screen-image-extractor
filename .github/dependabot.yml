@@ -1,0 +1,24 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.12.17
+    - 7.13.1
+    - 7.13.13
+  - dependency-name: eslint
+    versions:
+    - 7.21.0
+  - dependency-name: "@babel/preset-env"
+    versions:
+    - 7.12.17
+    - 7.13.8
+  - dependency-name: "@babel/cli"
+    versions:
+    - 7.12.16
+    - 7.12.17
