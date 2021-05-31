@@ -54,7 +54,7 @@ jobs:
         shell: cmd
       - name: Run unit tests with coverage
         run: |
-          yarn run test:unit:coverage --accountToken=${{secrets.CODACY_ACCOUNT_TOKEN}}
+          yarn run test:unit:coverage --accountToken=${{secrets.CODACY_ACCOUNT_TOKEN}} --username=duyphamle97
         shell: cmd
       - name: Export code coverage
         uses: actions/upload-artifact@v1
