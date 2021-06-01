@@ -60,7 +60,7 @@ export default async function (args, options, logger) {
 
   const result = await taskExecutor(
     /* 3. Randomly set desktop background and announce */
-    setWallpaper(pick),
+    await setWallpaper(pick),
     `Found ${savedImages.length} images. Picking a random wallpaper..`,
     500,
     logger,
