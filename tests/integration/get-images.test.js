@@ -13,10 +13,6 @@ describe('Feature get-images', () => {
     }
   });
 
-  afterEach(() => {
-    fs.unlinkSync(path.join(cwd, '\\.userconfig'));
-  });
-
   it('Should get images with default settings', (done) => {
     nixt()
       .cwd(cwd)
