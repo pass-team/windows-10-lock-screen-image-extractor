@@ -10,6 +10,8 @@ describe('Helper - Function set-wallpaper', () => {
     const images = fs.readdirSync(mockPath);
     setWallpaper(image);
     const wallpaperName = path.basename(await wallpaper.get());
+    console.log(wallpaperName);
+    console.log(images);
     expect(images.includes(wallpaperName)).toBeTruthy();
   });
 });
