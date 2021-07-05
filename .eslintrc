@@ -15,7 +15,6 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  "parser": "babel-eslint",
   "rules": {
     "max-len": [
       1,
@@ -27,6 +26,7 @@
     "no-underscore-dangle": 0,
     "quotes": [2, "single", { "avoidEscape": true }],
     "func-names": 0,
+    "import/extensions": [1, { "js": "always"}],
     "import/no-cycle": 0,
     "import/no-extraneous-dependencies": 0
   }

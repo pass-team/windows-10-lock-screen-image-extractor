@@ -4,6 +4,7 @@
   "main": "index.js",
   "author": "duyphaphach <duy@passcareer.io>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "lint:scripts": "npx eslint .",
     "lint:scripts:fix": "npx eslint . --fix",
