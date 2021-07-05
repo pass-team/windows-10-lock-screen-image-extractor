@@ -3,7 +3,7 @@ import {
   randomDesktop,
   getImages,
   showSettings,
-} from '.';
+} from './index.js';
 import { MENU_OPTIONS } from '../constants/index.js';
 
 /* Action that pack the app into one single Windows executable file */
