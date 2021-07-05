@@ -1,4 +1,4 @@
-import hashFile from './hash-file';
+import hashFile from './hash-file.js';
 
 /**
  *  @Helper

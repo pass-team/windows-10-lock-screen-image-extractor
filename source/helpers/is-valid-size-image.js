@@ -1,7 +1,7 @@
 import {
   IMAGE_MIN_HEIGHT,
   IMAGE_MIN_WIDTH,
-} from '../constants';
+} from '../constants/index.js';
 
 /**
  *  @Helper

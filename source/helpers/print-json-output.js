@@ -1,5 +1,5 @@
-import { waitKeyToExit } from './index';
-import reformatLog from './reformat-log';
+import { waitKeyToExit } from './index.js';
+import reformatLog from './reformat-log.js';
 
 export default function printJsonOutput(logger) {
   // Print as JSON if asked

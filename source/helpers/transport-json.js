@@ -1,6 +1,6 @@
 import Transport from 'winston-transport';
 import stripAnsi from 'strip-ansi';
-import { ERROR_CODES } from '../constants';
+import { ERROR_CODES } from '../constants/index.js';
 
 export default class TransportJSON extends Transport {
   // eslint-disable-next-line no-useless-constructor

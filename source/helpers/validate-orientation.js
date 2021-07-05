@@ -4,7 +4,7 @@ import {
   ORIENTATION_ALL,
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
-} from '../constants';
+} from '../constants/index.js';
 
 /**
  *  @Helper
