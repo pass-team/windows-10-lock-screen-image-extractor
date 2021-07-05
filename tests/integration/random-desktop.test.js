@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import nixt from 'nixt/lib/nixt/runner';
+import nixt from 'nixt/lib/nixt/runner.js';
 import wallpaper from 'wallpaper';
-import deleteFolderRecursive from '../mock-data/delete-folder-recursive';
+import deleteFolderRecursive from '../mock-data/delete-folder-recursive.js';
 
 describe('Feature random-desktop', () => {
   // Run test inside build folder

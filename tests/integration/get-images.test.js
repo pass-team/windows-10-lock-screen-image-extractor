@@ -1,7 +1,7 @@
-import nixt from 'nixt/lib/nixt/runner';
+import nixt from 'nixt/lib/nixt/runner.js';
 import path from 'path';
 import fs from 'fs';
-import deleteFolderRecursive from '../mock-data/delete-folder-recursive';
+import deleteFolderRecursive from '../mock-data/delete-folder-recursive.js';
 
 describe('Feature get-images', () => {
   // Run test inside build folder
