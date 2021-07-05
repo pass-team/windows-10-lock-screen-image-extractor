@@ -1,9 +1,9 @@
 import chalk from 'chalk';
 import {
   getSavePath, trimQuotes, validateFormat,
-} from '../helpers';
-import { ERROR_CODES, OUTPUT_FORMAT_TEXT } from '../constants';
-import printJsonOutput from '../helpers/print-json-output';
+} from '../helpers/index.js';
+import { ERROR_CODES, OUTPUT_FORMAT_TEXT } from '../constants/index.js';
+import printJsonOutput from '../helpers/print-json-output.js';
 
 /* Action that retrieve user's configurations and display */
 export default function (args, options, logger) {
