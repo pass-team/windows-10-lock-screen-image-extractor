@@ -4,7 +4,7 @@ import setSavePath from '../../../source/helpers/set-save-path.js';
 import normalizePath from '../../../source/helpers/normalize-path.js';
 import {
   PATH_TO_CONFIG,
-} from '../../../source/constants';
+} from '../../../source/constants/index.js';
 
 describe('Helper - Function get-save-path', () => {
   it('Should return path to image saving folder', () => {
