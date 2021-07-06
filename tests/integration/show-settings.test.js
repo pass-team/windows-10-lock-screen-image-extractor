@@ -24,5 +24,5 @@ describe('Feature show-settings', () => {
       .end(done);
     // Clean up trash files created by test case
     deleteFolderRecursive('D:/w10-startup-lock-screen-extractor-get-image-folder/');
-  });
+  }, 10000);
 });

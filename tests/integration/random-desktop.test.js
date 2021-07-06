@@ -20,7 +20,7 @@ describe('Feature random-desktop', () => {
       .run('get-lock-screen random-desktop')
       .stdout(/.*No existing images*/)
       .end(done);
-  });
+  }, 10000);
 
   it('Should change desktop wallpaper', (done) => {
     const folderName = 'D:\\w10-startup-lock-screen-extractor-get-image-folder\\'
@@ -38,5 +38,5 @@ describe('Feature random-desktop', () => {
       });
     // Clean up trash files created by test case
     deleteFolderRecursive('D:\\w10-startup-lock-screen-extractor-get-image-folder\\');
-  });
+  }, 10000);
 });
