@@ -1,5 +1,5 @@
-import filterImages from '../../../source/helpers/filter-images';
-import mockFiles from '../../mock-data/mock-files';
+import filterImages from '../../../source/helpers/filter-images.js';
+import mockFiles from '../../mock-data/mock-files.js';
 
 describe('Helper - Function filter-images', () => {
   const mockPathToImages = `${process.cwd()}/tests/mock-assets/`;

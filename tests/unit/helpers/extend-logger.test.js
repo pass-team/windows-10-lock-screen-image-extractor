@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import winston from 'winston';
 import stripAnsi from 'strip-ansi';
-import extendLogger from '../../../source/helpers/extend-logger';
-import { ERROR_CODES } from '../../../source/constants';
+import extendLogger from '../../../source/helpers/extend-logger.js';
+import { ERROR_CODES } from '../../../source/constants/index.js';
 
 describe('Helper - Function extendLogger', () => {
   it('Should generate log object with values depending on arguments', () => {

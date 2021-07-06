@@ -1,7 +1,7 @@
 import fs from 'fs';
-import getSavePath from '../../../source/helpers/get-save-path';
-import setSavePath from '../../../source/helpers/set-save-path';
-import normalizePath from '../../../source/helpers/normalize-path';
+import getSavePath from '../../../source/helpers/get-save-path.js';
+import setSavePath from '../../../source/helpers/set-save-path.js';
+import normalizePath from '../../../source/helpers/normalize-path.js';
 import {
   PATH_TO_CONFIG,
 } from '../../../source/constants';

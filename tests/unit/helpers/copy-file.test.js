@@ -1,8 +1,8 @@
 import fs from 'fs';
-import copyFile from '../../../source/helpers/copy-file';
-import createImagesFolder from '../../../source/helpers/create-images-folder';
-import normalizePath from '../../../source/helpers/normalize-path';
-import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
+import copyFile from '../../../source/helpers/copy-file.js';
+import createImagesFolder from '../../../source/helpers/create-images-folder.js';
+import normalizePath from '../../../source/helpers/normalize-path.js';
+import deleteFolderRecursive from '../../mock-data/delete-folder-recursive.js';
 
 describe('Helper - Function copy-file', () => {
   const mockSource = `${process.cwd()}/tests/mock-assets/`;
