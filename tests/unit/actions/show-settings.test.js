@@ -6,13 +6,13 @@ import {
   ERROR_CODES,
   IMAGE_NAME_FORMAT_HASH,
   ORIENTATION_LANDSCAPE,
-} from '../../../source/constants';
-import getImages from '../../../source/actions/get-images';
-import showSettings from '../../../source/actions/show-settings';
-import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
-import extendLogger from '../../../source/helpers/extend-logger';
+} from '../../../source/constants/index.js';
+import getImages from '../../../source/actions/get-images.js';
+import showSettings from '../../../source/actions/show-settings.js';
+import deleteFolderRecursive from '../../mock-data/delete-folder-recursive.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
 
-jest.mock('caporal/lib/logger');
+jest.mock('caporal/lib/logger.js');
 
 let infoRecord = [];
 let errorRecord = [];
