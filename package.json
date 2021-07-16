@@ -42,7 +42,7 @@
     "babel-jest": "27.0.6",
     "chokidar-cli": "2.1.0",
     "codacy-coverage": "3.4.0",
-    "del-cli": "4.0.0",
+    "del-cli": "4.0.1",
     "eslint": "7.30.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-plugin-import": "2.23.4",
