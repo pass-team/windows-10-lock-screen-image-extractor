@@ -1,5 +1,5 @@
-import hashBulkFile from '../../../source/helpers/hash-bulk-file';
-import getFiles from '../../../source/helpers/get-files';
+import hashBulkFile from '../../../source/helpers/hash-bulk-file.js';
+import getFiles from '../../../source/helpers/get-files.js';
 
 describe('Helper - Function hash-bulk-file', () => {
   it('Should return an array of file hashes', () => {

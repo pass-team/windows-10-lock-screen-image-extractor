@@ -3,7 +3,7 @@ import {
   ERROR_CODES,
   OUTPUT_FORMAT_JSON,
   OUTPUT_FORMAT_TEXT,
-} from '../constants';
+} from '../constants/index.js';
 
 /**
  *  @Helper

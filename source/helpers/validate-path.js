@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { ERROR_CODES } from '../constants';
+import { ERROR_CODES } from '../constants/index.js';
 
 /**
  *  @Helper

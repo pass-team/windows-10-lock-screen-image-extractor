@@ -1,5 +1,5 @@
 import minimist from 'minimist';
-import { OUTPUT_FORMAT_JSON } from '../constants';
+import { OUTPUT_FORMAT_JSON } from '../constants/index.js';
 
 export default () => {
   const { format } = minimist(process.argv.slice(2));

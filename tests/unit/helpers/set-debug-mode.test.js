@@ -1,6 +1,6 @@
-import extendLogger from '../../../source/helpers/extend-logger';
-import setDebugMode from '../../../source/helpers/set-debug-mode';
-import { TransportJSON } from '../../../source/helpers';
+import extendLogger from '../../../source/helpers/extend-logger.js';
+import setDebugMode from '../../../source/helpers/set-debug-mode.js';
+import { TransportJSON } from '../../../source/helpers/index.js';
 
 let mockLogger = extendLogger(new TransportJSON());
 

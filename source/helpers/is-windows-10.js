@@ -1,5 +1,6 @@
 import os from 'os';
-import { WINDOWS10_ALIAS } from '../constants';
+// eslint-disable-next-line import/extensions
+import { WINDOWS10_ALIAS } from '../constants/index.js';
 
 /**
  *  @Helper

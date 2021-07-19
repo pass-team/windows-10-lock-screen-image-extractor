@@ -4,12 +4,12 @@ import {
   IMAGE_NAME_FORMAT_ORIGIN,
   IMAGE_NAME_FORMAT_DATE,
   IMAGE_NAME_FORMAT_HASH,
-} from '../constants';
+} from '../constants/index.js';
 
 import {
   hashBulkFile,
   reformatDate,
-} from '.';
+} from './index.js';
 
 /**
  *  @Helper

@@ -1,8 +1,8 @@
-import isImage from '../../../source/helpers/is-image';
+import isImage from '../../../source/helpers/is-image.js';
 import {
   IMAGE_TYPE_JPG,
   IMAGE_TYPE_PNG,
-} from '../../../source/constants/index';
+} from '../../../source/constants/index.js';
 
 describe('Helper - Function is-image', () => {
   it('Should return true if the file is an image', () => {

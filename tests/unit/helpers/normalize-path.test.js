@@ -1,4 +1,4 @@
-import normalizePath from '../../../source/helpers/normalize-path';
+import normalizePath from '../../../source/helpers/normalize-path.js';
 
 describe('Helper - Function normalize-path', () => {
   const mockPath = `${process.cwd()}/tests/mock-assets`;

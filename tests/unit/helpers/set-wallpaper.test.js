@@ -1,7 +1,7 @@
 import wallpaper from 'wallpaper';
 import fs from 'fs';
 import path from 'path';
-import setWallpaper from '../../../source/helpers/set-wallpaper';
+import setWallpaper from '../../../source/helpers/set-wallpaper.js';
 
 describe('Helper - Function set-wallpaper', () => {
   it('Should be able to set new desktop wallpaper', async () => {

@@ -1,7 +1,7 @@
 import stripAnsi from 'strip-ansi';
-import validateFormat from '../../../source/helpers/validate-format';
-import extendLogger from '../../../source/helpers/extend-logger';
-import { ERROR_CODES } from '../../../source/constants';
+import validateFormat from '../../../source/helpers/validate-format.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
+import { ERROR_CODES } from '../../../source/constants/index.js';
 
 const mockLogger = extendLogger();
 let errorRecord = [];

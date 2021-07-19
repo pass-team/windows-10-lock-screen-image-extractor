@@ -1,7 +1,7 @@
-import getImages from './get-images';
-import showSettings from './show-settings';
-import randomDesktop from './random-desktop';
-import showMenu from './show-menu';
+import getImages from './get-images.js';
+import showSettings from './show-settings.js';
+import randomDesktop from './random-desktop.js';
+import showMenu from './show-menu.js';
 
 export {
   getImages,

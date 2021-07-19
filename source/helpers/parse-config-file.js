@@ -1,7 +1,7 @@
 import fs from 'fs';
 import chalk from 'chalk';
 import jsonfile from 'jsonfile';
-import { ERROR_CODES } from '../constants';
+import { ERROR_CODES } from '../constants/index.js';
 
 /**
  *  @Helper

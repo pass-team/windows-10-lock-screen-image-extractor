@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import chalk from 'chalk';
-import waitKeyToExit from '../../../source/helpers/wait-key-to-exit';
+import waitKeyToExit from '../../../source/helpers/wait-key-to-exit.js';
 
 describe('Helper - Function wait-key-to-exit', () => {
   it('Should display "Press any key to exit.."', () => {

@@ -1,5 +1,5 @@
-import getFiles from '../../../source/helpers/get-files';
-import normalizePath from '../../../source/helpers/normalize-path';
+import getFiles from '../../../source/helpers/get-files.js';
+import normalizePath from '../../../source/helpers/normalize-path.js';
 
 describe('Helper - Function get-files', () => {
   it('Should return an array of file meta objects', () => {

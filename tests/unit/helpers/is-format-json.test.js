@@ -1,4 +1,4 @@
-import isFormatJson from '../../../source/helpers/is-format-json';
+import isFormatJson from '../../../source/helpers/is-format-json.js';
 
 describe('Helper - Function isFormatJson', () => {
   it('Should return true if format options is json and false otherwise', () => {

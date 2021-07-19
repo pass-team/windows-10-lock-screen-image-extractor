@@ -7,17 +7,17 @@ import {
   IMAGE_NAME_FORMAT_HASH,
   ORIENTATION_ALL,
   DEFAULT_SAVE_PATH,
-} from '../../../source/constants';
+} from '../../../source/constants/index.js';
 import {
   getImages,
-} from '../../../source/actions';
-import hashFile from '../../../source/helpers/hash-file';
-import extendLogger from '../../../source/helpers/extend-logger';
-import argumentsPrompt from '../../../source/helpers/arguments-prompt';
-import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
+} from '../../../source/actions/index.js';
+import hashFile from '../../../source/helpers/hash-file.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
+import argumentsPrompt from '../../../source/helpers/arguments-prompt.js';
+import deleteFolderRecursive from '../../mock-data/delete-folder-recursive.js';
 
-jest.mock('../../../source/helpers/arguments-prompt');
-jest.mock('../../../source/constants');
+jest.mock('../../../source/helpers/arguments-prompt.js');
+jest.mock('../../../source/constants/index.js');
 
 let infoRecord = '';
 let errorRecord = '';

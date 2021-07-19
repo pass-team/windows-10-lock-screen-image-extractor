@@ -1,6 +1,6 @@
 import winston from 'winston';
 import chalk from 'chalk';
-import { LOG_LEVELS } from '../constants';
+import { LOG_LEVELS } from '../constants/index.js';
 
 const extendLogger = (transport = new winston.transports.Console()) => winston.createLogger({
   transports: [transport],

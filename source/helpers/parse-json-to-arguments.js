@@ -4,13 +4,13 @@ import chalk from 'chalk';
 import {
   ALLOWED_OPTIONS,
   ERROR_CODES,
-} from '../constants';
+} from '../constants/index.js';
 import {
   validateNamePattern,
   validateOrientation,
   validatePath,
   validateFormat, parseConfig, parseConfigFile,
-} from '.';
+} from './index.js';
 
 // Parse object props to arguments array
 const objectToArguments = function (object) {

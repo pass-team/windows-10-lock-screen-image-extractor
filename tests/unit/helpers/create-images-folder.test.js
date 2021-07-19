@@ -1,4 +1,4 @@
-import createImagesFolder from '../../../source/helpers/create-images-folder';
+import createImagesFolder from '../../../source/helpers/create-images-folder.js';
 
 describe('Helper - Function create-images-folder', () => {
   it('Should return true if create successfully', () => {

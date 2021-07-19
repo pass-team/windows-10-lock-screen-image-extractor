@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import chalk from 'chalk';
-import printJsonOutput from '../../../source/helpers/print-json-output';
-import TransportJSON from '../../../source/helpers/transport-json';
-import extendLogger from '../../../source/helpers/extend-logger';
-import { ERROR_CODES } from '../../../source/constants';
-import { setDebugMode } from '../../../source/helpers';
+import printJsonOutput from '../../../source/helpers/print-json-output.js';
+import TransportJSON from '../../../source/helpers/transport-json.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
+import { ERROR_CODES } from '../../../source/constants/index.js';
+import { setDebugMode } from '../../../source/helpers/index.js';
 
 let mockLogger = extendLogger(new TransportJSON({ level: 'debug' }));
 mockLogger.transports[0].state.debug = true;

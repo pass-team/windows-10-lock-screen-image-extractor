@@ -4,7 +4,7 @@ import {
   IMAGE_NAME_FORMAT_DATE,
   IMAGE_NAME_FORMAT_HASH,
   IMAGE_NAME_FORMAT_ORIGIN,
-} from '../constants';
+} from '../constants/index.js';
 
 /**
  *  @Helper

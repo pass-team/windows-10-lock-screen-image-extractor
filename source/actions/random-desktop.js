@@ -7,12 +7,12 @@ import {
   validateFormat,
   printJsonOutput,
   trimQuotes,
-} from '../helpers';
-import setWallpaper from '../helpers/set-wallpaper';
+} from '../helpers/index.js';
+import setWallpaper from '../helpers/set-wallpaper.js';
 import {
   ORIENTATION_LANDSCAPE,
   ERROR_CODES, OUTPUT_FORMAT_TEXT,
-} from '../constants';
+} from '../constants/index.js';
 
 /* Action that randomly set extracted images as desktop background */
 export default async function (args, options, logger) {

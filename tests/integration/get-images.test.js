@@ -1,7 +1,7 @@
-import nixt from 'nixt/lib/nixt/runner';
+import nixt from 'nixt/lib/nixt/runner.js';
 import path from 'path';
 import fs from 'fs';
-import deleteFolderRecursive from '../mock-data/delete-folder-recursive';
+import deleteFolderRecursive from '../mock-data/delete-folder-recursive.js';
 
 describe('Feature get-images', () => {
   // Run test inside build folder
@@ -19,7 +19,7 @@ describe('Feature get-images', () => {
       .run('get-lock-screen get-images')
       .stdout(/.*Successfully copy*/)
       .end(done);
-  });
+  }, 10000);
 
   it('Should get images with additional arguments', (done) => {
     const folderName = 'D:/w10-startup-lock-screen-extractor-get-image-folder/'
@@ -31,5 +31,5 @@ describe('Feature get-images', () => {
       .end(done);
     // Clean up trash files created by test case
     deleteFolderRecursive('D:/w10-startup-lock-screen-extractor-get-image-folder/');
-  });
+  }, 10000);
 });

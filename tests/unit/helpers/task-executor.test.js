@@ -1,6 +1,6 @@
 import chalk from 'chalk';
-import taskExecutor from '../../../source/helpers/task-executor';
-import extendLogger from '../../../source/helpers/extend-logger';
+import taskExecutor from '../../../source/helpers/task-executor.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
 
 const mockLogger = extendLogger();
 const infoRecord = [];

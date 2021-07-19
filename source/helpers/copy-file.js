@@ -1,8 +1,8 @@
 import fs from 'fs';
-import normalizePath from './normalize-path';
+import normalizePath from './normalize-path.js';
 import {
   IMAGE_NAME_FORMAT_DATE,
-} from '../constants';
+} from '../constants/index.js';
 
 /**
  *  @Helper
