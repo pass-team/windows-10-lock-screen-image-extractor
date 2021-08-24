@@ -2,13 +2,13 @@ import fs from 'fs';
 import { execFileSync } from 'child_process';
 import findUp from 'find-up';
 
-export default function (imagePath) {
+export default async function (imagePath) {
   /**
    *   Extract binary file from module wallpaper or the fake file system inside pkg build file
    *   Then expose the binary to the real windows file system
    */
   const pathToBinary = `${findUp.sync('node_modules', { type: 'directory', cwd: __dirname })}`
-    + '\\wallpaper\\source\\win-wallpaper.exe';
+    + '\\wallpaper\\source\\windows-wallpaper.exe';
   const wallpaperBinary = `${process.cwd()}/wallpaper-setter.exe`;
   /**
    *   For debugging the pkg file system

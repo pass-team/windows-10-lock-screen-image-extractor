@@ -8,7 +8,7 @@ describe('Helper - Function set-wallpaper', () => {
     const mockPath = `${process.cwd()}/tests/mock-assets/`;
     const image = `${mockPath}/a`;
     const images = fs.readdirSync(mockPath);
-    setWallpaper(image);
+    await setWallpaper(image);
     const wallpaperName = path.basename(await wallpaper.get());
     expect(images.includes(wallpaperName)).toBeTruthy();
   });
