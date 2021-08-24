@@ -1,8 +1,8 @@
-import hashFile from '../../../source/helpers/hash-file';
-import creatImagesFolder from '../../../source/helpers/create-images-folder';
-import copyBulkFiles from '../../../source/helpers/copy-bulk-files';
-import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
-import extendLogger from '../../../source/helpers/extend-logger';
+import hashFile from '../../../source/helpers/hash-file.js';
+import creatImagesFolder from '../../../source/helpers/create-images-folder.js';
+import copyBulkFiles from '../../../source/helpers/copy-bulk-files.js';
+import deleteFolderRecursive from '../../mock-data/delete-folder-recursive.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
 
 const mockLogger = extendLogger();
 

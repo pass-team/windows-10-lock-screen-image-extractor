@@ -1,5 +1,5 @@
 /* eslint quotes: ["error", "single"] */
-module.exports = {
+export default {
   rootDir: './../..',
   verbose: true,
   transform: {

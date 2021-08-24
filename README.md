@@ -6,6 +6,11 @@
 ## Introduction
 A tiny cli app to extract gorgeous lock screen images on Windows 10.
 
+**Note**: Since July 8, 2021, this package's moved to [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) and cannot be require()'d from 
+CommonJS.
+* Also move to ESM (preferred). [Here's a good start](https://blog.sindresorhus.com/hello-modules-d1010b4e777b).
+* Or stay on [older versions](https://github.com/pass-team/windows-10-lock-screen-image-extractor/releases) of the package until you can move to ESM.
+
 ## Installation
 ### As a node package
 **Required**: [Nodejs](https://nodejs.org/en/)
@@ -92,7 +97,7 @@ If you have any problems running the apps, feel free to [open an issue](https://
 
 **4. Update test**
 * Write new test cases for your code.
-* All tests are located at folder `tests/**`
+* All tests locates at folder `tests/**`
 * Run tests: `yarn run test:unit`
 
 **5. Submit pull request for review**

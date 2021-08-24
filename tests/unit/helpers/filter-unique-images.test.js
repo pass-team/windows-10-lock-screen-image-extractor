@@ -1,7 +1,7 @@
 import fs from 'fs';
-import createImagesFolder from '../../../source/helpers/create-images-folder';
-import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
-import filterUniqueImages from '../../../source/helpers/filter-unique-images';
+import createImagesFolder from '../../../source/helpers/create-images-folder.js';
+import deleteFolderRecursive from '../../mock-data/delete-folder-recursive.js';
+import filterUniqueImages from '../../../source/helpers/filter-unique-images.js';
 
 describe('Helper - Function filter-unique-images', () => {
   const firstFolder = `${process.cwd()}/tests/old-images`;

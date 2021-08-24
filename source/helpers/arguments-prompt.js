@@ -1,5 +1,5 @@
-import Select from 'enquirer/lib/prompts/select';
-import Input from 'enquirer/lib/prompts/input';
+import Select from 'enquirer/lib/prompts/select.js';
+import Input from 'enquirer/lib/prompts/input.js';
 
 import {
   ORIENTATION_PORTRAIT,
@@ -9,7 +9,7 @@ import {
   IMAGE_NAME_FORMAT_DATE,
   IMAGE_NAME_FORMAT_HASH,
   DEFAULT_SAVE_PATH,
-} from '../constants';
+} from '../constants/index.js';
 
 /**
  *  @Helper
