@@ -1,7 +1,7 @@
 /* eslint quotes: ["error", "single"] */
 const esModules = ['strip-ansi'].join('|');
 
-module.exports = {
+export default {
   rootDir: './../../..',
   transformIgnorePatterns: [`/node_modules/(?!${esModules})`],
   cacheDirectory: '<rootDir>/.cache/jest',
