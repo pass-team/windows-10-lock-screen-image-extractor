@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import nixt from 'nixt/lib/nixt/runner';
+import nixt from 'nixt/lib/nixt/runner.js';
 import wallpaper from 'wallpaper';
-import deleteFolderRecursive from '../mock-data/delete-folder-recursive';
+import deleteFolderRecursive from '../mock-data/delete-folder-recursive.js';
 
 describe('Feature random-desktop', () => {
   // Run test inside build folder
@@ -20,7 +20,7 @@ describe('Feature random-desktop', () => {
       .run('get-lock-screen random-desktop')
       .stdout(/.*No existing images*/)
       .end(done);
-  });
+  }, 10000);
 
   it('Should change desktop wallpaper', (done) => {
     const folderName = 'D:\\w10-startup-lock-screen-extractor-get-image-folder\\'
@@ -38,5 +38,5 @@ describe('Feature random-desktop', () => {
       });
     // Clean up trash files created by test case
     deleteFolderRecursive('D:\\w10-startup-lock-screen-extractor-get-image-folder\\');
-  });
+  }, 10000);
 });

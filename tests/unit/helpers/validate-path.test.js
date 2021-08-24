@@ -1,7 +1,7 @@
 import stripAnsi from 'strip-ansi';
-import validatePath from '../../../source/helpers/validate-path';
-import extendLogger from '../../../source/helpers/extend-logger';
-import { ERROR_CODES } from '../../../source/constants';
+import validatePath from '../../../source/helpers/validate-path.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
+import { ERROR_CODES } from '../../../source/constants/index.js';
 
 const mockLogger = extendLogger();
 let errorRecord = [];

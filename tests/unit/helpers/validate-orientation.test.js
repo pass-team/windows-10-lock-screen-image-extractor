@@ -1,7 +1,7 @@
 import stripAnsi from 'strip-ansi';
-import validateOrientation from '../../../source/helpers/validate-orientation';
-import extendLogger from '../../../source/helpers/extend-logger';
-import { ERROR_CODES } from '../../../source/constants';
+import validateOrientation from '../../../source/helpers/validate-orientation.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
+import { ERROR_CODES } from '../../../source/constants/index.js';
 
 const mockLogger = extendLogger();
 let errorRecord = [];

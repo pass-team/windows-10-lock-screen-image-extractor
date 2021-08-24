@@ -1,6 +1,6 @@
 /* eslint-disable global-require, no-console */
 
-import copyFile from './copy-file';
+import copyFile from './copy-file.js';
 
 /**
  *  @Helper

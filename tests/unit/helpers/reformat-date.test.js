@@ -1,5 +1,5 @@
-import reformatDate from '../../../source/helpers/reformat-date';
-import mockDateNow from '../../mock-data/mock-date-now';
+import reformatDate from '../../../source/helpers/reformat-date.js';
+import mockDateNow from '../../mock-data/mock-date-now.js';
 
 describe('Helper - Function get-current-date', () => {
   // Cache and reset process.env for each test case
