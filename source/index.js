@@ -7,13 +7,13 @@ import {
   ORIENTATION_LANDSCAPE,
   ORIENTATION_PORTRAIT,
   ORIENTATION_ALL,
-} from './constants';
+} from './constants/index.js';
 import {
   getImages,
   showSettings,
   randomDesktop,
   showMenu,
-} from './actions';
+} from './actions/index.js';
 
 import {
   extendLogger,
@@ -22,7 +22,7 @@ import {
   setDebugMode,
   printJsonOutput,
   TransportJSON,
-} from './helpers';
+} from './helpers/index.js';
 
 /**
  *  Parse JSON content if provided to setup appropriate logger

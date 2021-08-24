@@ -1,5 +1,5 @@
 /* eslint quotes: ["error", "single"] */
-module.exports = {
+export default {
   rootDir: './../../..',
   cacheDirectory: '<rootDir>/.cache/jest',
   testMatch: ['<rootDir>/tests/integration/**/*.test.js'],

@@ -1,7 +1,7 @@
 import {
   IMAGE_TYPE_JPG,
   IMAGE_TYPE_PNG,
-} from '../constants';
+} from '../constants/index.js';
 
 /**
  *  @Helper

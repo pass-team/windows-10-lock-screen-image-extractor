@@ -14,7 +14,7 @@ import {
   validateOrientation,
   validateNamePattern,
   validateFormat,
-} from '../helpers';
+} from '../helpers/index.js';
 
 import {
   DEFAULT_SAVE_PATH,
@@ -22,8 +22,8 @@ import {
   ORIENTATION_ALL,
   IMAGE_NAME_FORMAT_ORIGIN,
   ERROR_CODES, OUTPUT_FORMAT_TEXT,
-} from '../constants';
-import printJsonOutput from '../helpers/print-json-output';
+} from '../constants/index.js';
+import printJsonOutput from '../helpers/print-json-output.js';
 
 /* Action that handle extracting lock screen from windows */
 export default async function (args, options, logger) {
