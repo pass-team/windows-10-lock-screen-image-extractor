@@ -1,8 +1,8 @@
 import fs from 'fs';
 import stripAnsi from 'strip-ansi';
-import parseConfigFile from '../../../source/helpers/parse-config-file';
-import extendLogger from '../../../source/helpers/extend-logger';
-import { ERROR_CODES } from '../../../source/constants';
+import parseConfigFile from '../../../source/helpers/parse-config-file.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
+import { ERROR_CODES } from '../../../source/constants/index.js';
 
 let errorRecord = [];
 

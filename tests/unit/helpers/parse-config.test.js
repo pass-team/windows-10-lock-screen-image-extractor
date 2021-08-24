@@ -1,7 +1,7 @@
 import stripAnsi from 'strip-ansi';
-import parseConfig from '../../../source/helpers/parse-config';
-import extendLogger from '../../../source/helpers/extend-logger';
-import { ERROR_CODES } from '../../../source/constants';
+import parseConfig from '../../../source/helpers/parse-config.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
+import { ERROR_CODES } from '../../../source/constants/index.js';
 
 let errorRecord = [];
 

@@ -1,8 +1,8 @@
-import reformatLog from '../../../source/helpers/reformat-log';
-import TransportJSON from '../../../source/helpers/transport-json';
-import extendLogger from '../../../source/helpers/extend-logger';
-import { ERROR_CODES } from '../../../source/constants';
-import { setDebugMode } from '../../../source/helpers';
+import reformatLog from '../../../source/helpers/reformat-log.js';
+import TransportJSON from '../../../source/helpers/transport-json.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
+import { ERROR_CODES } from '../../../source/constants/index.js';
+import { setDebugMode } from '../../../source/helpers/index.js';
 
 let mockLogger = extendLogger(new TransportJSON({ level: 'debug' }));
 mockLogger.transports[0].state.debug = true;

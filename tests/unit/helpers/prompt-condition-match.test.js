@@ -1,4 +1,4 @@
-import promptConditionMatch from '../../../source/helpers/prompt-condition-match';
+import promptConditionMatch from '../../../source/helpers/prompt-condition-match.js';
 
 describe('Helper - Function prompt-condition-match', () => {
   const oldProcessArgv = process.argv;

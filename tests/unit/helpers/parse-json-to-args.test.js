@@ -1,10 +1,10 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import minimist from 'minimist';
 import stripAnsi from 'strip-ansi';
-import parseJsonToArgs from '../../../source/helpers/parse-json-to-arguments';
-import extendLogger from '../../../source/helpers/extend-logger';
-import parseConfigFile from '../../../source/helpers/parse-config-file';
-import { ERROR_CODES } from '../../../source/constants';
+import parseJsonToArgs from '../../../source/helpers/parse-json-to-arguments.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
+import parseConfigFile from '../../../source/helpers/parse-config-file.js';
+import { ERROR_CODES } from '../../../source/constants/index.js';
 
 let errorRecord = [];
 

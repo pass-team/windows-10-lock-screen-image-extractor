@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
-import nixt from 'nixt/lib/nixt/runner';
-import deleteFolderRecursive from '../mock-data/delete-folder-recursive';
+import nixt from 'nixt/lib/nixt/runner.js';
+import deleteFolderRecursive from '../mock-data/delete-folder-recursive.js';
 
 describe('Feature show-settings', () => {
   // Run test inside build folder
@@ -14,17 +14,16 @@ describe('Feature show-settings', () => {
     }
   });
 
-  it('Should display path to saving folder', () => {
+  it('Should display path to saving folder', (done) => {
     const folderName = 'D:/w10-startup-lock-screen-extractor-show-settings-test-folder/'
       + `${Math.floor(Math.random() * Math.floor(10000))}/`;
-    return new Promise((done) => {
-      nixt()
-        .cwd(cwd)
-        .exec(`get-lock-screen get-images -p=${folderName}`)
-        .run('get-lock-screen show-settings')
-        .stdout(/.*Image saved folder.*/)
-        .end(done); // Clean up trash files created by test case
-      deleteFolderRecursive('D:/w10-startup-lock-screen-extractor-get-image-folder/');
-    });
-  });
+    nixt()
+      .cwd(cwd)
+      .exec(`get-lock-screen get-images -p=${folderName}`)
+      .run('get-lock-screen show-settings')
+      .stdout(/.*Image saved folder.*/)
+      .end(done);
+    // Clean up trash files created by test case
+    deleteFolderRecursive('D:/w10-startup-lock-screen-extractor-get-image-folder/');
+  }, 10000);
 });

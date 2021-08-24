@@ -17,10 +17,10 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module"
   },
-  "parser": "babel-eslint",
   "rules": {
     "max-len": [
       1,
@@ -32,6 +32,7 @@
     "no-underscore-dangle": 0,
     "quotes": [2, "single", { "avoidEscape": true }],
     "func-names": 0,
+    "import/extensions": [1, { "js": "always"}],
     "import/no-cycle": 0,
     "node/no-unsupported-features/es-syntax": 0,
     "no-process-exit": 0,

@@ -1,22 +1,22 @@
 import Transport from 'winston-transport';
 import stripAnsi from 'strip-ansi';
-import { ERROR_CODES } from '../constants';
+import { ERROR_CODES } from '../constants/index.js';
 
 export default class TransportJSON extends Transport {
   // eslint-disable-next-line no-useless-constructor
   constructor(opts) {
     super(opts);
-  }
 
-  state = {
-    status: 'success',
-    message: '',
-    logs: [],
-    code: '',
-    debugModeLogs: [],
-    debug: false,
-    errors: [],
-  };
+    this.state = {
+      status: 'success',
+      message: '',
+      logs: [],
+      code: '',
+      debugModeLogs: [],
+      debug: false,
+      errors: [],
+    };
+  }
 
   log(log, cb) {
     setImmediate(() => {

@@ -1,18 +1,18 @@
-import logger from 'caporal/lib/logger';
-import Select from 'enquirer/lib/prompts/select';
+import logger from 'caporal/lib/logger.js';
+import Select from 'enquirer/lib/prompts/select.js';
 import {
   MENU_OPTIONS,
-} from '../../../source/constants';
-import showMenu from '../../../source/actions/show-menu';
-import showSettings from '../../../source/actions/show-settings';
-import getImages from '../../../source/actions/get-images';
-import randomDesktop from '../../../source/actions/random-desktop';
+} from '../../../source/constants/index.js';
+import showMenu from '../../../source/actions/show-menu.js';
+import showSettings from '../../../source/actions/show-settings.js';
+import getImages from '../../../source/actions/get-images.js';
+import randomDesktop from '../../../source/actions/random-desktop.js';
 
-jest.mock('caporal/lib/logger');
-jest.mock('enquirer/lib/prompts/select');
-jest.mock('../../../source/actions/get-images');
-jest.mock('../../../source/actions/show-settings');
-jest.mock('../../../source/actions/random-desktop');
+jest.mock('caporal/lib/logger.js');
+jest.mock('enquirer/lib/prompts/select.js');
+jest.mock('../../../source/actions/get-images.js');
+jest.mock('../../../source/actions/show-settings.js');
+jest.mock('../../../source/actions/random-desktop.js');
 
 describe('Action - Function show-menu', () => {
   it('Should call action get-images when no item chosen', async () => {

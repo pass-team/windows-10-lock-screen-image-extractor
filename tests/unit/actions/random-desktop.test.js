@@ -9,11 +9,11 @@ import {
   IMAGE_NAME_FORMAT_HASH,
   ORIENTATION_LANDSCAPE,
   PATH_TO_CONFIG,
-} from '../../../source/constants';
-import getImages from '../../../source/actions/get-images';
-import randomDesktop from '../../../source/actions/random-desktop';
-import deleteFolderRecursive from '../../mock-data/delete-folder-recursive';
-import extendLogger from '../../../source/helpers/extend-logger';
+} from '../../../source/constants/index.js';
+import getImages from '../../../source/actions/get-images.js';
+import randomDesktop from '../../../source/actions/random-desktop.js';
+import deleteFolderRecursive from '../../mock-data/delete-folder-recursive.js';
+import extendLogger from '../../../source/helpers/extend-logger.js';
 
 let infoRecord = [];
 let errorRecord = [];
