@@ -3,23 +3,9 @@ import parseConfig from '../../../source/helpers/parse-config.js';
 import extendLogger from '../../../source/helpers/extend-logger.js';
 import { ERROR_CODES } from '../../../source/constants/index.js';
 
-let infoRecord = [];
-let warnRecord = [];
 let errorRecord = [];
 
 const mockLogger = extendLogger();
-mockLogger.info = (data, meta) => {
-  infoRecord.push({
-    data,
-    meta,
-  });
-};
-mockLogger.warn = (data, meta) => {
-  warnRecord.push({
-    data,
-    meta,
-  });
-};
 mockLogger.error = (data, meta) => {
   errorRecord.push({
     data,
@@ -28,11 +14,10 @@ mockLogger.error = (data, meta) => {
 };
 
 mockLogger.log = jest.fn();
+
 describe('Helper - Function parseConfig', () => {
   // Reset logging recorder
   beforeEach(() => {
-    infoRecord = [];
-    warnRecord = [];
     errorRecord = [];
   });
 

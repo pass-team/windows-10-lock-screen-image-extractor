@@ -1,4 +1,4 @@
-/* eslint-disable no-throw-literal, no-console */
+/* eslint-disable no-throw-literal, no-console, sonarjs/no-identical-functions */
 import fs from 'fs';
 import path from 'path';
 import wallpaper from 'wallpaper';
@@ -16,18 +16,11 @@ import deleteFolderRecursive from '../../mock-data/delete-folder-recursive.js';
 import extendLogger from '../../../source/helpers/extend-logger.js';
 
 let infoRecord = [];
-let warnRecord = [];
 let errorRecord = [];
 
 const mockLogger = extendLogger();
 mockLogger.info = (data, meta) => {
   infoRecord.push({
-    data,
-    meta,
-  });
-};
-mockLogger.warn = (data, meta) => {
-  warnRecord.push({
     data,
     meta,
   });
@@ -44,9 +37,9 @@ describe('Action - Function random-desktop', () => {
   // Reset logging recorder
   beforeEach(() => {
     infoRecord = [];
-    warnRecord = [];
     errorRecord = [];
   });
+
   // Run test inside build folder
   // Remove user settings to avoid side effect on other test cases
   afterEach(() => {

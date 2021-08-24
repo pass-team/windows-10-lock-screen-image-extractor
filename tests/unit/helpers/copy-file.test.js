@@ -26,6 +26,7 @@ describe('Helper - Function copy-file', () => {
   afterEach(() => {
     deleteFolderRecursive(mockDestination);
   });
+
   it('Should copy file with name pattern is origin', () => {
     copyFile(images, mockSource, mockDestination, mockNamePattern);
     const copyImages = fs.readdirSync(normalizePath(mockDestination));

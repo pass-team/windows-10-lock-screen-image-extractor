@@ -7,6 +7,7 @@ import deleteFolderRecursive from '../mock-data/delete-folder-recursive.js';
 describe('Feature random-desktop', () => {
   // Run test inside build folder
   const cwd = path.join(process.cwd(), '/build');
+
   // Remove user settings to avoid side effect on other test cases
   afterEach(() => {
     if (fs.existsSync(path.join(cwd, '\\.userconfig'))) {
@@ -14,17 +15,17 @@ describe('Feature random-desktop', () => {
     }
   });
 
-  it('Should show "No existing images..." on first run', (done) => {
+  it('Should show "No existing images..." on first run', () => new Promise((done) => {
     nixt()
       .cwd(cwd)
       .run('get-lock-screen random-desktop')
       .stdout(/.*No existing images*/)
       .end(done);
-  }, 10000);
+  }, 10000));
 
-  it('Should change desktop wallpaper', (done) => {
-    const folderName = 'D:\\w10-startup-lock-screen-extractor-get-image-folder\\'
-    + `${Math.floor(Math.random() * Math.floor(10000))}\\`;
+  it('Should change desktop wallpaper', () => new Promise((done) => {
+    const folderName = 'D:\\w10-startup-lock-screen-extractor-random-desktop-test-folder\\'
+      + `${Math.floor(Math.random() * Math.floor(10000))}\\`;
     nixt()
       .cwd(cwd)
       .exec(`get-lock-screen get-images -p ${folderName}`)
@@ -38,5 +39,5 @@ describe('Feature random-desktop', () => {
       });
     // Clean up trash files created by test case
     deleteFolderRecursive('D:\\w10-startup-lock-screen-extractor-get-image-folder\\');
-  }, 10000);
+  }, 10000));
 });

@@ -15,17 +15,8 @@ export default async function (args, options, logger) {
     separator(state) {
       return state.status === 'submitted' ? '...' : '';
     },
-    prefix(state) {
-      switch (state.status) {
-        case 'pending':
-          return '';
-        case 'cancelled':
-          return '';
-        case 'submitted':
-          return '';
-        default:
-          return '';
-      }
+    prefix() {
+      return '';
     },
   });
 

@@ -7,6 +7,7 @@ describe('Helper - Function is-portrait-image', () => {
       width: 768,
     })).toEqual(true);
   });
+
   it('Should return false if an image is not portrait', () => {
     expect(isPortraitImage({
       height: 768,

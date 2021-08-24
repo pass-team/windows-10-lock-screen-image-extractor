@@ -16,26 +16,29 @@ import {
  *  @Input: No
  *  @Output: User answers that customize action: get-lock-screen-image
  */
+
+const customizePrefix = async (state) => {
+  switch (state.status) {
+    case 'pending':
+      return '?';
+    case 'cancelled':
+      return '×';
+    case 'submitted':
+      return '√';
+    default:
+      return '';
+  }
+};
+
 export default async function () {
   const requestForPrompt = new Select({
     name: 'menu',
     message: 'We will ask you some questions to personalize, are you willing?:',
     choices: ['Yes', 'No'],
-    separator(state) {
-      return state.status === 'submitted' ? '' : '';
+    separator() {
+      return '';
     },
-    prefix(state) {
-      switch (state.status) {
-        case 'pending':
-          return '?';
-        case 'cancelled':
-          return '?';
-        case 'submitted':
-          return '?';
-        default:
-          return '?';
-      }
-    },
+    prefix: customizePrefix,
   });
 
   /**
@@ -53,50 +56,28 @@ export default async function () {
     name: 'orientation',
     message: 'Which image orientation do you prefer?',
     choices: [ORIENTATION_ALL, ORIENTATION_PORTRAIT, ORIENTATION_LANDSCAPE],
-    separator(state) {
-      return state.status === 'submitted' ? '' : '';
+    separator() {
+      return '';
     },
-    prefix(state) {
-      switch (state.status) {
-        case 'pending':
-          return '?';
-        case 'cancelled':
-          return '?';
-        case 'submitted':
-          return '?';
-        default:
-          return '';
-      }
-    },
+    prefix: customizePrefix,
   }).run();
 
   answers.namePattern = await new Select({
     name: 'name pattern',
     message: 'What name pattern to save images as?',
     choices: [IMAGE_NAME_FORMAT_ORIGIN, IMAGE_NAME_FORMAT_HASH, IMAGE_NAME_FORMAT_DATE],
-    separator(state) {
-      return state.status === 'submitted' ? '' : '';
+    separator() {
+      return '';
     },
-    prefix(state) {
-      switch (state.status) {
-        case 'pending':
-          return '?';
-        case 'cancelled':
-          return '?';
-        case 'submitted':
-          return '?';
-        default:
-          return '';
-      }
-    },
+    prefix: customizePrefix,
   }).run();
 
   answers.path = await new Input({
     message: 'Where to save your images?',
     hint: `(default: ${DEFAULT_SAVE_PATH})`,
     choices: [IMAGE_NAME_FORMAT_ORIGIN, IMAGE_NAME_FORMAT_HASH, IMAGE_NAME_FORMAT_DATE],
-    separator(state) {
-      return state.status === 'submitted' ? '' : '';
+    separator() {
+      return '';
     },
   }).run();
 

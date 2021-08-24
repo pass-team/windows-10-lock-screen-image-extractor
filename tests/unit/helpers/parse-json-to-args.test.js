@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import minimist from 'minimist';
 import stripAnsi from 'strip-ansi';
 import parseJsonToArgs from '../../../source/helpers/parse-json-to-arguments.js';
@@ -5,23 +6,9 @@ import extendLogger from '../../../source/helpers/extend-logger.js';
 import parseConfigFile from '../../../source/helpers/parse-config-file.js';
 import { ERROR_CODES } from '../../../source/constants/index.js';
 
-let infoRecord = [];
-let warnRecord = [];
 let errorRecord = [];
 
 const mockLogger = extendLogger();
-mockLogger.info = (data, meta) => {
-  infoRecord.push({
-    data,
-    meta,
-  });
-};
-mockLogger.warn = (data, meta) => {
-  warnRecord.push({
-    data,
-    meta,
-  });
-};
 mockLogger.error = (data, meta) => {
   errorRecord.push({
     data,
@@ -37,8 +24,6 @@ jest.mock('../../../source/helpers/parse-config-file');
 describe('Helper - Function parseJsonToArguments', () => {
   // Reset logging recorder
   beforeEach(() => {
-    infoRecord = [];
-    warnRecord = [];
     errorRecord = [];
   });
 
@@ -141,7 +126,7 @@ describe('Helper - Function parseJsonToArguments', () => {
       '--verbose=true',
     ];
     spreadArgs.forEach((arg) => {
-      expect(process.argv.includes(arg));
+      expect(process.argv.includes(arg)).toBeTruthy();
     });
     // Should print out these error or each failed validators
     process.argv = oldProcessArgv;
@@ -161,7 +146,7 @@ describe('Helper - Function parseJsonToArguments', () => {
       'get-images',
     ];
     spreadArgs.forEach((arg) => {
-      expect(process.argv.includes(arg));
+      expect(process.argv.includes(arg)).toBeTruthy();
     });
     // Should print out these error or each failed validators
     process.argv = oldProcessArgv;

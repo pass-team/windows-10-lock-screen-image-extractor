@@ -36,7 +36,7 @@ describe('Helper - Function filter-unique-images', () => {
       // Required properties
       expect(Object.keys(imageObj)).toEqual(['name', 'path', 'height', 'width', 'type', 'origin', 'hash', 'date']);
       // Name equals d -> e -> f
-      expect(imageObj.name === String.fromCharCode(100 + index));
+      expect(imageObj.name === String.fromCharCode(100 + index)).toBeTruthy();
     });
   });
 

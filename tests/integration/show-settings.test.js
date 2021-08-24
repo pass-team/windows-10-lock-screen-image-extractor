@@ -6,6 +6,7 @@ import deleteFolderRecursive from '../mock-data/delete-folder-recursive.js';
 describe('Feature show-settings', () => {
   // Run test inside build folder
   const cwd = path.join(process.cwd(), '\\build');
+
   // Remove user settings to avoid side effect on other test cases
   afterEach(() => {
     if (fs.existsSync(path.join(cwd, '\\.userconfig'))) {
@@ -14,7 +15,7 @@ describe('Feature show-settings', () => {
   });
 
   it('Should display path to saving folder', (done) => {
-    const folderName = 'D:/w10-startup-lock-screen-extractor-get-image-folder/'
+    const folderName = 'D:/w10-startup-lock-screen-extractor-show-settings-test-folder/'
       + `${Math.floor(Math.random() * Math.floor(10000))}/`;
     nixt()
       .cwd(cwd)
