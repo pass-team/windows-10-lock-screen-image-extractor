@@ -40,7 +40,7 @@
     "@babel/plugin-proposal-class-properties": "7.14.5",
     "@babel/preset-env": "7.15.0",
     "babel-eslint": "10.1.0",
-    "babel-jest": "27.0.6",
+    "babel-jest": "27.1.0",
     "chokidar-cli": "3.0.0",
     "codacy-coverage": "3.4.0",
     "del-cli": "4.0.1",
