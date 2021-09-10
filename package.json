@@ -30,7 +30,7 @@
     "jsonfile": "6.1.0",
     "minimist": "1.2.5",
     "ora": "5.4.1",
-    "strip-ansi": "6.0.0",
+    "strip-ansi": "7.0.0",
     "wallpaper": "5.0.1",
     "winston": "3.3.3"
   },
