@@ -31,7 +31,7 @@
     "minimist": "1.2.5",
     "ora": "5.4.1",
     "strip-ansi": "6.0.0",
-    "wallpaper": "5.0.1",
+    "wallpaper": "6.0.0",
     "winston": "3.3.3"
   },
   "devDependencies": {
