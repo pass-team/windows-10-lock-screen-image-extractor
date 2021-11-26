@@ -8,13 +8,13 @@
   "scripts": {
     "lint:scripts": "npx eslint .",
     "lint:scripts:fix": "npx eslint . --fix",
-    "test": "npx jest --config='config/jest/jest.js'",
-    "test:unit": "npx jest --config='config/jest/unit/jest.js' --runInBand",
-    "test:unit:coverage": "npx jest --config='config/jest/unit/jest.js' --runInBand --coverage && codacy-coverage < ./coverage/lcov.info --debug",
-    "dev": "npx chokidar \"./source\" \"./bin\" -c \"yarn run build:es5\"",
-    "build:es5": "npx del-cli build && npx babel ./ --only ./source,./bin --extensions .js  --out-dir build --no-copy-ignored",
-    "build:win": "yarn run build:es5 --minified --no-comments && npx pkg ./build/bin/get-lock-screen-image.js --targets node14-win-x64 --output=build/get-lock-screen.exe --config ./package.json",
-    "test:integration": "npx jest --config='config/jest/integration/jest.js' --runInBand"
+    "test": "cross-env BABEL_ENV=test npx jest --config='config/jest/jest.js'",
+    "test:unit": "cross-env BABEL_ENV=test npx jest --config='config/jest/unit/jest.js' --runInBand",
+    "test:unit:coverage": "cross-env BABEL_ENV=test npx jest --config='config/jest/unit/jest.js' --runInBand --coverage && codacy-coverage < ./coverage/lcov.info --debug",
+    "dev": "cross-env BABEL_ENV=development npx chokidar \"./source\" \"./bin\" -c \"yarn run build:es5\"",
+    "build:es5": "cross-env BABEL_ENV=production npx del-cli build && npx babel ./ --only ./source,./bin --extensions .js  --out-dir build --no-copy-ignored",
+    "build:win": "cross-env BABEL_ENV=production yarn run build:es5 --minified --no-comments && npx pkg ./build/bin/get-lock-screen-image.js --targets node14-win-x64 --output=build/get-lock-screen.exe --config ./package.json",
+    "test:integration": "cross-env BABEL_ENV=test npx jest --config='config/jest/integration/jest.js' --runInBand"
   },
   "bin": {
     "get-lock-screen": "bin/get-lock-screen-image.js"
@@ -43,6 +43,7 @@
     "babel-jest": "27.3.0",
     "chokidar-cli": "3.0.0",
     "codacy-coverage": "3.4.0",
+    "cross-env": "^7.0.3",
     "del-cli": "4.0.1",
     "eslint": "7.32.0",
     "eslint-config-airbnb-base": "14.2.1",
