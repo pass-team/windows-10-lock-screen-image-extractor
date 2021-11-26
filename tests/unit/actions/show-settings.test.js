@@ -50,7 +50,7 @@ describe('Action - Function show-settings', () => {
   it('Should display "No user settings has been recorded yet.." when .userconfig does not exist', async () => {
     await showSettings({}, {}, mockLogger);
     expect(
-      errorRecord.some((record) => stripAnsi((record || record.data))
+      errorRecord.some((record) => stripAnsi((record.data ? record.data : record))
           === 'No user settings has been recorded yet, try getting the images first.'
           + '\nType "get-lock-screen -h" for help'
           && record.meta?.errorCode === ERROR_CODES.RUNTIME_ERROR_004),
@@ -67,7 +67,7 @@ describe('Action - Function show-settings', () => {
     await showSettings({}, {}, mockLogger);
 
     expect(
-      infoRecord.some((record) => stripAnsi((record || record.data))
+      infoRecord.some((record) => stripAnsi((record.data ? record.data : record))
         .includes(`\nImage saved folder(Ctrl + click to open): file://${folder}`)
           && record.meta?.isMessage === true),
     ).toBeTruthy();
@@ -100,7 +100,7 @@ describe('Action - Function show-settings', () => {
     await showSettings({}, {}, mockLogger);
     // Expect output from function wait-key-to-exit
     expect(
-      infoRecord.some((record) => stripAnsi((record || record.data)) === '\nPress any key to exit..'),
+      infoRecord.some((record) => stripAnsi((record.data ? record.data : record)) === '\nPress any key to exit..'),
     ).toBeTruthy();
     // expect(infoRecord.includes(chalk.cyan('\nPress any key to exit..'))).toBeTruthy();
     // Restore mock
