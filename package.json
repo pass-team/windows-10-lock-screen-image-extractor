@@ -26,7 +26,7 @@
     "enquirer": "2.3.6",
     "find-up": "5.0.0",
     "hasha": "5.2.2",
-    "image-size": "1.0.0",
+    "image-size": "1.0.1",
     "jsonfile": "6.1.0",
     "minimist": "1.2.5",
     "ora": "5.4.1",
