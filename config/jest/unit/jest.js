@@ -1,5 +1,5 @@
 /* eslint quotes: ["error", "single"] */
-const esModules = ['strip-ansi'].join('|');
+const esModules = ['strip-ansi', 'ansi-regex'].join('|');
 
 export default {
   rootDir: './../../..',
