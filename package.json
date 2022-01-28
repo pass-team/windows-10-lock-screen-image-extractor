@@ -32,7 +32,7 @@
     "ora": "5.4.1",
     "strip-ansi": "6.0.0",
     "wallpaper": "6.1.1",
-    "winston": "3.4.0"
+    "winston": "3.5.0"
   },
   "devDependencies": {
     "@babel/cli": "7.16.8",
